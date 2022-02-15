@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" sizes="32x32" href="images/icon.png">
-    <link rel="stylesheet" href="css/style.min.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-    <title>Расчёт ГВ и Смесителя</title>
+    <title>Расчёт</title>
 </head>
-
 <body>
     <div class="wrapper">
         <!-- лого -->
@@ -36,7 +34,6 @@
                 </div>
             </div>
         </div>
-
         <div class="main">
             <div class="container">
 
@@ -47,21 +44,23 @@
                             <!-- форма -->
                             <form class="form form__regular">
                                 <div class="form__title">Расчёт в обычной секции</div>
-                                <div class="form__item">
-                                    <label>Расход:</label><input id="a" type="number">
+                                <div class="form__item" data-error="Введи Расход">
+                                    <label>Расход:</label><input id="a" class="req" data-error="Введи Расход"
+                                        type="number">
                                 </div>
-                                <div class="form__item">
-                                    <label>Ширина сечения:</label><input id="b" type="number">
+                                <div class="form__item" data-error="Введи Ширину сечения">
+                                    <label>Ширина сечения:</label><input id="b" class="req" type="number">
                                 </div>
-                                <div class="form__item">
-                                    <label>Необходимая скорость:</label><input id="n" type="number" value="4">
+                                <div class="form__item" data-error="Введи Необходимую скорость">
+                                    <label>Необходимая скорость:</label><input id="n" class="req" type="number"
+                                        value="4">
                                 </div>
                             </form>
                             <!-- кнопка -->
-                            <button class="btn" type="button" onclick="regularSection();">Расчёт
+                            <button class="btn btn-regularSection" type="button">Расчёт
                             </button>
                             <!-- вывод результата -->
-                            <div class="result">
+                            <div class="result resultR">
                                 Min длина <b>Гибкой вставки</b>:
                                 <br>
                                 <span id="resultRS"></span>
@@ -79,26 +78,25 @@
                             <!-- форма -->
                             <form class="form form__fan">
                                 <div class="form__title">Расчёт в секции вентилятора</div>
-                                <div class="form__item">
-                                    <label>Расход:</label><input id="d" type="text">
+                                <div class="form__item" data-error="Введи Расход">
+                                    <label>Расход:</label><input id="d" class="req" type="text">
                                 </div>
-                                <div class="form__item">
-                                    <label>Ширина сечения:</label><input id="f" type="text">
+                                <div class="form__item" data-error="Введи Ширину сечения">
+                                    <label>Ширина сечения:</label><input id="f" class="req" type="text">
                                 </div>
-                                <div class="form__item">
-                                    <label>Номер колеса:</label><input id="m" type="text">
+                                <div class="form__item" data-error="Введи Номер колеса">
+                                    <label>Номер колеса:</label><input id="m" class="req" type="text">
                                 </div>
-                                <div class="form__item">
-                                    <label>Длина секции двигателя:</label><input id="t" type="text">
+                                <div class="form__item" data-error="Введи Длину секции двигателя">
+                                    <label>Длина секции двигателя:</label><input id="t" class="req" type="text">
                                 </div>
                             </form>
                             <!-- кнопка -->
-                            <button class="btn" type="button" onclick="fanSection();">
+                            <button class="btn btn-fanSection" type="button">
                                 Расчёт
                             </button>
                             <!-- вывод результата -->
-                            <div class="result">
-                                <!-- Max длина <b>Гибкой вставки</b> и <br> <b>Скорость</b> в сечении:<div id="resultFS"> -->
+                            <div class="result resultF">
                                 Max длина <b>Гибкой вставки:</b><span id="resultMD"></span>
                                 <br>
                                 <b>Скорость</b> в сечении:<span id="resultV">
@@ -108,28 +106,25 @@
                         <!-- рисунок -->
                         <div class="picture">
                             <img class="img" src="images/секция вентилятора.png" alt="вентилятор">
-                            <!-- src="https://sun9-51.userapi.com/impf/YRQ8O8qGclP8isYv5-xs6QJiqSoZOd7hcm9xtg/y3naq1FscZU.jpg?size=908x874&quality=96&sign=2d64d99fa33a6bf7a20eb3de93ea73a6&type=album" -->
                         </div>
                     </div>
-
                 </div>
-
                 <!-- расчёт смесителя -->
                 <div class="solution__item solution__mixer" id="solutionMixer">
                     <div class="solutionMixer">
                         <!-- форма -->
                         <form class="form form__mixer">
                             <div class="form__title">Расчёт смесителя</div>
-                            <div class="form__item">
-                                <label>Расход:</label><input id="consumption" type="text">
+                            <div class="form__item" data-error="Введи Расход">
+                                <label>Расход:</label><input id="consumption" class="req" type="number" required>
                             </div>
-                            <div class="form__item">
-                                <label>Давление:</label><input id="pressure" type="text">
+                            <div class="form__item" data-error="Введи Давление">
+                                <label>Давление:</label><input id="pressure" class="req" type="number" required>
                             </div>
                         </form>
                         <!-- кнопка -->
                         <div class="btns">
-                            <button class="btn" id="btn-solution" type="button">Расчёт</button>
+                            <button class="btn btn-solution" id="btn-solution" type="button">Расчёт</button>
                             <button class="btn btn-reset" id="btn-reset" type="button">Сброс</button>
                         </div>
                         <!-- таблица с результатами -->
@@ -154,18 +149,15 @@
                     </div>
                 </div>
             </div>
-
-
-
         </div>
         <footer class="footer">
             <div class="container">
                 <div class="footer__inner">
-                    ТехОтдел 2021 год V1.2109
+                    ТехОтдел 2021 год V1.22.02.15
                 </div>
             </div>
         </footer>
-        <script src="js/main.min.js"></script>
+        <script src="js/main.js"></script>
 </body>
 
 </html>
