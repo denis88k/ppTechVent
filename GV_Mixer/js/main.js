@@ -1,4 +1,6 @@
-document.querySelectorAll('.tabs-triggers__item').forEach((item) =>
+let tabs_triggers = document.querySelectorAll('.tabs-triggers__item');
+
+tabs_triggers.forEach((item) =>
    item.addEventListener('click', function (e) {
       e.preventDefault()
       const id = e.target.getAttribute('data-trigers')
@@ -12,27 +14,22 @@ document.querySelectorAll('.tabs-triggers__item').forEach((item) =>
       document.getElementById(id).classList.add('solution__item--active')
    })
 )
-document.querySelector('.tabs-triggers__item').click();
+
+tabs_triggers[0].click();
 
 
 function regularSection() {
-   // rese();
    let a = parseInt(document.getElementById('a').value);
    let b = parseInt(document.getElementById('b').value);
    let n = parseFloat(document.getElementById('n').value);
    let resultR = document.querySelector('.resultR');
-   // let resultRS = document.getElementById('resultRS');
    let form = document.querySelector('.form__regular')
-
-   if (isNaN(a) == true) a = 0;
-   if (isNaN(b) == true) b = 0;
 
    let error = formValidate(form);
    let c = (a * 1000 / (3600 * n * (b / 1000))).toFixed(0);
 
    if (error === 0) {
       if (c <= 250) {
-         // resultRS.innerHTML = "М = 250 мм";
          resultR.innerHTML = `
                Min длина <b>Гибкой вставки</b>:
                <br>
@@ -42,7 +39,6 @@ function regularSection() {
                    color: #fff;`;
       }
       else {
-         // resultRS.innerHTML = `М = ${c} мм`;
          resultR.innerHTML = `
                Min длина <b>Гибкой вставки</b>:
                <br>
@@ -61,32 +57,33 @@ function regularSection() {
 let btn_regular = document.querySelector('.btn-regularSection');
 btn_regular.addEventListener('click', regularSection)
 
-
-
 function fanSection() {
    let d = parseInt(document.getElementById('d').value);
    let f = parseInt(document.getElementById('f').value);
    let t = parseInt(document.getElementById('t').value);
    let m = parseInt(document.getElementById('m').value);
-   // let resultMD = document.getElementById('resultMD')
-   // let resultV = document.getElementById('resultV')
+   let n = parseInt(document.getElementById('n').value);
+
    let resultF = document.querySelector('.resultF');
    let form = document.querySelector('.form__fan');
 
-   if (isNaN(d) == true) d = 0;
-   if (isNaN(f) == true) f = 0;
-   if (isNaN(m) == true) m = 0;
-   if (isNaN(t) == true) t = 0;
-
    let error = formValidate(form);
 
-   let h = (t - (((m * 10) / 2) + 100));
-   let v = (d / (3600 * (h / 1000) * (f / 1000))).toFixed(2);
+   function hv() {
+      h = (t - ((m / 2) + 100));
+      v = (d / (3600 * (h / 1000) * (f / 1000))).toFixed(2);
+   }
+   hv();
 
    if (error === 0) {
-      if (v >= 4 || v < 0 || h < 0) {
-         resultF.innerText = "Необходимо увеличить длину секции вентилятора";
+      if (h <= 0 || v >= n) {
+         for (; (h <= 0 || v >= n); t++) {
+            hv();
+         };
+         t = Math.ceil((t - 1) / 10) * 10;
+         resultF.innerHTML = `Необходимо сделать "Длину секции вентилятора" <b>${t}</b> `;
       }
+
       else {
          resultF.innerHTML = `
            Max длина <b>Гибкой вставки:</b>
@@ -96,36 +93,38 @@ function fanSection() {
          resultF.style.cssText = `
                    font-size: 18.5px;
                    color: #fff;`;
-         // resultMD.innerHTML = `<br> М = ${h} мм`;
-         // resultV.innerHTML = `<br> V = ${v.replace(/\./, ',')} м<sup>2</sup>/с`;
       }
    } else {
       resultF.innerHTML = 'Забыл ввести данные!';
       resultF.style.cssText = `
-               color: red;
-               font-size: 25px;`;
+               color: white;
+               font-size: 18.5px;`;
    }
 }
 let btn_fan = document.querySelector('.btn-fanSection');
 btn_fan.addEventListener('click', fanSection)
 
+let select = document.querySelector('.select');
+select.addEventListener('click', () => {
+   select.classList.toggle('active');
+})
 
-
+//смесак
 //переменные
 //округление чисел
-var f = 2
+let f = 2
 //кнопки
-var btnSolution = document.getElementById('btn-solution')
-var btnReset = document.getElementById('btn-reset')
+let btnSolution = document.getElementById('btn-solution')
+let btnReset = document.getElementById('btn-reset')
 //вводимые значения
-var con_val = document.getElementById('consumption')
-var pres_val = document.getElementById('pressure')
+let con_val = document.getElementById('consumption')
+let pres_val = document.getElementById('pressure')
 
 //клапан
 
 calcCon_val = function (con_valN) {
-   var calc = Math.pow(con_valN, 4) * this.B4 + Math.pow(con_valN, 3) * this.B3 + Math.pow(con_valN, 2) * this.B2 + con_valN * this.B1 + this.int
-   return calc
+   let calc = Math.pow(con_valN, 4) * this.B4 + Math.pow(con_valN, 3) * this.B3 + Math.pow(con_valN, 2) * this.B2 + con_valN * this.B1 + this.int
+   return calc;
 }
 
 let con_val15_1 = {
@@ -220,7 +219,7 @@ let con_val50_40 = {
 
 //насос
 calcPump = function (pres_valN) {
-   var calc = Math.pow(pres_valN, 2) * this.B2 + pres_valN * this.B1 + this.int
+   let calc = Math.pow(pres_valN, 2) * this.B2 + pres_valN * this.B1 + this.int
    return calc
 }
 
@@ -279,50 +278,50 @@ btnSolution.onclick = function () {
    let pres_valN = Number(pres_val.value.replace(/,/, '.'))
 
    //расчёт "падения давления" смесаков
-   let Rcon_val15_1 = con_val15_1.calcCon_val15_1(con_valN).toFixed(f)
-   let Rcon_val15_1_6 = con_val15_1_6.calcCon_val15_1_6(con_valN).toFixed(f)
-   let Rcon_val15_2_5 = con_val15_2_5.calcCon_val15_2_5(con_valN).toFixed(f)
-   let Rcon_val20_4 = con_val20_4.calcCon_val20_4(con_valN).toFixed(f)
-   let Rcon_val20_6_3 = con_val20_6_3.calcCon_val20_6_3(con_valN).toFixed(f)
-   let Rcon_val25_6_3 = con_val25_6_3.calcCon_val25_6_3(con_valN).toFixed(f)
-   let Rcon_val25_10 = con_val25_10.calcCon_val25_10(con_valN).toFixed(f)
-   let Rcon_val32_16 = con_val32_16.calcCon_val32_16(con_valN).toFixed(f)
-   let Rcon_val40_25 = con_val40_25.calcCon_val40_25(con_valN).toFixed(f)
-   let Rcon_val50_40 = con_val50_40.calcCon_val50_40(con_valN).toFixed(f)
+   let Rcon_val15_1 = con_val15_1.calcCon_val15_1(con_valN).toFixed(f);
+   Rcon_val15_1_6 = con_val15_1_6.calcCon_val15_1_6(con_valN).toFixed(f)
+   Rcon_val15_2_5 = con_val15_2_5.calcCon_val15_2_5(con_valN).toFixed(f)
+   Rcon_val20_4 = con_val20_4.calcCon_val20_4(con_valN).toFixed(f)
+   Rcon_val20_6_3 = con_val20_6_3.calcCon_val20_6_3(con_valN).toFixed(f)
+   Rcon_val25_6_3 = con_val25_6_3.calcCon_val25_6_3(con_valN).toFixed(f)
+   Rcon_val25_10 = con_val25_10.calcCon_val25_10(con_valN).toFixed(f)
+   Rcon_val32_16 = con_val32_16.calcCon_val32_16(con_valN).toFixed(f)
+   Rcon_val40_25 = con_val40_25.calcCon_val40_25(con_valN).toFixed(f)
+   Rcon_val50_40 = con_val50_40.calcCon_val50_40(con_valN).toFixed(f)
    //расчёт "напор насоса" смесаков
    let Rpump15_1 = pump15.calcPump15(con_valN).toFixed(f)
-   let Rpump15_1_6 = Rpump15_1
-   let Rpump15_2_5 = Rpump15_1
-   let Rpump20_4 = pump20.calcPump20(con_valN).toFixed(f)
-   let Rpump20_6_3 = Rpump20_4
-   let Rpump25_6_3 = pump25_32_40.calcPump25_32_40(con_valN).toFixed(f)
-   let Rpump25_10 = Rpump25_6_3
-   let Rpump32_16 = Rpump25_6_3
-   let Rpump40_25 = Rpump25_6_3
-   let Rpump50_40 = pump50.calcPump50(con_valN).toFixed(f)
+   Rpump15_1_6 = Rpump15_1
+   Rpump15_2_5 = Rpump15_1
+   Rpump20_4 = pump20.calcPump20(con_valN).toFixed(f)
+   Rpump20_6_3 = Rpump20_4
+   Rpump25_6_3 = pump25_32_40.calcPump25_32_40(con_valN).toFixed(f)
+   Rpump25_10 = Rpump25_6_3
+   Rpump32_16 = Rpump25_6_3
+   Rpump40_25 = Rpump25_6_3
+   Rpump50_40 = pump50.calcPump50(con_valN).toFixed(f)
 
    //расчёт "Общее Падение давления жидкости" смесаков
    let Rtotal_valve15_1 = (8 + Number(Rcon_val15_1) + Number(pres_valN)).toFixed(f)
-   let Rtotal_valve15_1_6 = (8 + Number(Rcon_val15_1_6) + Number(pres_valN)).toFixed(f)
-   let Rtotal_valve15_2_5 = (8 + Number(Rcon_val15_2_5) + Number(pres_valN)).toFixed(f)
-   let Rtotal_valve20_4 = (8 + Number(Rcon_val20_4) + Number(pres_valN)).toFixed(f)
-   let Rtotal_valve20_6_3 = (8 + Number(Rcon_val20_6_3) + Number(pres_valN)).toFixed(f)
-   let Rtotal_valve25_6_3 = (8 + Number(Rcon_val25_6_3) + Number(pres_valN)).toFixed(f)
-   let Rtotal_valve25_10 = (8 + Number(Rcon_val25_10) + Number(pres_valN)).toFixed(f)
-   let Rtotal_valve32_16 = (8 + Number(Rcon_val32_16) + Number(pres_valN)).toFixed(f)
-   let Rtotal_valve40_25 = (8 + Number(Rcon_val40_25) + Number(pres_valN)).toFixed(f)
-   let Rtotal_valve50_40 = (8 + Number(Rcon_val50_40) + Number(pres_valN)).toFixed(f)
+   Rtotal_valve15_1_6 = (8 + Number(Rcon_val15_1_6) + Number(pres_valN)).toFixed(f)
+   Rtotal_valve15_2_5 = (8 + Number(Rcon_val15_2_5) + Number(pres_valN)).toFixed(f)
+   Rtotal_valve20_4 = (8 + Number(Rcon_val20_4) + Number(pres_valN)).toFixed(f)
+   Rtotal_valve20_6_3 = (8 + Number(Rcon_val20_6_3) + Number(pres_valN)).toFixed(f)
+   Rtotal_valve25_6_3 = (8 + Number(Rcon_val25_6_3) + Number(pres_valN)).toFixed(f)
+   Rtotal_valve25_10 = (8 + Number(Rcon_val25_10) + Number(pres_valN)).toFixed(f)
+   Rtotal_valve32_16 = (8 + Number(Rcon_val32_16) + Number(pres_valN)).toFixed(f)
+   Rtotal_valve40_25 = (8 + Number(Rcon_val40_25) + Number(pres_valN)).toFixed(f)
+   Rtotal_valve50_40 = (8 + Number(Rcon_val50_40) + Number(pres_valN)).toFixed(f)
    //расчёт "Авторитет Клапана" смесаков
    let Rvalve_auth15_1 = (Rcon_val15_1 / Rtotal_valve15_1).toFixed(f)
-   let Rvalve_auth15_1_6 = (Rcon_val15_1_6 / Rtotal_valve15_1_6).toFixed(f)
-   let Rvalve_auth15_2_5 = (Rcon_val15_2_5 / Rtotal_valve15_2_5).toFixed(f)
-   let Rvalve_auth20_4 = (Rcon_val20_4 / Rtotal_valve20_4).toFixed(f)
-   let Rvalve_auth20_6_3 = (Rcon_val20_6_3 / Rtotal_valve20_6_3).toFixed(f)
-   let Rvalve_auth25_6_3 = (Rcon_val25_6_3 / Rtotal_valve25_6_3).toFixed(f)
-   let Rvalve_auth25_10 = (Rcon_val25_10 / Rtotal_valve25_10).toFixed(f)
-   let Rvalve_auth32_16 = (Rcon_val32_16 / Rtotal_valve32_16).toFixed(f)
-   let Rvalve_auth40_25 = (Rcon_val40_25 / Rtotal_valve40_25).toFixed(f)
-   let Rvalve_auth50_40 = (Rcon_val50_40 / Rtotal_valve50_40).toFixed(f)
+   Rvalve_auth15_1_6 = (Rcon_val15_1_6 / Rtotal_valve15_1_6).toFixed(f)
+   Rvalve_auth15_2_5 = (Rcon_val15_2_5 / Rtotal_valve15_2_5).toFixed(f)
+   Rvalve_auth20_4 = (Rcon_val20_4 / Rtotal_valve20_4).toFixed(f)
+   Rvalve_auth20_6_3 = (Rcon_val20_6_3 / Rtotal_valve20_6_3).toFixed(f)
+   Rvalve_auth25_6_3 = (Rcon_val25_6_3 / Rtotal_valve25_6_3).toFixed(f)
+   Rvalve_auth25_10 = (Rcon_val25_10 / Rtotal_valve25_10).toFixed(f)
+   Rvalve_auth32_16 = (Rcon_val32_16 / Rtotal_valve32_16).toFixed(f)
+   Rvalve_auth40_25 = (Rcon_val40_25 / Rtotal_valve40_25).toFixed(f)
+   Rvalve_auth50_40 = (Rcon_val50_40 / Rtotal_valve50_40).toFixed(f)
    //расчёт смесака
    let Rcon_val = [
       Rcon_val15_1, Rcon_val15_1_6, Rcon_val15_2_5,
@@ -363,7 +362,7 @@ function solution_result(Rcon_val, Rvalve_auth, Rtotal_valve, mixerName, Rpump) 
    let i = 0;
    console.log(Rvalve_auth.length, 'длина цикла')
    for (; i < Rvalve_auth.length; i++) {
-      if (0.15 < Rvalve_auth[i] && Rvalve_auth[i] < 0.8 && Rtotal_valve[i] < Rpump[i]) {
+      if ((0.15 < Rvalve_auth[i]) && (Rvalve_auth[i] < 0.80) && (Rtotal_valve[i] < Rpump[i])) {
 
          // console.log(con_valN);
          console.log(i, 'внутри условия');
@@ -372,9 +371,21 @@ function solution_result(Rcon_val, Rvalve_auth, Rtotal_valve, mixerName, Rpump) 
       console.log(i, 'внутри цикла')
    };
    if (i < Rvalve_auth.length) {
-      tbody.insertAdjacentHTML('beforeend', `<tr class="mixer"><td>${mixerName[i]}</td><td>${Rcon_val[i].replace(/\./, ',')}</td><td>0,25(0,15)</td><td>&lt;</td><td>${Rvalve_auth[i].replace(/\./, ',')}</td><td>&lt;</td><td>0,8</td><td>${Rpump[i].replace(/\./, ',')}</td><td colspan="2">&gt;</td><td>${Rtotal_valve[i].replace(/\./, ',')}</td></tr>`);
+      tbody.insertAdjacentHTML('beforeend', `
+         <tr class="mixer">
+         <td>${mixerName[i]}</td>
+            <td>${Rcon_val[i].replace(/\./, ',')}</td>
+            <td>0,25(0,15)</td><td>&lt;</td>
+            <td>${Rvalve_auth[i].replace(/\./, ',')}</td>
+            <td>&lt;</td><td>0,8</td><td>${Rpump[i].replace(/\./, ',')}</td>
+            <td colspan="2">&gt;</td><td>${Rtotal_valve[i].replace(/\./, ',')}</td>
+         </tr>
+      `);
+
       let mixer = document.querySelector('.mixer');
-      mixer.insertAdjacentHTML('beforebegin', `<div class="copy-icon copy"></div>`);
+      mixer.insertAdjacentHTML('beforebegin', `
+         <div class="copy-icon copy"></div>
+      `);
       let copy = document.querySelector('.copy-icon');
       copy.addEventListener('click', () => {
          copyText(mixerName[i])
@@ -384,9 +395,8 @@ function solution_result(Rcon_val, Rvalve_auth, Rtotal_valve, mixerName, Rpump) 
    }
    console.log(i, 'после цикла')
    console.log(Rvalve_auth[i], 'значение')
-
-
 }
+
 //функция для копирования смесака
 function copyText(mixerName) {
    const fake = document.createElement('textarea');
@@ -399,11 +409,12 @@ function copyText(mixerName) {
 //функция удаления списка смесаков
 function rst() {
    let mixer = document.querySelectorAll('.mixer');
-   let copy = document.querySelectorAll('.copy-icon');
+   copy = document.querySelector('.copy-icon');
    for (let i = 0; i < mixer.length; i++) {
-      mixer[i].remove();
-      copy[i].remove();
+      mixer[i].remove(); s
    }
+   if (copy) copy.remove();
+
 }
 //кнопка удаления
 btnReset.onclick = function () {
