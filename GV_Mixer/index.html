@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" sizes="32x32" href="images/icon.png">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <title>Расчёт</title>
 </head>
+
 <body>
     <div class="wrapper">
         <!-- лого -->
@@ -34,6 +36,7 @@
                 </div>
             </div>
         </div>
+
         <div class="main">
             <div class="container">
 
@@ -45,14 +48,14 @@
                             <form class="form form__regular">
                                 <div class="form__title">Расчёт в обычной секции</div>
                                 <div class="form__item" data-error="Введи Расход">
-                                    <label>Расход:</label><input id="a" class="req" data-error="Введи Расход"
+                                    <label>Расход:</label><input id="a" class="input req" data-error="Введи Расход"
                                         type="number">
                                 </div>
                                 <div class="form__item" data-error="Введи Ширину сечения">
-                                    <label>Ширина сечения:</label><input id="b" class="req" type="number">
+                                    <label>Ширина сечения:</label><input id="b" class="input req" type="number">
                                 </div>
                                 <div class="form__item" data-error="Введи Необходимую скорость">
-                                    <label>Необходимая скорость:</label><input id="n" class="req" type="number"
+                                    <label>Необходимая скорость:</label><input id="n" class="input req" type="number"
                                         value="4">
                                 </div>
                             </form>
@@ -69,7 +72,6 @@
                         <!-- рисунок -->
                         <div class="picture">
                             <img class="img" src="images/обычная секция.png" alt="вентилятор">
-                            <!-- src="https://sun9-50.userapi.com/impf/-zpWF0RiDJO4H6OdcIIAV6qgIpiLZ_ryI9yLLA/i7_jUQ_dh9Q.jpg?size=906x836&quality=96&sign=029c38777f750cbd5f332c00951b7833&type=album" -->
                         </div>
                     </div>
                     <!-- расчёт гибкой вставки секция вентилятора-->
@@ -79,16 +81,39 @@
                             <form class="form form__fan">
                                 <div class="form__title">Расчёт в секции вентилятора</div>
                                 <div class="form__item" data-error="Введи Расход">
-                                    <label>Расход:</label><input id="d" class="req" type="text">
+                                    <label>Расход:</label><input id="d" class="input req" type="text">
                                 </div>
                                 <div class="form__item" data-error="Введи Ширину сечения">
-                                    <label>Ширина сечения:</label><input id="f" class="req" type="text">
+                                    <label>Ширина сечения:</label><input id="f" class="input req" type="text">
                                 </div>
                                 <div class="form__item" data-error="Введи Номер колеса">
-                                    <label>Номер колеса:</label><input id="m" class="req" type="text">
+                                    <label>Номер колеса:</label>
+                                    <!-- <input id="m" class="req" type="text"> -->
+                                    <div class="select" class="select">
+                                        <select class="input" name="wheel" id="m">
+                                            <option selected value="220">22</option>
+                                            <option value="250">25</option>
+                                            <option value="280">28</option>
+                                            <option value="300">30</option>
+                                            <option value="350">35</option>
+                                            <option value="400">40</option>
+                                            <option value="450">45</option>
+                                            <option value="500">50</option>
+                                            <option value="560">56</option>
+                                            <option value="630">63</option>
+                                            <option value="710">71</option>
+                                            <option value="800">80</option>
+                                            <option value="900">90</option>
+                                            <option value="1000">100</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="form__item" data-error="Введи Длину секции двигателя">
-                                    <label>Длина секции двигателя:</label><input id="t" class="req" type="text">
+                                    <label>Длина секции двигателя:</label><input id="t" class="input req" type="text">
+                                </div>
+                                <div class="form__item" data-error="Введи Необходимую скорость">
+                                    <label>Необходимая скорость:</label><input id="n" class="input req" type="number"
+                                        value="4">
                                 </div>
                             </form>
                             <!-- кнопка -->
@@ -108,7 +133,9 @@
                             <img class="img" src="images/секция вентилятора.png" alt="вентилятор">
                         </div>
                     </div>
+
                 </div>
+
                 <!-- расчёт смесителя -->
                 <div class="solution__item solution__mixer" id="solutionMixer">
                     <div class="solutionMixer">
@@ -116,10 +143,10 @@
                         <form class="form form__mixer">
                             <div class="form__title">Расчёт смесителя</div>
                             <div class="form__item" data-error="Введи Расход">
-                                <label>Расход:</label><input id="consumption" class="req" type="number" required>
+                                <label>Расход:</label><input id="consumption" class="input req" type="number" required>
                             </div>
                             <div class="form__item" data-error="Введи Давление">
-                                <label>Давление:</label><input id="pressure" class="req" type="number" required>
+                                <label>Давление:</label><input id="pressure" class="input req" type="number" required>
                             </div>
                         </form>
                         <!-- кнопка -->
@@ -149,6 +176,9 @@
                     </div>
                 </div>
             </div>
+
+
+
         </div>
         <footer class="footer">
             <div class="container">
