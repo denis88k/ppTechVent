@@ -79,20 +79,20 @@
                             <form class="form form__fan">
                                 <div class="form__title">Расчёт в секции вентилятора</div>
                                 <div class="form__item" data-error="Введи Расход">
-                                    <label>Расход:</label><input id="d" class="input req" type="text">
+                                    <label>Расход:</label><input id="d" class="input req" type="number">
                                 </div>
                                 <div class="form__item" data-error="Введи Ширину сечения">
-                                    <label>Ширина сечения:</label><input id="f" class="input req" type="text">
+                                    <label>Ширина сечения:</label><input id="f" class="input req" type="number">
                                 </div>
                                 <div class="form__item" data-error="Введи Номер колеса">
                                     <label>Номер колеса:</label>
-                                    <!-- <input id="m" class="req" type="text"> -->
                                     <div class="select" class="select">
                                         <select class="input" name="wheel" id="m">
-                                            <option selected value="220">22</option>
+                                            <option value="220" selected>22</option>
                                             <option value="250">25</option>
                                             <option value="280">28</option>
                                             <option value="300">30</option>
+                                            <option value="310">31</option>
                                             <option value="350">35</option>
                                             <option value="400">40</option>
                                             <option value="450">45</option>
@@ -103,11 +103,12 @@
                                             <option value="800">80</option>
                                             <option value="900">90</option>
                                             <option value="1000">100</option>
+                                            <option value="1100">110</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form__item" data-error="Введи Длину секции двигателя">
-                                    <label>Длина секции двигателя:</label><input id="t" class="input req" type="text">
+                                    <label>Длина секции двигателя:</label><input id="t" class="input req" type="number">
                                 </div>
                                 <div class="form__item" data-error="Введи Необходимую скорость">
                                     <label>Необходимая скорость:</label><input id="n" class="input req" type="number"
