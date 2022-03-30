@@ -121,12 +121,10 @@ let con_val = document.getElementById('consumption')
 let pres_val = document.getElementById('pressure')
 
 //клапан
-
 calcCon_val = function (con_valN) {
    let calc = Math.pow(con_valN, 4) * this.B4 + Math.pow(con_valN, 3) * this.B3 + Math.pow(con_valN, 2) * this.B2 + con_valN * this.B1 + this.int
    return calc;
 }
-
 let con_val15_1 = {
    int: -19.04072,
    B1: 158.00988,
@@ -249,79 +247,63 @@ let pump50 = {
    B1: -0.74958,
    B2: -0.07347,
    calcPump50: calcPump
-}
+};
 
 ////////////////////////////////////////////////////////////////////////////////
-
-
-con_val.oninput = function () {
-   let check1 = con_val.length;
-   let check2 = pres_val.length;
-   // if (!check1 == undefined && !check2 == undefined) {
-   //     btnSolution.setAttribute('disabled', true);
-   // } else {
-   //     btnSolution.removeAttribute('disabled');
-   // }
-   check = true
-   if (!check1 == undefined) return check
-}
-btnSolution.onclick = function () {
+btnSolution.onclick = () => {
    rst()
    let form = document.querySelector('.form__mixer');
    let error = formValidate(form);
+
    //переопределяет введённое значение расхода в число
+   let con_valN = Number(con_val.value.replace(/,/, '.'));
 
-   let con_valN = Number(con_val.value.replace(/,/, '.'))
-
-   console.log(con_val.length, 'инпут')
    //переопределяет введённое значение напора в число
-   let pres_valN = Number(pres_val.value.replace(/,/, '.'))
-
+   let pres_valN = Number(pres_val.value.replace(/,/, '.'));
    //расчёт "падения давления" смесаков
-   let Rcon_val15_1 = con_val15_1.calcCon_val15_1(con_valN).toFixed(f);
-   Rcon_val15_1_6 = con_val15_1_6.calcCon_val15_1_6(con_valN).toFixed(f)
-   Rcon_val15_2_5 = con_val15_2_5.calcCon_val15_2_5(con_valN).toFixed(f)
-   Rcon_val20_4 = con_val20_4.calcCon_val20_4(con_valN).toFixed(f)
-   Rcon_val20_6_3 = con_val20_6_3.calcCon_val20_6_3(con_valN).toFixed(f)
-   Rcon_val25_6_3 = con_val25_6_3.calcCon_val25_6_3(con_valN).toFixed(f)
-   Rcon_val25_10 = con_val25_10.calcCon_val25_10(con_valN).toFixed(f)
-   Rcon_val32_16 = con_val32_16.calcCon_val32_16(con_valN).toFixed(f)
-   Rcon_val40_25 = con_val40_25.calcCon_val40_25(con_valN).toFixed(f)
-   Rcon_val50_40 = con_val50_40.calcCon_val50_40(con_valN).toFixed(f)
+   let Rcon_val15_1 = parseFloat(con_val15_1.calcCon_val15_1(con_valN).toFixed(f));
+   Rcon_val15_1_6 = parseFloat(con_val15_1_6.calcCon_val15_1_6(con_valN).toFixed(f));
+   Rcon_val15_2_5 = parseFloat(con_val15_2_5.calcCon_val15_2_5(con_valN).toFixed(f));
+   Rcon_val20_4 = parseFloat(con_val20_4.calcCon_val20_4(con_valN).toFixed(f));
+   Rcon_val20_6_3 = parseFloat(con_val20_6_3.calcCon_val20_6_3(con_valN).toFixed(f));
+   Rcon_val25_6_3 = parseFloat(con_val25_6_3.calcCon_val25_6_3(con_valN).toFixed(f));
+   Rcon_val25_10 = parseFloat(con_val25_10.calcCon_val25_10(con_valN).toFixed(f));
+   Rcon_val32_16 = parseFloat(con_val32_16.calcCon_val32_16(con_valN).toFixed(f));
+   Rcon_val40_25 = parseFloat(con_val40_25.calcCon_val40_25(con_valN).toFixed(f));
+   Rcon_val50_40 = parseFloat(con_val50_40.calcCon_val50_40(con_valN).toFixed(f));
    //расчёт "напор насоса" смесаков
-   let Rpump15_1 = pump15.calcPump15(con_valN).toFixed(f)
-   Rpump15_1_6 = Rpump15_1
-   Rpump15_2_5 = Rpump15_1
-   Rpump20_4 = pump20.calcPump20(con_valN).toFixed(f)
-   Rpump20_6_3 = Rpump20_4
-   Rpump25_6_3 = pump25_32_40.calcPump25_32_40(con_valN).toFixed(f)
-   Rpump25_10 = Rpump25_6_3
-   Rpump32_16 = Rpump25_6_3
-   Rpump40_25 = Rpump25_6_3
-   Rpump50_40 = pump50.calcPump50(con_valN).toFixed(f)
-
+   let Rpump15_1 = parseFloat(pump15.calcPump15(con_valN).toFixed(f));
+   Rpump15_1_6 = Rpump15_1;
+   Rpump15_2_5 = Rpump15_1;
+   Rpump20_4 = parseFloat(pump20.calcPump20(con_valN).toFixed(f));
+   Rpump20_6_3 = Rpump20_4;
+   Rpump25_6_3 = parseFloat(pump25_32_40.calcPump25_32_40(con_valN).toFixed(f));
+   Rpump25_10 = Rpump25_6_3;
+   Rpump32_16 = Rpump25_6_3;
+   Rpump40_25 = Rpump25_6_3;
+   Rpump50_40 = parseFloat(pump50.calcPump50(con_valN).toFixed(f));
    //расчёт "Общее Падение давления жидкости" смесаков
-   let Rtotal_valve15_1 = (8 + Number(Rcon_val15_1) + Number(pres_valN)).toFixed(f)
-   Rtotal_valve15_1_6 = (8 + Number(Rcon_val15_1_6) + Number(pres_valN)).toFixed(f)
-   Rtotal_valve15_2_5 = (8 + Number(Rcon_val15_2_5) + Number(pres_valN)).toFixed(f)
-   Rtotal_valve20_4 = (8 + Number(Rcon_val20_4) + Number(pres_valN)).toFixed(f)
-   Rtotal_valve20_6_3 = (8 + Number(Rcon_val20_6_3) + Number(pres_valN)).toFixed(f)
-   Rtotal_valve25_6_3 = (8 + Number(Rcon_val25_6_3) + Number(pres_valN)).toFixed(f)
-   Rtotal_valve25_10 = (8 + Number(Rcon_val25_10) + Number(pres_valN)).toFixed(f)
-   Rtotal_valve32_16 = (8 + Number(Rcon_val32_16) + Number(pres_valN)).toFixed(f)
-   Rtotal_valve40_25 = (8 + Number(Rcon_val40_25) + Number(pres_valN)).toFixed(f)
-   Rtotal_valve50_40 = (8 + Number(Rcon_val50_40) + Number(pres_valN)).toFixed(f)
+   let Rtotal_valve15_1 = parseFloat((8 + Number(Rcon_val15_1) + Number(pres_valN)).toFixed(f));
+   Rtotal_valve15_1_6 = parseFloat((8 + Number(Rcon_val15_1_6) + Number(pres_valN)).toFixed(f));
+   Rtotal_valve15_2_5 = parseFloat((8 + Number(Rcon_val15_2_5) + Number(pres_valN)).toFixed(f));
+   Rtotal_valve20_4 = parseFloat((8 + Number(Rcon_val20_4) + Number(pres_valN)).toFixed(f));
+   Rtotal_valve20_6_3 = parseFloat((8 + Number(Rcon_val20_6_3) + Number(pres_valN)).toFixed(f));
+   Rtotal_valve25_6_3 = parseFloat((8 + Number(Rcon_val25_6_3) + Number(pres_valN)).toFixed(f));
+   Rtotal_valve25_10 = parseFloat((8 + Number(Rcon_val25_10) + Number(pres_valN)).toFixed(f));
+   Rtotal_valve32_16 = parseFloat((8 + Number(Rcon_val32_16) + Number(pres_valN)).toFixed(f));
+   Rtotal_valve40_25 = parseFloat((8 + Number(Rcon_val40_25) + Number(pres_valN)).toFixed(f));
+   Rtotal_valve50_40 = parseFloat((8 + Number(Rcon_val50_40) + Number(pres_valN)).toFixed(f));
    //расчёт "Авторитет Клапана" смесаков
-   let Rvalve_auth15_1 = (Rcon_val15_1 / Rtotal_valve15_1).toFixed(f)
-   Rvalve_auth15_1_6 = (Rcon_val15_1_6 / Rtotal_valve15_1_6).toFixed(f)
-   Rvalve_auth15_2_5 = (Rcon_val15_2_5 / Rtotal_valve15_2_5).toFixed(f)
-   Rvalve_auth20_4 = (Rcon_val20_4 / Rtotal_valve20_4).toFixed(f)
-   Rvalve_auth20_6_3 = (Rcon_val20_6_3 / Rtotal_valve20_6_3).toFixed(f)
-   Rvalve_auth25_6_3 = (Rcon_val25_6_3 / Rtotal_valve25_6_3).toFixed(f)
-   Rvalve_auth25_10 = (Rcon_val25_10 / Rtotal_valve25_10).toFixed(f)
-   Rvalve_auth32_16 = (Rcon_val32_16 / Rtotal_valve32_16).toFixed(f)
-   Rvalve_auth40_25 = (Rcon_val40_25 / Rtotal_valve40_25).toFixed(f)
-   Rvalve_auth50_40 = (Rcon_val50_40 / Rtotal_valve50_40).toFixed(f)
+   let Rvalve_auth15_1 = parseFloat((Rcon_val15_1 / Rtotal_valve15_1).toFixed(f));
+   Rvalve_auth15_1_6 = parseFloat((Rcon_val15_1_6 / Rtotal_valve15_1_6).toFixed(f));
+   Rvalve_auth15_2_5 = parseFloat((Rcon_val15_2_5 / Rtotal_valve15_2_5).toFixed(f));
+   Rvalve_auth20_4 = parseFloat((Rcon_val20_4 / Rtotal_valve20_4).toFixed(f));
+   Rvalve_auth20_6_3 = parseFloat((Rcon_val20_6_3 / Rtotal_valve20_6_3).toFixed(f));
+   Rvalve_auth25_6_3 = parseFloat((Rcon_val25_6_3 / Rtotal_valve25_6_3).toFixed(f));
+   Rvalve_auth25_10 = parseFloat((Rcon_val25_10 / Rtotal_valve25_10).toFixed(f));
+   Rvalve_auth32_16 = parseFloat((Rcon_val32_16 / Rtotal_valve32_16).toFixed(f));
+   Rvalve_auth40_25 = parseFloat((Rcon_val40_25 / Rtotal_valve40_25).toFixed(f));
+   Rvalve_auth50_40 = parseFloat((Rcon_val50_40 / Rtotal_valve50_40).toFixed(f));
    //расчёт смесака
    let Rcon_val = [
       Rcon_val15_1, Rcon_val15_1_6, Rcon_val15_2_5,
@@ -353,49 +335,41 @@ btnSolution.onclick = function () {
       Rpump25_6_3, Rpump25_10, Rpump32_16, Rpump40_25,
       Rpump50_40
    ]
-
    if (error === 0) solution_result(Rcon_val, Rvalve_auth, Rtotal_valve, mixerName, Rpump);
-}
+};
+
 //функция вывода смесака, при удовлетворении условиям
 const tbody = document.querySelector('tbody');
 function solution_result(Rcon_val, Rvalve_auth, Rtotal_valve, mixerName, Rpump) {
-   let i = 0;
-   console.log(Rvalve_auth.length, 'длина цикла')
-   for (; i < Rvalve_auth.length; i++) {
-      if ((0.15 < Rvalve_auth[i]) && (Rvalve_auth[i] < 0.80) && (Rtotal_valve[i] < Rpump[i])) {
-
-         // console.log(con_valN);
-         console.log(i, 'внутри условия');
-         break;
-      }
-      console.log(i, 'внутри цикла')
-   };
-   if (i < Rvalve_auth.length) {
-      tbody.insertAdjacentHTML('beforeend', `
+   for (let i in Rvalve_auth) {
+      if (
+         ((0.15 <= Rvalve_auth[i]) || (0.15 <= Rvalve_auth[i] * (0.15 / 0.14)))
+         && ((Rvalve_auth[i] <= 0.80) || ((Rvalve_auth[i] * 0.95) <= 0.80))
+         && ((Rpump[i] >= Rtotal_valve[i]) || ((Rpump[i] * 1.05) >= Rtotal_valve[i]))
+      ) {
+         tbody.insertAdjacentHTML('beforeend', `
          <tr class="mixer">
          <td>${mixerName[i]}</td>
-            <td>${Rcon_val[i].replace(/\./, ',')}</td>
+            <td>${String(Rcon_val[i]).replace(/\./, ',')}</td>
             <td>0,25(0,15)</td><td>&lt;</td>
-            <td>${Rvalve_auth[i].replace(/\./, ',')}</td>
-            <td>&lt;</td><td>0,8</td><td>${Rpump[i].replace(/\./, ',')}</td>
-            <td colspan="2">&gt;</td><td>${Rtotal_valve[i].replace(/\./, ',')}</td>
-         </tr>
-      `);
+            <td>${String(Rvalve_auth[i]).replace(/\./, ',')}</td>
+            <td>&lt;</td><td>0,8</td><td>${String(Rpump[i]).replace(/\./, ',')}</td>
+            <td colspan="2">&gt;</td><td>${String(Rtotal_valve[i]).replace(/\./, ',')}</td>
+         </tr>`);
 
-      let mixer = document.querySelector('.mixer');
-      mixer.insertAdjacentHTML('beforebegin', `
-         <div class="copy-icon copy"></div>
-      `);
-      let copy = document.querySelector('.copy-icon');
-      copy.addEventListener('click', () => {
-         copyText(mixerName[i])
-         copy.classList.remove('copy');
-         copy.classList.add('check');
-      })
+         let mixer = document.querySelector('.mixer');
+         mixer.insertAdjacentHTML('beforebegin', `<div class="copy-icon copy"></div>`);
+
+         let copy = document.querySelector('.copy-icon');
+         copy.addEventListener('click', () => {
+            copyText(mixerName[i])
+            copy.classList.remove('copy');
+            copy.classList.add('check');
+         });
+         break;
+      }
    }
-   console.log(i, 'после цикла')
-   console.log(Rvalve_auth[i], 'значение')
-}
+};
 
 //функция для копирования смесака
 function copyText(mixerName) {
@@ -411,17 +385,14 @@ function rst() {
    let mixer = document.querySelectorAll('.mixer');
    copy = document.querySelector('.copy-icon');
    for (let i = 0; i < mixer.length; i++) {
-      mixer[i].remove(); s
+      mixer[i].remove();
    }
    if (copy) copy.remove();
-
-}
+};
 //кнопка удаления
 btnReset.onclick = function () {
    rst()
-}
-
-
+};
 
 function formValidate(form) {
    let error = 0;
@@ -437,15 +408,12 @@ function formValidate(form) {
       }
    }
    return error;
-}
+};
 function formAddError(input) {
-   // input.parentElement.classList.add('_error');
    input.classList.add('_error');
    input.parentNode.classList.add('data_error');
-}
+};
 function formRemoveError(input) {
-   // input.parentElement.classList.remove('_error');
    input.classList.remove('_error');
    input.parentNode.classList.remove('data_error');
-}
-
+};
