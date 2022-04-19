@@ -60,11 +60,11 @@ btn_regular.addEventListener('click', regularSection);
 
 //расчёт в секции вентилятора
 function fanSection() {
-   let d = parseInt(document.getElementById('d').value); 
-   let f = parseInt(document.getElementById('f').value);
-   let t = parseInt(document.getElementById('t').value);
-   let m = parseInt(document.getElementById('m').value);
-   let n = parseInt(document.getElementById('n').value);
+   let d = parseInt(document.getElementById('d').value); // расход
+   let f = parseInt(document.getElementById('f').value); // ширина сечения
+   let t = parseInt(document.getElementById('t').value); // длина секции двигателя
+   let m = parseInt(document.getElementById('m').value); // колесо
+   let n = parseInt(document.getElementById('n').value); // скорость, которую не стоит превышать
 
    let resultF = document.querySelector('.resultF');
    let form = document.querySelector('.form__fan');
@@ -72,8 +72,8 @@ function fanSection() {
    let error = formValidate(form);
 
    function hv() {
-      h = (t - ((m / 2) + 100));
-      v = (d / (3600 * (h / 1000) * (f / 1000))).toFixed(2);
+      h = (t - ((m / 2) + 100)); // длина гибкой вставки
+      v = (d / (3600 * (h / 1000) * (f / 1000))).toFixed(2); // Длина секции двигателя:
    };
    hv();
 
