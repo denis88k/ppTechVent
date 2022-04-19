@@ -17,16 +17,18 @@ tabs_triggers.forEach((item) =>
 
 tabs_triggers[0].click();
 
+//расчёт в свободной секции
 function regularSection() {
-   let a = parseInt(document.getElementById('a').value);
-   let b = parseInt(document.getElementById('b').value);
-   let n = parseFloat(document.getElementById('n').value);
-   let resultR = document.querySelector('.resultR');
-   let form = document.querySelector('.form__regular');
-
-   let error = formValidate(form);
+   let a = parseInt(document.getElementById('a').value); //расход воздуха
+   let b = parseInt(document.getElementById('b').value); //ширина сечения
+   let n = parseFloat(document.getElementById('n').value); //скорость воздуха
+   let resultR = document.querySelector('.resultR'); //строка вывода результата
+      
    let c = (a * 1000 / (3600 * n * (b / 1000))).toFixed(0);
 
+   let form = document.querySelector('.form__regular');
+   let error = formValidate(form);
+   
    if (error === 0) {
       if (c <= 250) {
          resultR.innerHTML = `
@@ -52,11 +54,13 @@ function regularSection() {
                font-size: 25px;`;
    }
 };
+
 let btn_regular = document.querySelector('.btn-regularSection');
 btn_regular.addEventListener('click', regularSection);
 
+//расчёт в секции вентилятора
 function fanSection() {
-   let d = parseInt(document.getElementById('d').value);
+   let d = parseInt(document.getElementById('d').value); 
    let f = parseInt(document.getElementById('f').value);
    let t = parseInt(document.getElementById('t').value);
    let m = parseInt(document.getElementById('m').value);
@@ -97,6 +101,7 @@ function fanSection() {
                font-size: 18.5px;`;
    }
 };
+
 let btn_fan = document.querySelector('.btn-fanSection');
 btn_fan.addEventListener('click', fanSection);
 
@@ -117,7 +122,6 @@ let con_val = document.getElementById('consumption'); // расход
 let pres_val = document.getElementById('pressure'); //давление
 
 //клапан
-
 let calcCon_val = function (con_valN) {
    return calc = Math.pow(con_valN, 4) * this.B4 + Math.pow(con_valN, 3) * this.B3 + Math.pow(con_valN, 2) * this.B2 + con_valN * this.B1 + this.int;
 };
@@ -298,13 +302,14 @@ btnSolution.onclick = () => {
       '25-6,3', '25-10', '32-16', '40-25',
       '50-40'
    ]
-   //если ошибок нет, то выполняется функция
+   //если ошибок нет, то выполняется расчёт смесака
    if (error === 0) solution_result(Rcon_val, Rvalve_auth, Rtotal_valve, mixerName, Rpump);
 };
 
 //функция вывода смесака, при удовлетворении условиям
 function solution_result(Rcon_val, Rvalve_auth, Rtotal_valve, mixerName, Rpump) {
-
+   
+   //вычисление индекса смесака
    const index = Rcon_val.findIndex((elem, i) => {
       return (
          ((0.15 <= Rvalve_auth[i]) || (0.15 <= Rvalve_auth[i] * (0.15 / 0.14)))
@@ -313,6 +318,7 @@ function solution_result(Rcon_val, Rvalve_auth, Rtotal_valve, mixerName, Rpump) 
       )
    });
 
+   //если идекс смесака определён, то
    if (!(index < 0)) {
       const tbody = document.querySelector('tbody');
       tbody.insertAdjacentHTML('beforeend', `
@@ -324,10 +330,10 @@ function solution_result(Rcon_val, Rvalve_auth, Rtotal_valve, mixerName, Rpump) 
                <td>&lt;</td><td>0,8</td><td>${String(Rpump[index]).replace(/\./, ',')}</td>
                <td colspan="2">&gt;</td><td>${String(Rtotal_valve[index]).replace(/\./, ',')}</td>
             </tr>`);
-
+      //добавление кнопки копирования названия смесака
       const mixer = document.querySelector('.mixer');
       mixer.insertAdjacentHTML('beforebegin', `<div class="copy-icon copy"></div>`);
-
+      //навешивание прослушки на кнопку копирования смесака
       const copy = document.querySelector('.copy-icon');
       copy.addEventListener('click', () => {
          copyText(mixerName[index])
@@ -344,6 +350,7 @@ function solution_result(Rcon_val, Rvalve_auth, Rtotal_valve, mixerName, Rpump) 
          document.execCommand('copy');
          document.body.removeChild(fake);
       };
+      
    } else return;
 };
 
