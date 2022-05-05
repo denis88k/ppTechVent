@@ -266,9 +266,6 @@ btnSolution.onclick = () => {
    let pres_valN = Number(pres_val.value.replace(/,/, '.'));
 
    //расчёт "падения давления" смесаков
-   let t0 = performance.now();
-
-   let R0 = performance.now();
 
 //    let Rcon_val = [];
 //    valves.forEach((con_val) => {
