@@ -267,15 +267,15 @@ btnSolution.onclick = () => {
 
    //расчёт "падения давления" смесаков
 
-//    let Rcon_val = [];
-//    valves.forEach((con_val) => {
-//       let Rcon_val_item = +con_val.calcCon_val_calc(con_valN).toFixed(f);
-//       Rcon_val.push(Rcon_val_item);
-//    });
+   let Rcon_val = [];
+   valves.forEach((con_val) => {
+      let Rcon_val_item = +con_val.calcCon_val_calc(con_valN).toFixed(f);
+      Rcon_val.push(Rcon_val_item);
+   });
    
-   let Rcon_val = valves.map(val => {
-      return val.calcCon_val_calc(con_valN).toFixed(f);
-   };
+//    let Rcon_val = valves.map(val => {
+//       return val.calcCon_val_calc(con_valN).toFixed(f);
+//    };
       
 
    //расчёт "напор насоса" смесаков
