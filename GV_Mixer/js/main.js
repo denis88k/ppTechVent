@@ -266,7 +266,6 @@ btnSolution.onclick = () => {
    let pres_valN = Number(pres_val.value.replace(/,/, '.'));
 
    //расчёт "падения давления" смесаков
-   var t0 = performance.now();
    // let Rcon_val = [];
    // valves.forEach((con_val) => {
    //    let Rcon_val_item = +con_val.calcCon_val_calc(con_valN).toFixed(f);
@@ -276,9 +275,6 @@ btnSolution.onclick = () => {
    let Rcon_val = valves.map(val => {
       return +val.calcCon_val_calc(con_valN).toFixed(f);
    });
-
-   var t1 = performance.now();
-   console.log("Call to doSomething took " + (t1 - t0) + " milliseconds.")
 
    //расчёт "напор насоса" смесаков
    // let Rpump = [];
