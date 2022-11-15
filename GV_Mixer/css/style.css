@@ -416,6 +416,10 @@ option {
   text-align: center;
   font-family: 'Roboto', sans-serif;
 }
+/* на время тестов без кнопки */
+.resultR{
+  margin-top: 20px;
+}
 
 .result > span {
   font-size: 25px;

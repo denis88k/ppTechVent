@@ -1,11 +1,11 @@
 let tabs_triggers = document.querySelectorAll('.tabs-triggers__item');
 
 tabs_triggers.forEach((item) =>
-   item.addEventListener('click', function (e) {
+   item.addEventListener('click', (e)=> {
       e.preventDefault();
       const id = e.target.getAttribute('data-trigers');
       //удаляет классы с табов и контента
-      document.querySelectorAll('.tabs-triggers__item').forEach((child) =>
+      tabs_triggers.forEach((child) =>
          child.classList.remove('tabs-triggers__item--active'));
       document.querySelectorAll('.solution__item').forEach((child) =>
          child.classList.remove('solution__item--active'));
@@ -23,13 +23,12 @@ function regularSection() {
    let b = parseInt(document.getElementById('b').value); //ширина сечения
    let n = parseFloat(document.getElementById('n').value); //скорость воздуха
    let resultR = document.querySelector('.resultR'); //строка вывода результата
-      
+
    let c = (a * 1000 / (3600 * n * (b / 1000))).toFixed(0);
 
-   let form = document.querySelector('.form__regular');
-   let error = formValidate(form);
-   
-   if (error === 0) {
+   // let form = document.querySelector('.form__regular');
+   // let error = formValidate(form);
+   if(a && b && n){
       if (c <= 250) {
          resultR.innerHTML = `
                Min длина <b>Гибкой вставки</b>:
@@ -47,16 +46,44 @@ function regularSection() {
                    font-size: 18.5px;
                    color: #fff;`;
       }
-   } else {
-      resultR.innerHTML = 'Забыл ввести данные!';
-      resultR.style.cssText = `
-               color: red;
-               font-size: 25px;`;
    }
+      
+   // if (error === 0) {
+   //    if (c <= 250) {
+   //       resultR.innerHTML = `
+   //             Min длина <b>Гибкой вставки</b>:
+   //             <br>
+   //             <span>М = 250 мм</span>`;
+   //       resultR.style.cssText = `
+   //                 font-size: 18.5px;
+   //                 color: #fff;`;
+   //    } else {
+   //       resultR.innerHTML = `
+   //             Min длина <b>Гибкой вставки</b>:
+   //             <br>
+   //             <span>М = ${c} мм</span>`;
+   //       resultR.style.cssText = `
+   //                 font-size: 18.5px;
+   //                 color: #fff;`;
+   //    }
+   // } else {
+   //    resultR.innerHTML = 'Забыл ввести данные!';
+   //    resultR.style.cssText = `
+   //             color: red;
+   //             font-size: 25px;`;
+   // }
 };
 
-let btn_regular = document.querySelector('.btn-regularSection');
-btn_regular.addEventListener('click', regularSection);
+['a', 'b', 'n'].forEach(el =>{
+   document.getElementById(el).addEventListener('input', regularSection)
+});
+
+// const btn_regular = document.querySelector('.btn-regularSection');
+// btn_regular.addEventListener('click', regularSection);
+
+// const a = document.getElementById('a'); //расход воздуха
+// const b = document.getElementById('b'); //ширина сечения
+// const n = document.getElementById('n');
 
 //расчёт в секции вентилятора
 function fanSection() {
@@ -102,7 +129,7 @@ function fanSection() {
    }
 };
 
-let btn_fan = document.querySelector('.btn-fanSection');
+const btn_fan = document.querySelector('.btn-fanSection');
 btn_fan.addEventListener('click', fanSection);
 
 let select = document.querySelector('.select');
@@ -115,7 +142,7 @@ select.addEventListener('click', () => {
 //округление чисел
 let f = 2;
 //кнопки
-let btnSolution = document.getElementById('btn-solution');
+// let btnSolution = document.getElementById('btn-solution');
 let btnReset = document.getElementById('btn-reset');
 //вводимые значения
 let con_val = document.getElementById('consumption'); // расход
@@ -255,10 +282,10 @@ let pumps = [
 ];
 
 ////////////////////////////////////////////////////////////////////////////////
-btnSolution.onclick = () => {
+function solutionSMesakTest(){
    rst()
-   let form = document.querySelector('.form__mixer');
-   let error = formValidate(form);
+   // let form = document.querySelector('.form__mixer');
+   // let error = formValidate(form);
 
    //переопределяет введённое значение расхода в число
    let con_valN = Number(con_val.value.replace(/,/, '.'));
@@ -315,8 +342,12 @@ btnSolution.onclick = () => {
       '50-40'
    ]
    //если ошибок нет, то выполняется расчёт смесака
-   if (error === 0) solution_result(Rcon_val, Rvalve_auth, Rtotal_valve, mixerName, Rpump);
-};
+   // if (error === 0) solution_result(Rcon_val, Rvalve_auth, Rtotal_valve, mixerName, Rpump);
+   if(con_val.value && pres_val.value){
+      solution_result(Rcon_val, Rvalve_auth, Rtotal_valve, mixerName, Rpump);
+   }
+}
+// btnSolution.onclick = solutionSMesakTest;
 
 //функция вывода смесака, при удовлетворении условиям
 function solution_result(Rcon_val, Rvalve_auth, Rtotal_valve, mixerName, Rpump) {
@@ -366,7 +397,14 @@ function solution_result(Rcon_val, Rvalve_auth, Rtotal_valve, mixerName, Rpump) 
    } else return;
 };
 
+//кнопка удаления
+btnReset.onclick = function () {
+   rst()
+};
 
+['consumption', 'pressure'].forEach(el =>{
+   document.getElementById(el).addEventListener('input', solutionSMesakTest)
+   });
 
 //функция удаления списка смесаков
 function rst() {
@@ -376,11 +414,6 @@ function rst() {
       mixer[i].remove();
    }
    if (copy) copy.remove();
-};
-
-//кнопка удаления
-btnReset.onclick = function () {
-   rst()
 };
 
 function formValidate(form) {
@@ -398,7 +431,6 @@ function formValidate(form) {
    }
    return error;
 };
-
 
 //работа с незаполненными полями
 function formAddError(input) {
