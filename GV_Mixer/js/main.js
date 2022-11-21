@@ -94,17 +94,13 @@ function fanSection() {
    let n = parseInt(document.getElementById('n').value); // скорость, которую не стоит превышать
 
    let resultF = document.querySelector('.resultF');
-   let form = document.querySelector('.form__fan');
-
-   let error = formValidate(form);
 
    function hv() {
       h = (t - ((m / 2) + 100)); // длина гибкой вставки
       v = (d / (3600 * (h / 1000) * (f / 1000))).toFixed(2); // Длина секции двигателя:
    };
    hv();
-
-   if (error === 0) {
+   if(d && f && t && m && n){
       if (h <= 0 || v >= n) {
          for (; (h <= 0 || v >= n); t++) {
             hv();
@@ -121,29 +117,23 @@ function fanSection() {
                    font-size: 18.5px;
                    color: #fff;`;
       }
-   } else {
-      resultF.innerHTML = 'Забыл ввести данные!';
-      resultF.style.cssText = `
-               color: white;
-               font-size: 18.5px;`;
    }
 };
 
-const btn_fan = document.querySelector('.btn-fanSection');
-btn_fan.addEventListener('click', fanSection);
+['d', 'f', 't', 'm', 'n'].forEach(el =>{
+   document.getElementById(el).addEventListener('input', fanSection)
+});
 
 let select = document.querySelector('.select');
 select.addEventListener('click', () => {
    select.classList.toggle('active');
 });
 
+
 //расчёт смесак
 //переменные
 //округление чисел
 let f = 2;
-//кнопки
-// let btnSolution = document.getElementById('btn-solution');
-let btnReset = document.getElementById('btn-reset');
 //вводимые значения
 let con_val = document.getElementById('consumption'); // расход
 let pres_val = document.getElementById('pressure'); //давление
@@ -398,9 +388,9 @@ function solution_result(Rcon_val, Rvalve_auth, Rtotal_valve, mixerName, Rpump) 
 };
 
 //кнопка удаления
-btnReset.onclick = function () {
-   rst()
-};
+// btnReset.onclick = function () {
+//    rst()
+// };
 
 ['consumption', 'pressure'].forEach(el =>{
    document.getElementById(el).addEventListener('input', solutionSMesakTest)
@@ -414,31 +404,4 @@ function rst() {
       mixer[i].remove();
    }
    if (copy) copy.remove();
-};
-
-function formValidate(form) {
-   let error = 0;
-   const formReq = form.querySelectorAll('.req');
-
-   for (let i = 0; i < formReq.length; i++) {
-      const input = formReq[i];
-      formRemoveError(input);
-
-      if (input.value === '') {
-         formAddError(input);
-         error++;
-      }
-   }
-   return error;
-};
-
-//работа с незаполненными полями
-function formAddError(input) {
-   input.classList.add('_error');
-   input.parentNode.classList.add('data_error');
-};
-
-function formRemoveError(input) {
-   input.classList.remove('_error');
-   input.parentNode.classList.remove('data_error');
 };

@@ -208,7 +208,7 @@ table {
 
 .solutionGV__fan-section {
   border-top: 1px solid #43b4e3;
-  height: 489px;
+  height: 450px;
 }
 
 .solutionMixer {
@@ -293,6 +293,7 @@ table {
 
 .form__mixer {
   margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 label {
@@ -410,15 +411,12 @@ option {
 }
 
 .result {
+  margin-top: 20px;
   font-size: 18.5px;
   font-weight: 300;
   color: #fff;
   text-align: center;
   font-family: 'Roboto', sans-serif;
-}
-/* на время тестов без кнопки */
-.resultR{
-  margin-top: 20px;
 }
 
 .result > span {
