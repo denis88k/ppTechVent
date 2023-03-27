@@ -1,62 +1,66 @@
+@import 'reset';
 //переменные
 $minwidth: 320px;
 $pd: 30px;
 $maxWidth: 1920;
-$maxWidthContainer: 1200;
+$maxWidthContainer: 1000;
 $md1: $maxWidthContainer+$pd;
 
 html,
 body {
-	height: 100%;
-	min-width: $minwidth;
+    height: 100%;
+    min-width: $minwidth;
 }
 
 body {
-	// position: relative;
+    // position: relative;
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
 }
 
 .App {
-	width: 100%;
-	min-height: 100%;
-	overflow: hidden;
-	display: flex;
-	flex-direction: column;
-	// position: relative;
+    width: 100%;
+    min-height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    // position: relative;
 }
 
 .container {
-	max-width: $md1;
-	margin: 0 auto;
-	padding: 0 calc($pd/2);
+    max-width: $md1;
+    margin: 0 auto;
+    padding: 0 calc($pd/2);
 }
 
 .main {
     display: flex;
-	flex-direction: column;
-	flex: 1 1 auto;
+    flex-direction: column;
+    flex: 1 1 auto;
 }
 
 .footer {
-	flex: 0 0 auto;
+    flex: 0 0 auto;
+}
+
+hr {
+    background-color: white;
+    height: 1px;
 }
 
 .bg {
-	background: url(./img/bg.jpg) no-repeat center/cover;
-	// @supports (background: url('../img/bg-header.webp')) {
-	// 	background: url('../img/bg-header.webp') no-repeat center/cover;
-	// }
-	;
-	height: 100%;
-	width: 100%;
+    background: url(./img/bg.png) no-repeat center/cover;
+    // @supports (background: url('../img/bg-header.webp')) {
+    // 	background: url('../img/bg-header.webp') no-repeat center/cover;
+    // }
+    ;
 }
 
 // ползунок справа
 ::-webkit-scrollbar {
     width: 12px;
 }
-  
+
 /* место движения ползунка*/
 ::-webkit-scrollbar-track {
     background: rgba(122, 193, 223, 0.788);
@@ -79,32 +83,34 @@ table {
     border-collapse: collapse;
 }
 
-.header{
-    &__inner{
+.header {
+    &__inner {
         display: flex;
         justify-content: center;
         align-items: center;
     }
 }
-.logo{
+
+.logo {
     width: 100px;
+    margin: 10px 0;
 }
-.main{
-    &__inner, &__screen{
+
+.main {
+
+    &__inner,
+    &__screen {
         display: flex;
         flex-direction: column;
     }
-    &__screen{
-        
-    }
 }
 
-.tabs{
+.tabs {
     display: flex;
     justify-content: space-around;
 }
 
-.tab{
+.tab {
     width: 300px;
     height: 45px;
     padding-top: 10px;
@@ -118,10 +124,52 @@ table {
     transition: all .4s ease;
     cursor: pointer;
 
-    &__active{
+    &__active {
         background: rgba(67, 180, 227, 0.2);
         backdrop-filter: blur(3px);
         border-top: 1px solid rgba(255, 255, 255, 0.2);
         border-right: 1px solid rgba(255, 255, 255, 0.2);
     }
+}
+
+.section {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+
+    &-block {
+        display: flex;
+        flex-direction: column;
+        color: white;
+    }
+
+    &__title {
+        padding-bottom: 5px;
+        margin-bottom: 15px;
+        font-size: 23px;
+        font-weight: 500;
+        text-align: center;
+        border-bottom: 1px solid white;
+    }
+
+    &__label {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__input {
+        width: 50px;
+    }
+
+}
+
+.img {
+    width: 500px;
 }
