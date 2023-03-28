@@ -78,6 +78,14 @@ hr {
     background: rgba(0, 179, 255, 0.863);
 }
 
+// внутри инпута увеличение и уменьшение
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
 // ???????????
 table {
     border-collapse: collapse;
@@ -140,9 +148,11 @@ table {
 .form {
     display: flex;
     flex-direction: column;
+    row-gap: 15px;
     padding: 10px;
     border: 1px solid black;
     border-radius: 5px;
+    font-weight: 300;
 
     &-block {
         display: flex;
@@ -162,10 +172,23 @@ table {
     &__label {
         display: flex;
         justify-content: space-between;
+        column-gap: 15px;
+        font-size: 18px;
+        
     }
 
     &__input {
-        width: 50px;
+        width: 75px;
+        height: 25px;
+        padding-left: 10px;
+        border: none;
+        background: transparent;
+        border-radius: 5px;
+        outline: none;
+        background: rgba(255, 255, 255, 0.25);
+        -webkit-backdrop-filter: blur(3px);
+        backdrop-filter: blur(3px);
+        color: white;
     }
 
 }
