@@ -7,7 +7,8 @@ $maxWidthContainer: 1000;
 $md1: $maxWidthContainer+$pd;
 
 html,
-body {
+body,
+#root {
     height: 100%;
     min-width: $minwidth;
 }
@@ -21,10 +22,15 @@ body {
 .App {
     width: 100%;
     min-height: 100%;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
     // position: relative;
+    background: url(./img/bg.png) no-repeat center/cover;
+    // @supports (background: url('../img/bg-header.webp')) {
+    // 	background: url('../img/bg-header.webp') no-repeat center/cover;
+    // }
+    ;
 }
 
 .container {
@@ -34,8 +40,6 @@ body {
 }
 
 .main {
-    display: flex;
-    flex-direction: column;
     flex: 1 1 auto;
 }
 
@@ -48,13 +52,7 @@ hr {
     height: 1px;
 }
 
-.bg {
-    background: url(./img/bg.png) no-repeat center/cover;
-    // @supports (background: url('../img/bg-header.webp')) {
-    // 	background: url('../img/bg-header.webp') no-repeat center/cover;
-    // }
-    ;
-}
+
 
 // ползунок справа
 ::-webkit-scrollbar {
@@ -81,8 +79,8 @@ hr {
 // внутри инпута увеличение и уменьшение
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 
@@ -153,6 +151,7 @@ table {
     border: 1px solid black;
     border-radius: 5px;
     font-weight: 300;
+    background-color: gray;
 
     &-block {
         display: flex;
@@ -174,7 +173,7 @@ table {
         justify-content: space-between;
         column-gap: 15px;
         font-size: 18px;
-        
+
     }
 
     &__input {
@@ -195,4 +194,14 @@ table {
 
 .img {
     width: 500px;
+}
+
+.footer {
+    &__inner {
+        height: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+    }
 }
