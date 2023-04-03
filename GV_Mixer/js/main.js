@@ -1,142 +1,116 @@
-let tabs_triggers = document.querySelectorAll('.tabs-triggers__item');
+let tabs_triggers = document.querySelectorAll('.tabs-triggers__item')
 
 tabs_triggers.forEach((item) =>
-   item.addEventListener('click', (e)=> {
-      e.preventDefault();
-      const id = e.target.getAttribute('data-trigers');
+   item.addEventListener('click', (e) => {
+      e.preventDefault()
+      const id = e.target.getAttribute('data-trigers')
       //удаляет классы с табов и контента
       tabs_triggers.forEach((child) =>
-         child.classList.remove('tabs-triggers__item--active'));
+         child.classList.remove('tabs-triggers__item--active'))
       document.querySelectorAll('.solution__item').forEach((child) =>
-         child.classList.remove('solution__item--active'));
+         child.classList.remove('solution__item--active'))
       //добавляет класс нажатому классу и контенту, относительно нажатого таба
-      item.classList.add('tabs-triggers__item--active');
-      document.getElementById(id).classList.add('solution__item--active');
+      item.classList.add('tabs-triggers__item--active')
+      document.getElementById(id).classList.add('solution__item--active')
    })
 )
 
-tabs_triggers[0].click();
+tabs_triggers[0].click()
 
 //расчёт в свободной секции
 function regularSection() {
-   let a = parseInt(document.getElementById('a').value); //расход воздуха
-   let b = parseInt(document.getElementById('b').value); //ширина сечения
-   let n = parseFloat(document.getElementById('n').value); //скорость воздуха
-   let resultR = document.querySelector('.resultR'); //строка вывода результата
+   let a = parseInt(document.getElementById('a').value) //расход воздуха
+   let b = parseInt(document.getElementById('b').value) //ширина сечения
+   let n = parseFloat(document.getElementById('n').value) //скорость воздуха
+   let resultR = document.querySelector('.resultR') //строка вывода результата
 
-   let c = (a * 1000 / (3600 * n * (b / 1000))).toFixed(0);
+   let c = (a * 1000 / (3600 * n * (b / 1000))).toFixed(0)
 
-   // let form = document.querySelector('.form__regular');
-   // let error = formValidate(form);
-   if(a && b && n){
+   if (a && b && n) {
       if (c <= 250) {
          resultR.innerHTML = `
                Min длина <b>Гибкой вставки</b>:
                <br>
-               <span>М = 250 мм</span>`;
+               <span>М = 250 мм</span>`
          resultR.style.cssText = `
                    font-size: 18.5px;
-                   color: #fff;`;
+                   color: #fff;`
       } else {
          resultR.innerHTML = `
                Min длина <b>Гибкой вставки</b>:
                <br>
-               <span>М = ${c} мм</span>`;
+               <span>М = ${c} мм</span>`
          resultR.style.cssText = `
                    font-size: 18.5px;
-                   color: #fff;`;
+                   color: #fff;`
       }
    }
-      
-   // if (error === 0) {
-   //    if (c <= 250) {
-   //       resultR.innerHTML = `
-   //             Min длина <b>Гибкой вставки</b>:
-   //             <br>
-   //             <span>М = 250 мм</span>`;
-   //       resultR.style.cssText = `
-   //                 font-size: 18.5px;
-   //                 color: #fff;`;
-   //    } else {
-   //       resultR.innerHTML = `
-   //             Min длина <b>Гибкой вставки</b>:
-   //             <br>
-   //             <span>М = ${c} мм</span>`;
-   //       resultR.style.cssText = `
-   //                 font-size: 18.5px;
-   //                 color: #fff;`;
-   //    }
-   // } else {
-   //    resultR.innerHTML = 'Забыл ввести данные!';
-   //    resultR.style.cssText = `
-   //             color: red;
-   //             font-size: 25px;`;
-   // }
+
 };
 
-['a', 'b', 'n'].forEach(el =>{
+['a', 'b', 'n'].forEach(el => {
    document.getElementById(el).addEventListener('input', regularSection)
-});
-
-// const a = document.getElementById('a'); //расход воздуха
-// const b = document.getElementById('b'); //ширина сечения
-// const n = document.getElementById('n');
+})
 
 //расчёт в секции вентилятора
 function fanSection() {
-   let d = parseInt(document.getElementById('d').value); // расход
-   let f = parseInt(document.getElementById('f').value); // ширина сечения
-   let t = parseInt(document.getElementById('t').value); // длина секции двигателя
-   let m = parseInt(document.getElementById('m').value); // колесо
-   let n = parseInt(document.getElementById('n').value); // скорость, которую не стоит превышать
+   let d = parseInt(document.getElementById('d').value) // расход
+   let f = parseInt(document.getElementById('f').value) // ширина сечения
+   let t = parseInt(document.getElementById('t').value) // длина секции вентилятора
+   let m = parseInt(document.getElementById('m').value) // колесо
+   let n = parseInt(document.getElementById('n').value) // скорость, которую не стоит превышать
 
-   let resultF = document.querySelector('.resultF');
+   let resultF = document.querySelector('.resultF')
 
    function hv() {
-      h = (t - ((m / 2) + 100)); // длина гибкой вставки
-      v = (d / (3600 * (h / 1000) * (f / 1000))).toFixed(2); // Длина секции двигателя:
+      h = (t - ((m / 2) + 100)) // длина гибкой вставки
+      v = (d / (3600 * (h / 1000) * (f / 1000))).toFixed(2) // скорость в сечении:
    };
 
-   hv();
+   hv()
 
-   if(d && f && t && m && n){
+   if (d && f && t && m && n) {
       if (h <= 0 || v >= n) {
-         for (; (h <= 0 || v >= n); t++) {
-            hv();
+         let i = 0
+         for (; (h <= 0 || v >= n); t = t + 2) {
+            console.log(t, i)
+            i++
+            hv()
          };
-         t = Math.ceil((t - 1) / 10) * 10;
-         resultF.innerHTML = `Необходимо сделать "Длину секции вентилятора" <b>${t}</b> `;
-      }else {
+         console.log(t, 'вн')
+         t = Math.ceil((t) / 10) * 10
+         resultF.innerHTML = `Необходимо сделать "Длину секции вентилятора" <b>${t}</b> `
+      } else {
          resultF.innerHTML = `
            Max длина <b>Гибкой вставки:</b>
            <br><span>М = ${h} мм</span>
            <br><b>Скорость</b> в сечении:
-           <br><span> V = ${v.replace(/\./, ',')} м<sup>2</sup>/с</span>`;
+           <br><span> V = ${v.replace(/\./, ',')} м<sup>2</sup>/с</span>`
          resultF.style.cssText = `
                    font-size: 18.5px;
-                   color: #fff;`;
+                   color: #fff;`
       }
    }
-   
+
 };
 
-['d', 'f', 't', 'm', 'n'].forEach(el =>{
+['d', 'f', 't', 'm', 'n'].forEach(el => {
    document.getElementById(el).addEventListener('input', fanSection)
-});
+})
 
-let select = document.querySelector('.select');
+let select = document.querySelector('.select')
 select.addEventListener('click', () => {
-   select.classList.toggle('active');
-});
+   select.classList.toggle('active')
+})
 
 
 //расчёт смесак
 //переменные
 //округление чисел
-let f = 2;
+let f = 2
 //вводимые значения
-let con_val = document.getElementById('consumption'); // расход
-let pres_val = document.getElementById('pressure'); //давление
+let con_val = document.getElementById('consumption') // расход
+let pres_val = document.getElementById('pressure') //давление
 
 //клапан
 let valves = [
@@ -223,15 +197,15 @@ let valves = [
       B4: 0.0000974261,
       calcCon_val_calc: calcCon_val
    }
-];
+]
 
 function calcCon_val(con_valN) {
-   return calc = Math.pow(con_valN, 4) * this.B4 + Math.pow(con_valN, 3) * this.B3 + Math.pow(con_valN, 2) * this.B2 + con_valN * this.B1 + this.int;
+   return calc = Math.pow(con_valN, 4) * this.B4 + Math.pow(con_valN, 3) * this.B3 + Math.pow(con_valN, 2) * this.B2 + con_valN * this.B1 + this.int
 };
 
 //насос
 function calcPump(pres_valN) {
-   return calc = Math.pow(pres_valN, 2) * this.B2 + pres_valN * this.B1 + this.int;
+   return calc = Math.pow(pres_valN, 2) * this.B2 + pres_valN * this.B1 + this.int
 };
 
 let pumps = [
@@ -269,18 +243,18 @@ let pumps = [
       B2: -0.07347,
       calcPump: calcPump
    }
-];
+]
 
 ////////////////////////////////////////////////////////////////////////////////
-function solutionSMesakTest(){
+function solutionSMesakTest() {
    rst()
    // let form = document.querySelector('.form__mixer');
    // let error = formValidate(form);
 
    //переопределяет введённое значение расхода в число
-   let con_valN = Number(con_val.value.replace(/,/, '.'));
+   let con_valN = Number(con_val.value.replace(/,/, '.'))
    //переопределяет введённое значение напора в число
-   let pres_valN = Number(pres_val.value.replace(/,/, '.'));
+   let pres_valN = Number(pres_val.value.replace(/,/, '.'))
 
    //расчёт "падения давления" смесаков
    // let Rcon_val = [];
@@ -288,10 +262,10 @@ function solutionSMesakTest(){
    //    let Rcon_val_item = +con_val.calcCon_val_calc(con_valN).toFixed(f);
    //    Rcon_val.push(Rcon_val_item);
    // });
-   
+
    let Rcon_val = valves.map(val => {
-      return +val.calcCon_val_calc(con_valN).toFixed(f);
-   });
+      return +val.calcCon_val_calc(con_valN).toFixed(f)
+   })
 
    //расчёт "напор насоса" смесаков
    // let Rpump = [];
@@ -301,8 +275,8 @@ function solutionSMesakTest(){
    // });
 
    let Rpump = pumps.map(pump => {
-      return +pump.calcPump(con_valN).toFixed(f);
-   });
+      return +pump.calcPump(con_valN).toFixed(f)
+   })
 
    //расчёт "Общее Падение давления жидкости" смесаков
    // let Rtotal_valve = [];
@@ -312,8 +286,8 @@ function solutionSMesakTest(){
    // });
 
    let Rtotal_valve = Rcon_val.map(con_val => {
-      return +(8 + Number(con_val) + Number(pres_valN)).toFixed(f);
-   });
+      return +(8 + Number(con_val) + Number(pres_valN)).toFixed(f)
+   })
 
    // let Rvalve_auth = [];
    // Rcon_val.forEach((con_val, index) => {
@@ -322,8 +296,8 @@ function solutionSMesakTest(){
    // });
 
    let Rvalve_auth = Rcon_val.map((con_val, index) => {
-      return +(con_val / Rtotal_valve[index]).toFixed(f);
-   });
+      return +(con_val / Rtotal_valve[index]).toFixed(f)
+   })
 
    let mixerName = [
       '15-1', '15-1,6', '15-2,5',
@@ -333,15 +307,15 @@ function solutionSMesakTest(){
    ]
    //если ошибок нет, то выполняется расчёт смесака
    // if (error === 0) solution_result(Rcon_val, Rvalve_auth, Rtotal_valve, mixerName, Rpump);
-   if(con_val.value && pres_val.value){
-      solution_result(Rcon_val, Rvalve_auth, Rtotal_valve, mixerName, Rpump);
+   if (con_val.value && pres_val.value) {
+      solution_result(Rcon_val, Rvalve_auth, Rtotal_valve, mixerName, Rpump)
    }
 }
 // btnSolution.onclick = solutionSMesakTest;
 
 //функция вывода смесака, при удовлетворении условиям
 function solution_result(Rcon_val, Rvalve_auth, Rtotal_valve, mixerName, Rpump) {
-   
+
    //вычисление индекса смесака
    const index = Rcon_val.findIndex((elem, i) => {
       return (
@@ -349,11 +323,11 @@ function solution_result(Rcon_val, Rvalve_auth, Rtotal_valve, mixerName, Rpump) 
          && ((Rvalve_auth[i] <= 0.80) || ((Rvalve_auth[i] * 0.95) <= 0.80))
          && ((Rpump[i] >= Rtotal_valve[i]) || ((Rpump[i] * 1.05) >= Rtotal_valve[i]))
       )
-   });
+   })
 
    //если идекс смесака определён, то
    if (!(index < 0)) {
-      const tbody = document.querySelector('tbody');
+      const tbody = document.querySelector('tbody')
       tbody.insertAdjacentHTML('beforeend', `
             <tr class="mixer">
             <td>${mixerName[index]}</td>
@@ -362,29 +336,29 @@ function solution_result(Rcon_val, Rvalve_auth, Rtotal_valve, mixerName, Rpump) 
                <td>${String(Rvalve_auth[index]).replace(/\./, ',')}</td>
                <td>&lt;</td><td>0,8</td><td>${String(Rpump[index]).replace(/\./, ',')}</td>
                <td colspan="2">&gt;</td><td>${String(Rtotal_valve[index]).replace(/\./, ',')}</td>
-            </tr>`);
+            </tr>`)
       //добавление кнопки копирования названия смесака
-      const mixer = document.querySelector('.mixer');
-      mixer.insertAdjacentHTML('beforebegin', `<div class="copy-icon copy"></div>`);
+      const mixer = document.querySelector('.mixer')
+      mixer.insertAdjacentHTML('beforebegin', `<div class="copy-icon copy"></div>`)
       //навешивание прослушки на кнопку копирования смесака
-      const copy = document.querySelector('.copy-icon');
+      const copy = document.querySelector('.copy-icon')
       copy.addEventListener('click', () => {
          copyText(mixerName[index])
-         copy.classList.remove('copy');
-         copy.classList.add('check');
-      });
+         copy.classList.remove('copy')
+         copy.classList.add('check')
+      })
 
       //функция для копирования смесака
       function copyText(mixerName) {
-         const fake = document.createElement('textarea');
-         document.body.appendChild(fake);
-         fake.innerText = `Смесительный узел SU ${mixerName} с 2-х ходовым клапаном`;
-         fake.select();
-         document.execCommand('copy');
-         document.body.removeChild(fake);
+         const fake = document.createElement('textarea')
+         document.body.appendChild(fake)
+         fake.innerText = `Смесительный узел SU ${mixerName} с 2-х ходовым клапаном`
+         fake.select()
+         document.execCommand('copy')
+         document.body.removeChild(fake)
       };
-      
-   } else return;
+
+   } else return
 };
 
 //кнопка удаления
@@ -392,16 +366,16 @@ function solution_result(Rcon_val, Rvalve_auth, Rtotal_valve, mixerName, Rpump) 
 //    rst()
 // };
 
-['consumption', 'pressure'].forEach(el =>{
+['consumption', 'pressure'].forEach(el => {
    document.getElementById(el).addEventListener('input', solutionSMesakTest)
-   });
+})
 
 //функция удаления списка смесаков
 function rst() {
-   const mixer = document.querySelectorAll('.mixer');
-   const copy = document.querySelector('.copy-icon');
+   const mixer = document.querySelectorAll('.mixer')
+   const copy = document.querySelector('.copy-icon')
    for (let i = 0; i < mixer.length; i++) {
-      mixer[i].remove();
+      mixer[i].remove()
    }
-   if (copy) copy.remove();
+   if (copy) copy.remove()
 };

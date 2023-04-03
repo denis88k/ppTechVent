@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import logo from './assets/img/logo.png'
 
-import RegularSection from './components/GV/RegularSection/RegularSection'
-import FanSection from './components/GV/FanSection/FanSection'
+import RegularSection from './components/GV/SectionRegular/RegularSection'
+import FanSection from './components/GV/SectionFan/FanSection'
 
 
 function App() {
@@ -39,14 +39,13 @@ function App() {
               {/* расчёт гибких вставок */}
               <div className='solution__GV'>
                 {/* расчёт в обычной секции */}
-                
-                <RegularSection/>
+
+                <RegularSection />
 
                 <hr />
 
                 {/* расчёт в секции вентилятора*/}
-                
-                <FanSection/>
+                <FanSection />
               </div>
 
               {/* расчёт смесителя */}
