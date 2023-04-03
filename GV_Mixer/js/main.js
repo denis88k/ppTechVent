@@ -78,9 +78,6 @@ function regularSection() {
    document.getElementById(el).addEventListener('input', regularSection)
 });
 
-// const btn_regular = document.querySelector('.btn-regularSection');
-// btn_regular.addEventListener('click', regularSection);
-
 // const a = document.getElementById('a'); //расход воздуха
 // const b = document.getElementById('b'); //ширина сечения
 // const n = document.getElementById('n');
@@ -99,7 +96,9 @@ function fanSection() {
       h = (t - ((m / 2) + 100)); // длина гибкой вставки
       v = (d / (3600 * (h / 1000) * (f / 1000))).toFixed(2); // Длина секции двигателя:
    };
+
    hv();
+
    if(d && f && t && m && n){
       if (h <= 0 || v >= n) {
          for (; (h <= 0 || v >= n); t++) {
@@ -118,6 +117,7 @@ function fanSection() {
                    color: #fff;`;
       }
    }
+   
 };
 
 ['d', 'f', 't', 'm', 'n'].forEach(el =>{

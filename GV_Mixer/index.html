@@ -57,9 +57,6 @@
                                         value="4">
                                 </div>
                             </form>
-                            <!-- кнопка -->
-                            <!-- <button class="btn btn-regularSection" type="button">Расчёт -->
-                            <!-- </button> -->
                             <!-- вывод результата -->
                             <div class="result resultR">
                                 Min длина <b>Гибкой вставки</b>:
@@ -78,13 +75,15 @@
                             <!-- форма -->
                             <form class="form form__fan">
                                 <div class="form__title">Расчёт в секции вентилятора</div>
-                                <div class="form__item" data-error="Введи Расход">
-                                    <label>Расход:</label><input id="d" class="input req" type="number">
+                                <div class="form__item">
+                                    <label>Расход:</label>
+                                    <input id="d" class="input req" type="number">
                                 </div>
-                                <div class="form__item" data-error="Введи Ширину сечения">
-                                    <label>Ширина сечения:</label><input id="f" class="input req" type="number">
+                                <div class="form__item">
+                                    <label>Ширина сечения:</label>
+                                    <input id="f" class="input req" type="number">
                                 </div>
-                                <div class="form__item" data-error="Введи Номер колеса">
+                                <div class="form__item">
                                     <label>Номер колеса:</label>
                                     <div class="select" class="select">
                                         <select class="input" name="wheel" id="m">
@@ -107,18 +106,16 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form__item" data-error="Введи Длину секции двигателя">
-                                    <label>Длина секции двигателя:</label><input id="t" class="input req" type="number">
+                                <div class="form__item">
+                                    <label>Длина секции двигателя:</label>
+                                    <input id="t" class="input req" type="number">
                                 </div>
-                                <div class="form__item" data-error="Введи Необходимую скорость">
-                                    <label>Необходимая скорость:</label><input id="n" class="input req" type="number"
-                                        value="4">
+                                <div class="form__item">
+                                    <label>Необходимая скорость:</label>
+                                    <input id="n" class="input req" type="number" value="4">
                                 </div>
                             </form>
-                            <!-- кнопка -->
-                            <!-- <button class="btn btn-fanSection" type="button">
-                                Расчёт
-                            </button> -->
+                            
                             <!-- вывод результата -->
                             <div class="result resultF">
                                 Max длина <b>Гибкой вставки:</b><span id="resultMD"></span>

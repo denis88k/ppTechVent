@@ -152,12 +152,7 @@ table {
     border-radius: 5px;
     font-weight: 300;
     background-color: gray;
-
-    &-block {
-        display: flex;
-        flex-direction: column;
-        color: white;
-    }
+    color: white;
 
     &__title {
         padding-bottom: 5px;
@@ -168,12 +163,11 @@ table {
         border-bottom: 1px solid white;
     }
 
-    &__label {
+    &__item {
         display: flex;
         justify-content: space-between;
         column-gap: 15px;
         font-size: 18px;
-
     }
 
     &__input {
@@ -189,7 +183,6 @@ table {
         backdrop-filter: blur(3px);
         color: white;
     }
-
 }
 
 .img {
