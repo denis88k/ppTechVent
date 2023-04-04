@@ -15,15 +15,16 @@ const FanSection = () => {
 
     const functionSolution = () => {
         if (consumption && widthSection && lengthSectionFan && maxSpeed) {
-            let lengthMax, lengthMin, speedInSection
-            let newWidthSection = widthSection
+            const lengthMin = (consumption / (3600 * (maxSpeed / 1000) * (widthSection / 1000))).toFixed(0)
+            let lengthMax, speedInSection
+            let newLengthSectionFan = lengthSectionFan
 
             const calcLengthSpeed = () => {
                 // max длина гибкой вставки:
-                lengthMax = lengthSectionFan - ((wheelFan * 10 / 2) + 100)
+                lengthMax = newLengthSectionFan - ((wheelFan * 10 / 2) + 100)
                 // TODo уточнить может ли длина гибкой вставки быть отрицательной при данном расчёте
                 // скорость при данной длине гибкой вставки
-                speedInSection = (consumption / (3600 * (lengthMax / 1000) * (newWidthSection / 1000))).toFixed(2)
+                speedInSection = (consumption / (3600 * (lengthMax / 1000) * (widthSection / 1000))).toFixed(2)
             }
 
             calcLengthSpeed()
@@ -31,22 +32,19 @@ const FanSection = () => {
             if (speedInSection > maxSpeed) {
                 let i = 0
                 while (speedInSection > maxSpeed) {
-                    console.log('ход:', i, 'ширина', newWidthSection)
+                    console.log('ход:', i, 'длина', newLengthSectionFan)
                     i++
-                    newWidthSection = newWidthSection + 10
+                    newLengthSectionFan = newLengthSectionFan + 10
                     calcLengthSpeed()
                 }
-                console.log(newWidthSection, 'итоговый')
-                lengthMin = (consumption / (3600 * (maxSpeed / 1000) * (newWidthSection / 1000))).toFixed(0)
-                newWidthSection = Math.ceil((newWidthSection) / 10) * 10
+                console.log(newLengthSectionFan, 'итоговый')
+                newLengthSectionFan = Math.ceil((newLengthSectionFan) / 10) * 10
                 // отнимаю -10, потому что в цикле выше делал +10
+            };
 
-            }
-            if (+newWidthSection <= 250) {
-                setMinLengthGV(250)
-            } else {
-                setMinLengthGV(lengthMin)
-            }
+            (+lengthMin <= 250)
+                ? setMinLengthGV(250)
+                : setMinLengthGV(lengthMin)
             setMaxLengthGV(lengthMax)
         }
     }
