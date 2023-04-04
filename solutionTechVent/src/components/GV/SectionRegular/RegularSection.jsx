@@ -5,43 +5,48 @@ const RegularSection = () => {
 
     const [consumption, setConsumption] = useState(1000)
     const [widthSection, setWidthSection] = useState(500)
-    const [requiredSpeed, setRequiredSpeed] = useState(4)
-    const [minWidthGV, setMinWidthGV] = useState(250)
+    const [maxSpeed, setMaxSpeed] = useState(4)
+    const [minLengthGV, setMinLengthGV] = useState(250)
     const [focus, setFocus] = useState('speed')
 
     // вычисление длины гибкой вставки
-    const onMinWidthGV = () => {
-        if (+requiredSpeed === 0) {
-            return setMinWidthGV(0)
-        } else {
-            const lengthMin = (consumption * 1000 / (3600 * requiredSpeed * (widthSection / 1000))).toFixed(0)
-            if (consumption && widthSection && requiredSpeed) {
+    const onMinLengthGV = () => {
+        if (consumption && widthSection) {
+            if (+maxSpeed === 0) {
+                return setMinLengthGV(0)
+            }
+            if (maxSpeed) {
+                const lengthMin = (consumption / (3600 * (maxSpeed / 1000) * (widthSection / 1000))).toFixed(0);
+
                 (+lengthMin <= 250)
-                    ? setMinWidthGV(250)
-                    : setMinWidthGV(lengthMin)
+                    ? setMinLengthGV(250)
+                    : setMinLengthGV(lengthMin)
             }
         }
     }
-    // вычисление скорости при длине гибкой вставки
-    const onRequiredSpeed = () => {
-        if (+minWidthGV === 0) {
-            return setRequiredSpeed(0)
-        } else {
-            const requiredSpeed = (consumption * 1000 / (3600 * minWidthGV * (widthSection / 1000))).toFixed(2)
-            consumption && widthSection && minWidthGV && setRequiredSpeed(requiredSpeed)
+    // вычисление скорости при данной длине гибкой вставки
+    const onMaxSpeed = () => {
+        if (consumption && widthSection) {
+            if (+minLengthGV === 0) {
+                return setMaxSpeed(0)
+            }
+            if (minLengthGV) {
+                const maxSpeed = (consumption / (3600 * (minLengthGV / 1000) * (widthSection / 1000))).toFixed(2)
+                setMaxSpeed(maxSpeed)
+            }
         }
     }
 
     useEffect(() => {
         switch (focus) {
             case 'speed':
-                onMinWidthGV()
+                onMinLengthGV()
                 break
-            case 'minWidth':
-                onRequiredSpeed()
+            case 'minLength':
+                onMaxSpeed()
                 break
         }
-    }, [consumption, widthSection, requiredSpeed, minWidthGV])
+    }, [consumption, widthSection, maxSpeed, minLengthGV])
 
 
     return (
@@ -52,7 +57,7 @@ const RegularSection = () => {
                 <div className='form__item'>
                     <label className='form__label'>Расход (м³):</label>
                     <input
-                        className='form__input consumption'
+                        className='form__input'
                         type="number"
                         value={consumption}
                         onChange={(e) => setConsumption(e.target.value)}
@@ -61,33 +66,33 @@ const RegularSection = () => {
                 <div className='form__item'>
                     <label className='form__label'>Ширина сечения (мм):</label>
                     <input
-                        className='form__input width_section'
+                        className='form__input'
                         type="number"
                         value={widthSection}
                         onChange={(e) => setWidthSection(e.target.value)}
                     />
                 </div>
                 <div className='form__item'>
-                    <label className='form__label'>Необходимая скорость (м/с):</label>
+                    <label className='form__label'>Max скорость в Гибкой вставке (м/с):</label>
                     <input
-                        className='form__input required_speed'
+                        className='form__input'
                         type="number"
-                        value={requiredSpeed}
+                        value={maxSpeed}
                         onChange={(e) => {
                             focus !== 'speed' && setFocus('speed')
-                            setRequiredSpeed(e.target.value)
+                            setMaxSpeed(e.target.value)
                         }}
                     />
                 </div>
                 <div className='form__item'>
                     <label className='form__label'>Min длина<b>Гибкой вставки</b>(мм):</label>
                     <input
-                        className='form__input minWidthGV'
+                        className='form__input'
                         type="number"
-                        value={minWidthGV}
+                        value={minLengthGV}
                         onChange={(e) => {
-                            focus !== 'minWidth' && setFocus('minWidth')
-                            setMinWidthGV(e.target.value)
+                            focus !== 'minLength' && setFocus('minLength')
+                            setMinLengthGV(e.target.value)
                         }}
                     />
                 </div>

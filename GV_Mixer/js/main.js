@@ -70,15 +70,16 @@ function fanSection() {
    hv()
 
    if (d && f && t && m && n) {
-      if (h <= 0 || v >= n) {
+      if (h <= 0 || v > n) {
+         console.log(n, 'скорость')
          let i = 0
-         for (; (h <= 0 || v >= n); t = t + 2) {
+         for (; (h <= 0 || v >= n); t = t + 1) {
             console.log(t, i)
             i++
             hv()
          };
          console.log(t, 'вн')
-         t = Math.ceil((t) / 10) * 10
+         t = Math.ceil((t - 1) / 10) * 10
          resultF.innerHTML = `Необходимо сделать "Длину секции вентилятора" <b>${t}</b> `
       } else {
          resultF.innerHTML = `
@@ -91,7 +92,6 @@ function fanSection() {
                    color: #fff;`
       }
    }
-
 };
 
 ['d', 'f', 't', 'm', 'n'].forEach(el => {
