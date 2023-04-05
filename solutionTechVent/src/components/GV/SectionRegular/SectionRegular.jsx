@@ -16,9 +16,9 @@ const SectionRegular = () => {
                 return setMinLengthGV(0)
             }
             if (maxSpeed) {
-                const lengthMin = (consumption / (3600 * (maxSpeed / 1000) * (widthSection / 1000))).toFixed(0);
-
-                (+lengthMin <= 250)
+                let lengthMin = +(consumption / (3600 * (maxSpeed / 1000) * (widthSection / 1000))).toFixed(0)
+                lengthMin = Math.ceil(lengthMin / 10) * 10;
+                (lengthMin <= 250)
                     ? setMinLengthGV(250)
                     : setMinLengthGV(lengthMin)
             }

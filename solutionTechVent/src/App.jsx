@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react'
 import logo from './assets/img/logo.png'
 
-import SectionRegular from './components/GV/SectionRegular/SectionRegular'
-import SectionFan from './components/GV/SectionFan/SectionFan'
+
+import GV from './components/GV/GV'
+import Mixer from './components/Mixer/Mixer'
 import Footer from './components/Footer/Footer'
 
 
 function App() {
+
+  // const [tabs, setTabs] = useState('GV')
+  const [tabs, setTabs] = useState('GV')
 
   return (
     <div className="App">
@@ -26,58 +30,41 @@ function App() {
 
           <div className='tabs'>
             <div className="container">
-              <div className='tab tab-active'>
-                Расчёт гибкой вставки
-              </div>
-              <div className='tab'>
-                Расчёт смесителя
+              <div className='tabs__inner'>
+                <div
+                  className={`tab ${tabs ? 'GV' : ''}`}
+                  onClick={() => setTabs('GV')}
+                >
+                  Расчёт гибкой вставки
+                </div>
+                <div
+                  className={`tab ${tabs ? 'Mixer' : ''}`}
+                  onClick={() => setTabs('Mixer')}
+                >
+                  Расчёт смесителя
+                </div>
               </div>
             </div>
           </div>
 
           <div className='main__screen'>
             <div className="container">
-              {/* расчёт гибких вставок */}
-              <div className='solution__GV'>
-                {/* расчёт в обычной секции */}
-                <SectionRegular />
-                <hr />
-                {/* расчёт в секции вентилятора*/}
-                <SectionFan />
-              </div>
-
-              {/* расчёт смесителя */}
-              {/* <div>
-                <div>
-                  <form className='form'>
-                    <h3 className='form__title'>Расчёт смесителя</h3>
-                    <label className='label'>
-                      Расход:
-                      <input className='input ' type="number" />
-                    </label>
-                    <label className='label'>
-                      Давление:
-                      <input className='input ' type="number" />
-                    </label>
-                  </form>
-                </div>
-
-                <table className='table'>
-                  таблица вывода
-                  -выводится по всем смесакам
-                  -при наведении на строку: выделяется область пунктирными линиями и появляется надпись скопировать
-                  -при нажатии копируется смесак в буфер обмена
-                  -выделяется полупрозрачным фоном наиболее оптимальные смесаки
-                </table>
-              </div> */}
-
+              {/* TODO решить проблему со скачками между табами */}
+              {tabs === 'GV' && (
+                /* расчёт гибких вставок */
+                <GV />
+              )}
+              {tabs === 'Mixer' && (
+                /* расчёт смесителя */
+                <Mixer />
+              )}
             </div>
           </div>
 
         </div>
       </main>
 
-      <Footer/>
+      <Footer />
 
     </div>
   )
