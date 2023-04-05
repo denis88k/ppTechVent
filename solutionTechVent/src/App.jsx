@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import logo from './assets/img/logo.png'
 
-import RegularSection from './components/GV/SectionRegular/RegularSection'
-import FanSection from './components/GV/SectionFan/FanSection'
+import SectionRegular from './components/GV/SectionRegular/SectionRegular'
+import SectionFan from './components/GV/SectionFan/SectionFan'
+import Footer from './components/Footer/Footer'
 
 
 function App() {
@@ -39,13 +40,10 @@ function App() {
               {/* расчёт гибких вставок */}
               <div className='solution__GV'>
                 {/* расчёт в обычной секции */}
-
-                <RegularSection />
-
+                <SectionRegular />
                 <hr />
-
                 {/* расчёт в секции вентилятора*/}
-                <FanSection />
+                <SectionFan />
               </div>
 
               {/* расчёт смесителя */}
@@ -79,13 +77,7 @@ function App() {
         </div>
       </main>
 
-      <footer className='footer'>
-        <div className='container'>
-          <div className="footer__inner">
-            footer
-          </div>
-        </div>
-      </footer>
+      <Footer/>
 
     </div>
   )

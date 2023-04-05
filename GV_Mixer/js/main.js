@@ -70,7 +70,7 @@ function fanSection() {
    hv()
 
    if (d && f && t && m && n) {
-      if (h <= 0 || v > n) {
+      if (h <= 0 || +v > n) {
          console.log(n, 'скорость')
          let i = 0
          for (; (h <= 0 || v >= n); t = t + 1) {

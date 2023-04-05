@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import regular from './assets/img/section_regular.png'
+import regular from '../../../assets/img/section_regular.png'
 
-const RegularSection = () => {
+const SectionRegular = () => {
 
     const [consumption, setConsumption] = useState(1000)
     const [widthSection, setWidthSection] = useState(500)
@@ -106,4 +106,4 @@ const RegularSection = () => {
     )
 }
 
-export default RegularSection
+export default SectionRegular

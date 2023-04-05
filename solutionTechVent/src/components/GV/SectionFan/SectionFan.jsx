@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import fan from './assets/img/section_fan.png'
+import fan from '../../../assets/img/section_fan.png'
 
-const FanSection = () => {
+const SectionFan = () => {
     const optionsWheelFan = [22, 25, 28, 30, 31, 35, 40, 45, 50, 56, 63, 71, 80, 90, 100, 110]
 
     const [consumption, setConsumption] = useState(1000)
@@ -17,7 +17,8 @@ const FanSection = () => {
         if (consumption && widthSection && lengthSectionFan && maxSpeed) {
             const lengthMin = (consumption / (3600 * (maxSpeed / 1000) * (widthSection / 1000))).toFixed(0)
             let lengthMax, speedInSection
-            let newLengthSectionFan = lengthSectionFan
+            let newLengthSectionFan = +lengthSectionFan
+            console.log(lengthSectionFan, 'lengthSectionFan')
 
             const calcLengthSpeed = () => {
                 // max длина гибкой вставки:
@@ -25,27 +26,33 @@ const FanSection = () => {
                 // TODo уточнить может ли длина гибкой вставки быть отрицательной при данном расчёте
                 // скорость при данной длине гибкой вставки
                 speedInSection = (consumption / (3600 * (lengthMax / 1000) * (widthSection / 1000))).toFixed(2)
+                console.log(lengthMax,'lengthMax', +speedInSection, 'speedInSection')
             }
 
             calcLengthSpeed()
 
-            if (speedInSection > maxSpeed) {
+            if (lengthMax<=0 || +speedInSection > maxSpeed) {
+                console.log('меньше')
                 let i = 0
-                while (speedInSection > maxSpeed) {
+                while (lengthMax<=0 || speedInSection > maxSpeed) {
                     console.log('ход:', i, 'длина', newLengthSectionFan)
                     i++
-                    newLengthSectionFan = newLengthSectionFan + 10
+                    newLengthSectionFan = newLengthSectionFan + 1
                     calcLengthSpeed()
                 }
+                console.log(newLengthSectionFan, 'после цикла')
+                newLengthSectionFan = Math.ceil((newLengthSectionFan-1) / 10) * 10
                 console.log(newLengthSectionFan, 'итоговый')
-                newLengthSectionFan = Math.ceil((newLengthSectionFan) / 10) * 10
-                // отнимаю -10, потому что в цикле выше делал +10
+                // // отнимаю -1, потому что в цикле выше делал +1
+                setLengthSectionFan(newLengthSectionFan)
             };
 
             (+lengthMin <= 250)
                 ? setMinLengthGV(250)
-                : setMinLengthGV(lengthMin)
-            setMaxLengthGV(lengthMax)
+                : setMinLengthGV(lengthMin);
+            (+lengthMax <= 250)
+                ? setMaxLengthGV(250)
+                : setMaxLengthGV(lengthMax);
         }
     }
 
@@ -94,7 +101,7 @@ const FanSection = () => {
                         className='form__input'
                         type="number"
                         value={lengthSectionFan}
-                        onChange={(e) => setLengthSectionFan(e.target.value)}
+                        onChange={(e) => {setLengthSectionFan(e.target.value)}}
                     />
                 </div>
                 <div className='form__item'>
@@ -144,4 +151,4 @@ const FanSection = () => {
         </section>
     )
 }
-export default FanSection
+export default SectionFan

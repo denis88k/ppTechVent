@@ -141,6 +141,8 @@ table {
 .section {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    column-gap: 20px;
 }
 
 .form {
