@@ -1,69 +1,70 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
+import styles from './Mixer.module.scss'
 
-const Mixer = () => {
-  const [consumption, setConsumption] = useState(0,5)
-    const [widthSection, setWidthSection] = useState(500)
+const Mixer = ({ show }) => {
+  const [consumption, setConsumption] = useState(0.5)
+  const [pressure, setPressure] = useState(1)
 
 
-   return (
-      <section className='solution'>
-        <div className="block__form">
-          <form className='form'>
-            <h3 className='form__title'>Расчёт смесительного узла</h3>
-            <div className='form__item'>
-              <label className='form__label'>Расход жидкости(м³/ч):</label>
-              <input
-                  className='form__input'
-                  type="number"
-                  value={consumption}
-                  onChange={(e) => setConsumption(e.target.value)}
-              />
-            </div>
-            <div className='form__item'>
-                      <label className='form__label'>Падение давления жидкости в ТО(кПа):</label>
-                      <input
-                          className='form__input'
-                          type="number"
-                          value={pressure}
-                          onChange={(e) => setPressure(e.target.value)}
-                      />
-                  </div>
-          </form>
-        </div>
-        <div className='block__table'>
-          <table class="table-solution">
-              <thead>
-                <tr>
-                  <td rowspan="2">Смеситель</td>
-                  <td rowspan="2">Падение давления, кПа</td>
-                  <td colspan="9">Проверка условий</td>
-                </tr>
-                <tr>
-                  <td colspan="5">Авторитет клапана</td>
-                  <td colspan="2">Напор насоса, кПа</td>
-                  <td colspan="2">Общее падение давления жидкости, кПа</td>
-                </tr>
-              </thead>
+  return (
+    <section className={`solution ${show}`}>
+      <div className={styles.block__form}>
+        <form className='form'>
+          <h3 className='form__title'>Расчёт смесительного узла</h3>
+          <div className='form__item'>
+            <label className='form__label'>Расход жидкости (м³/ч):</label>
+            <input
+              className='form__input'
+              type="number"
+              value={consumption}
+              onChange={(e) => setConsumption(e.target.value)}
+            />
+          </div>
+          <div className='form__item'>
+            <label className='form__label'>Падение давления жидкости в ТО (кПа):</label>
+            <input
+              className='form__input'
+              type="number"
+              value={pressure}
+              onChange={(e) => setPressure(e.target.value)}
+            />
+          </div>
+        </form>
+      </div>
+      <div className={styles.block__table}>
+        <table className={styles.table__solution}>
+          <thead>
+            <tr>
+              <td rowSpan="2">Смеситель</td>
+              <td rowSpan="2">Падение давления, кПа</td>
+              <td colSpan="9">Проверка условий</td>
+            </tr>
+            <tr>
+              <td colSpan="5">Авторитет клапана</td>
+              <td colSpan="2">Напор насоса, кПа</td>
+              <td colSpan="2">Общее падение давления жидкости, кПа</td>
+            </tr>
+          </thead>
 
-              <tbody class="table__result">
-                {results.map(result=>(
-                  <tr>
-                    <td>{result.mixer}</td>
-                    <td>{result.valvePressureDrop}</td>
-                    <td>0,25 (0,15)</td>
-                    <td>{result.valveАuthority}</td>
-                    <td>`/`</td>
-                    <td>0,8</td>
-                    <td>{result.totalPressureDrop}</td>
-                    <td>`/`</td>
-                    <td>{result.pumpPressure}</td>
-                  </tr>
-                ))}
-              </tbody>
-          </table>
-        </div>
-      </section>
-   )
+          <tbody className="table__result">
+            {/* {results.map(result => (
+              <tr>
+                <td>{result.mixer}</td>
+                <td>{result.valvePressureDrop}</td>
+                <td>0,25 (0,15)</td>
+                <td>{result.valveАuthority}</td>
+                <td>`/`</td>
+                <td>0,8</td>
+                <td>{result.totalPressureDrop}</td>
+                <td>`/`</td>
+                <td>{result.pumpPressure}</td>
+              </tr>
+            ))} */}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  )
 }
 
 export default Mixer
@@ -80,16 +81,16 @@ export default Mixer
 */}
 {
   // откудато
-//   <tr>
-//   <th rowspan="2">Смеситель</th>
-//   <th rowspan="2">Падение давления, кПа</th>
-//   <th colspan="3">Проверка условий</th>
-// </tr>
-// <tr>
-//   <th>Авторитет клапана</th>
-//   <th>Напор насоса, кПа</th>
-//   <th>Общее падение давления жидкости, кПа</th>
-// </tr>
+  //   <tr>
+  //   <th rowspan="2">Смеситель</th>
+  //   <th rowspan="2">Падение давления, кПа</th>
+  //   <th colspan="3">Проверка условий</th>
+  // </tr>
+  // <tr>
+  //   <th>Авторитет клапана</th>
+  //   <th>Напор насоса, кПа</th>
+  //   <th>Общее падение давления жидкости, кПа</th>
+  // </tr>
 }
 
 {/* <div>

@@ -52,8 +52,6 @@ hr {
     height: 1px;
 }
 
-
-
 // ползунок справа
 ::-webkit-scrollbar {
     width: 12px;
@@ -82,7 +80,6 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
-
 
 // ???????????
 table {
@@ -138,15 +135,28 @@ table {
     }
 }
 
-.solution{
+.solution {
+    display: none;
     opacity: 0;
     visibility: hidden;
     transition: all .1s ease;
-    .show{
+
+    &.show {
+        display: block;
         opacity: 1;
         visibility: visible;
+        // animation: showIn .05s ease;
     }
 }
+
+@keyframes showIn {
+    from {
+        display: none;
+        opacity: 0;
+    }
+}
+
+
 
 .section {
     display: flex;
@@ -197,12 +207,13 @@ table {
 }
 
 .img {
-    width: 500px;
+    width: 400px;
 }
 
 .change_lengthFan {
     box-shadow: 0px 0px 30px 2px rgba(0, 157, 255, 1);
 }
+
 
 .footer {
     &__inner {

@@ -50,14 +50,10 @@ function App() {
           <div className='main__screen'>
             <div className="container">
               {/* TODO решить проблему со скачками между табами */}
-              {tabs === 'GV' && (
-                /* расчёт гибких вставок */
-                <GV />
-              )}
-              {tabs === 'Mixer' && (
-                /* расчёт смесителя */
-                <Mixer />
-              )}
+              <GV show={`${tabs === 'GV' ? 'show' : ''}`} />
+              <Mixer show={`${tabs === 'Mixer' ? 'show' : ''}`} />
+
+
             </div>
           </div>
 
