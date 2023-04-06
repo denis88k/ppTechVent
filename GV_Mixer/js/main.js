@@ -257,44 +257,20 @@ function solutionSMesakTest() {
    let pres_valN = Number(pres_val.value.replace(/,/, '.'))
 
    //расчёт "падения давления" смесаков
-   // let Rcon_val = [];
-   // valves.forEach((con_val) => {
-   //    let Rcon_val_item = +con_val.calcCon_val_calc(con_valN).toFixed(f);
-   //    Rcon_val.push(Rcon_val_item);
-   // });
-
    let Rcon_val = valves.map(val => {
       return +val.calcCon_val_calc(con_valN).toFixed(f)
    })
 
    //расчёт "напор насоса" смесаков
-   // let Rpump = [];
-   // pumps.forEach((pump) => {
-   //    let Rpump_item = +pump.calcPump(con_valN).toFixed(f);
-   //    Rpump.push(Rpump_item);
-   // });
-
    let Rpump = pumps.map(pump => {
       return +pump.calcPump(con_valN).toFixed(f)
    })
 
    //расчёт "Общее Падение давления жидкости" смесаков
-   // let Rtotal_valve = [];
-   // Rcon_val.forEach((con_val) => {
-   //    let Rtotal_valve_item = +(8 + Number(con_val) + Number(pres_valN)).toFixed(f);
-   //    Rtotal_valve.push(Rtotal_valve_item);
-   // });
-
    let Rtotal_valve = Rcon_val.map(con_val => {
       return +(8 + Number(con_val) + Number(pres_valN)).toFixed(f)
    })
-
-   // let Rvalve_auth = [];
-   // Rcon_val.forEach((con_val, index) => {
-   //    let Rvalve_auth_item = +(con_val / Rtotal_valve[index]).toFixed(f);
-   //    Rvalve_auth.push(Rvalve_auth_item);
-   // });
-
+// авторитет
    let Rvalve_auth = Rcon_val.map((con_val, index) => {
       return +(con_val / Rtotal_valve[index]).toFixed(f)
    })

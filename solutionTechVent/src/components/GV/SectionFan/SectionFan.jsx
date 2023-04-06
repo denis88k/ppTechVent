@@ -68,7 +68,7 @@ const SectionFan = () => {
     }, [consumption, wheelFan, maxSpeed, lengthSectionFan])
 
     return (
-        <section className='section section__fan'>
+        <section className='section'>
             <form className='form'>
                 <h3 className='form__title'>Расчёт в секции вентилятора</h3>
                 <div className='form__item'>

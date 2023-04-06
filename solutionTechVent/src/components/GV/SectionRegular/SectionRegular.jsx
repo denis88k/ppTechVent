@@ -50,7 +50,7 @@ const SectionRegular = () => {
 
 
     return (
-        <section className='section section__regular'>
+        <section className='section'>
 
             <form className='form'>
                 <h3 className='form__title'>Расчёт в обычной секции</h3>
