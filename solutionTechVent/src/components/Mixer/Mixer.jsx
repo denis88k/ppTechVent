@@ -4,7 +4,9 @@ const Mixer = () => {
 
 
    return (
-      <div>Mixer</div>
+      <div className='solution'>
+        Mixer
+      </div>
    )
 }
 

@@ -3,7 +3,7 @@ import SectionFan from './SectionFan/SectionFan'
 
 const GV = () => {
    return (
-      <div className='solution__GV'>
+      <div className='solution show'>
          {/* расчёт в обычной секции */}
          <SectionRegular />
          <hr />
