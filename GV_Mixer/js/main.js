@@ -113,7 +113,7 @@ let con_val = document.getElementById('consumption') // расход
 let pres_val = document.getElementById('pressure') //давление
 
 //клапан
-let valves = [
+const valves = [
 
    con_val15_1 = {
       int: -19.04072,
@@ -208,7 +208,7 @@ function calcPump(pres_valN) {
    return calc = Math.pow(pres_valN, 2) * this.B2 + pres_valN * this.B1 + this.int
 };
 
-let pumps = [
+const pumps = [
    pump15 = {
       int: 38.73627,
       B1: -8.18855,
@@ -218,6 +218,7 @@ let pumps = [
 
    pump15_1_6 = pump15,
    pump15_2_5 = pump15,
+
    pump20 = {
       int: 58.34957,
       B1: -10.10902,
@@ -226,6 +227,7 @@ let pumps = [
    },
 
    pump20_6_3 = pump20,
+
    pump25_32_40 = {
       int: 79.43386,
       B1: -7.06525,
@@ -247,10 +249,6 @@ let pumps = [
 
 ////////////////////////////////////////////////////////////////////////////////
 function solutionSMesakTest() {
-   rst()
-   // let form = document.querySelector('.form__mixer');
-   // let error = formValidate(form);
-
    //переопределяет введённое значение расхода в число
    let con_valN = Number(con_val.value.replace(/,/, '.'))
    //переопределяет введённое значение напора в число
@@ -287,7 +285,6 @@ function solutionSMesakTest() {
       solution_result(Rcon_val, Rvalve_auth, Rtotal_valve, mixerName, Rpump)
    }
 }
-// btnSolution.onclick = solutionSMesakTest;
 
 //функция вывода смесака, при удовлетворении условиям
 function solution_result(Rcon_val, Rvalve_auth, Rtotal_valve, mixerName, Rpump) {
@@ -337,21 +334,6 @@ function solution_result(Rcon_val, Rvalve_auth, Rtotal_valve, mixerName, Rpump) 
    } else return
 };
 
-//кнопка удаления
-// btnReset.onclick = function () {
-//    rst()
-// };
-
 ['consumption', 'pressure'].forEach(el => {
    document.getElementById(el).addEventListener('input', solutionSMesakTest)
 })
-
-//функция удаления списка смесаков
-function rst() {
-   const mixer = document.querySelectorAll('.mixer')
-   const copy = document.querySelector('.copy-icon')
-   for (let i = 0; i < mixer.length; i++) {
-      mixer[i].remove()
-   }
-   if (copy) copy.remove()
-};

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import fan from '../../../assets/img/section_fan.png'
+import MyInput from '../../UI/MyInput/MyInput'
 
 const SectionFan = () => {
     const optionsWheelFan = [22, 25, 28, 30, 31, 35, 40, 45, 50, 56, 63, 71, 80, 90, 100, 110]
@@ -73,12 +74,17 @@ const SectionFan = () => {
                 <h3 className='form__title'>Расчёт в секции вентилятора</h3>
                 <div className='form__item'>
                     <label className='form__label'>Расход (м³):</label>
-                    <input
+                    <MyInput 
+                        type={'number'} 
+                        value={consumption}
+                        onChange={(e) => setConsumption(e.target.value)}
+                    />
+                    {/* <input
                         className='form__input'
                         type="number"
                         value={consumption}
                         onChange={(e) => setConsumption(e.target.value)}
-                    />
+                    /> */}
                 </div>
                 <div className='form__item'>
                     {/* как точно он называется: размер колеса, диаметр колеса или как там???? */}
