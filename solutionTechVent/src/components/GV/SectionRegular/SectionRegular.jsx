@@ -85,7 +85,7 @@ const SectionRegular = () => {
                     />
                 </div>
                 <div className='form__item'>
-                    <label className='form__label'>Min длина<b>Гибкой вставки</b>(мм):</label>
+                    <label className='form__label'>Min длина&thinsp;<b>Гибкой вставки</b>&thinsp;(мм):</label>
                     <input
                         className='form__input'
                         type="number"

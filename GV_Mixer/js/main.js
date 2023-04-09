@@ -250,9 +250,9 @@ const pumps = [
 ////////////////////////////////////////////////////////////////////////////////
 function solutionSMesakTest() {
    //переопределяет введённое значение расхода в число
-   let con_valN = Number(con_val.value.replace(/,/, '.'))
+   const con_valN = Number(con_val.value.replace(/,/, '.'))
    //переопределяет введённое значение напора в число
-   let pres_valN = Number(pres_val.value.replace(/,/, '.'))
+   const pres_valN = Number(pres_val.value.replace(/,/, '.'))
 
    //расчёт "падения давления" смесаков
    let Rcon_val = valves.map(val => {
@@ -263,12 +263,13 @@ function solutionSMesakTest() {
    let Rpump = pumps.map(pump => {
       return +pump.calcPump(con_valN).toFixed(f)
    })
+   console.log(Rpump, 'Rpump')
 
    //расчёт "Общее Падение давления жидкости" смесаков
    let Rtotal_valve = Rcon_val.map(con_val => {
       return +(8 + Number(con_val) + Number(pres_valN)).toFixed(f)
    })
-// авторитет
+   // авторитет
    let Rvalve_auth = Rcon_val.map((con_val, index) => {
       return +(con_val / Rtotal_valve[index]).toFixed(f)
    })
@@ -303,7 +304,7 @@ function solution_result(Rcon_val, Rvalve_auth, Rtotal_valve, mixerName, Rpump) 
       const tbody = document.querySelector('tbody')
       tbody.insertAdjacentHTML('beforeend', `
             <tr class="mixer">
-            <td>${mixerName[index]}</td>
+               <td>${mixerName[index]}</td>
                <td>${String(Rcon_val[index]).replace(/\./, ',')}</td>
                <td>0,25(0,15)</td><td>&lt;</td>
                <td>${String(Rvalve_auth[index]).replace(/\./, ',')}</td>

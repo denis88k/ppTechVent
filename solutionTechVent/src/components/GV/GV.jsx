@@ -1,10 +1,9 @@
 import SectionRegular from './SectionRegular/SectionRegular'
 import SectionFan from './SectionFan/SectionFan'
 
-const GV = ({ show }) => {
+const GV = () => {
    return (
-      // <div className='solution show'>
-      <div className={`solution ${show}`} >
+      <div className='solution' >
          {/* расчёт в обычной секции */}
          <SectionRegular />
          <hr />

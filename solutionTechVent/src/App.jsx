@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import logo from './assets/img/logo.png'
-
 
 import GV from './components/GV/GV'
 import Mixer from './components/Mixer/Mixer'
 import Footer from './components/Footer/Footer'
+import Header from './components/Header/Header'
+import Tabs from './components/Tabs/Tabs'
 
 
 function App() {
@@ -15,45 +15,20 @@ function App() {
   return (
     <div className="App">
 
-      <header className='header'>
-        <div className='container'>
-          <div className="header__inner">
-            <div className='logo'>
-              <img className='logo__img' src={logo} alt="logo" />
-            </div>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       <main className='main'>
         <div className="main__inner">
 
-          <div className='tabs'>
-            <div className="container">
-              <div className='tabs__inner'>
-                <div
-                  className={`tab ${tabs ? 'GV' : ''}`}
-                  onClick={() => setTabs('GV')}
-                >
-                  Расчёт гибкой вставки
-                </div>
-                <div
-                  className={`tab ${tabs ? 'Mixer' : ''}`}
-                  onClick={() => setTabs('Mixer')}
-                >
-                  Расчёт смесителя
-                </div>
-              </div>
-            </div>
-          </div>
+          <Tabs tabs={tabs} setTabs={setTabs} />
 
           <div className='main__screen'>
             <div className="container">
-              {/* TODO решить проблему со скачками между табами */}
-              <GV show={`${tabs === 'GV' ? 'show' : ''}`} />
-              <Mixer show={`${tabs === 'Mixer' ? 'show' : ''}`} />
-
-
+              {
+                tabs === 'GV'
+                  ? <GV />
+                  : <Mixer />
+              }
             </div>
           </div>
 

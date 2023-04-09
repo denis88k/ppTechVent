@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react'
 import styles from './Mixer.module.scss'
-import {valves, pumps} from './data'
+import { valves, pumps } from './data'
 
-
-const Mixer = ({ show }) => {
+const Mixer = () => {
   const [consumption, setConsumption] = useState(0.5)
   const [pressure, setPressure] = useState(1)
   const [resultTable, setResultTable] = useState([])
-    // TODO делать проверку на NaN на ввод
+  const [ischeckMark, setIsCheckMark] = useState(false)
+  const [textCheckMark, setTextCheckMark] = useState('')
+  // TODO делать проверку на NaN на ввод
 
-  const roundingNumbers = 2;
+  const roundingNumbers = 2
   const mixerName = [
     '15-1', '15-1,6', '15-2,5',
     '20-4', '20-6,3',
@@ -17,75 +18,86 @@ const Mixer = ({ show }) => {
     '50-40'
   ]
 
-  const solutionMixer=()=>{
-    if(consumption && pressure){
-      // скорее всего на этапе расчёта лучше убрать округление, округлять только в результате
+  const solutionMixer = () => {
+    if (consumption && pressure) {
 
       //падения давления на клапане
       const valvePressureDrop = valves.map(valve => {
-        return Number(valve.calcCon_val_calc(consumption).toFixed(roundingNumbers))
+        return valve.calcCon_val_calc(consumption)
       })
+      // console.log(valvePressureDrop, 'valvePressureDrop')
 
       //напор насоса
       const pumpPressure = pumps.map(pump => {
-        return Number(pump.calcPump(pressure).toFixed(roundingNumbers))
+        return pump.calcPump(consumption)
       })
+      // console.log(pumpPressure, 'pumpPressure')
 
       //Общее Падение давления жидкости
       const totalPressureDrop = valvePressureDrop.map(valve => {
-        return Number((8 + pressure + valve).toFixed(roundingNumbers))
+        return 8 + pressure + valve
       })
+      // console.log(totalPressureDrop, 'totalPressureDrop')
 
       // авторитет
       const valveАuthority = valvePressureDrop.map((valve, index) => {
-        return Number((valve / totalPressureDrop[index]).toFixed(roundingNumbers))
+        return valve / totalPressureDrop[index]
       })
+      // console.log(valveАuthority, 'valveАuthority')
 
-      setResultTable([
-        mixerName,
-        valvePressureDrop,
-        valveАuthority,
-        totalPressureDrop,
-        pumpPressure
-      ])
-
-      const result = mixerName.map((mixer, index)=>{
-        {
-          mixerName = mixer, 
-          valvePressureDrop[index],
-          valveАuthority[index], 
-          totalPressureDrop[index],
-          pumpPressure[index]
+      const results = mixerName.map((mixer, index) => {
+        return {
+          mixerName: mixer,
+          valvePressureDrop: valvePressureDrop[index],
+          valveАuthority: valveАuthority[index],
+          totalPressureDrop: totalPressureDrop[index],
+          pumpPressure: pumpPressure[index]
         }
       })
+      setResultTable([...results])
+      // console.log(results, 'results')
+      // console.log(result[9].totalPressureDrop, result[9].pumpPressure)
 
-      // result = [
-      //   {mixerName, valvePressureDrop, valveАuthority, totalPressureDrop, pumpPressure},
-      //   {mixerName, valvePressureDrop, valveАuthority, totalPressureDrop, pumpPressure},
-      // ]
-
-      //вычисление индекса смесака
-      const index = valvePressureDrop.findIndex((elem, i) => {
-        return (
-          ((0.15 <= valveАuthority[i]) || (0.15 <= valveАuthority[i] * (0.15 / 0.14)))
-          && ((valveАuthority[i] <= 0.80) || ((valveАuthority[i] * 0.95) <= 0.80))
-          && ((pumpPressure[i] >= totalPressureDrop[i]) || ((pumpPressure[i] * 1.05) >= totalPressureDrop[i]))
+      const isMatch = (result) => (
+        (
+          (0.15 <= result.valveАuthority) || (0.15 * 0.9 <= result.valveАuthority)
         )
-      })
-      //  TODO
-      // после ввода данных добавить итоговую информацию по ним в массив данных
-      // выводить этот массив
-      // после нахождения индекса к этому смесаку добавить зеленый фон
-      // при наведении на строку добавить выделение голубого цвета прорачного
-      // при наведении показывать руку
-      // при нажатии у строки меняется фон, добавляется 
-      // надпись "скопированно{иконка} !" и иконка в конце надписи
-      // при нажатии на другую строку
+        &&
+        (
+          (result.valveАuthority <= 0.80) || (result.valveАuthority <= 0.80 * 1.1)
+        )
+        &&
+        (
+          (result.pumpPressure >= result.totalPressureDrop)
+          ||
+          ((result.pumpPressure * 1.1) >= result.totalPressureDrop)
+        )
+        && (result.match = true)
+      )
+
+      results.forEach(result => isMatch(result))
     }
   }
 
+  function copyNameMixer(mixerName) {
+    const mixerText = `Смесительный узел SU ${mixerName} с 2-х ходовым клапаном`
+    navigator.clipboard
+      .writeText(mixerText)
+      .then(() => {
+        setIsCheckMark(true)
+        setTextCheckMark(mixerText)
+        setTimeout(() => {
+          setIsCheckMark(false)
+        }, 5000)
+      })
+  }
+
+  useEffect(() => {
+    solutionMixer()
+  }, [consumption, pressure])
+
   return (
-    <section className={`solution ${show}`}>
+    <div className='solution'>
       <div className={styles.block__form}>
         <form className='form'>
           <h3 className='form__title'>Расчёт смесительного узла</h3>
@@ -110,39 +122,70 @@ const Mixer = ({ show }) => {
         </form>
       </div>
       <div className={styles.block__table}>
-        <table className={styles.table__solution}>
+        <table className={styles.table}>
           <thead>
             <tr>
-              <td rowSpan="2">Смеситель</td>
-              <td rowSpan="2">Падение давления, кПа</td>
-              <td colSpan="9">Проверка условий</td>
+              <th rowSpan="2">Смеситель</th>
+              <th rowSpan="2">Падение <br /> давления, кПа</th>
+              <th colSpan="9">Проверка условий</th>
             </tr>
             <tr>
-              <td colSpan="5">Авторитет клапана</td>
-              <td colSpan="2">Напор насоса, кПа</td>
-              <td colSpan="2">Общее падение давления жидкости, кПа</td>
+              <th colSpan="5">Авторитет клапана</th>
+              <th colSpan="2">Общее падение давления жидкости, кПа</th>
+              <th colSpan="2">Напор <br /> насоса, кПа</th>
             </tr>
           </thead>
+          {/* &gt; - >;  &lt; - <*/}
+          {/* &#8814; - не меньше, зачёркнутое меньше </ */}
 
           <tbody className="table__result">
             {/* может когда нет данных в массиве добавлять цитаты великих людей */}
-            {/* {resultTable.map(result => (
-              <tr>
-                <td>{result.mixerName}</td>
-                <td>{result.valvePressureDrop}</td>
+            {resultTable.map((result, index) => (
+              <tr
+                className={[styles.row, result.match ? styles.row__match : ''].join(' ')}
+                key={result.mixerName}
+                onClick={() => copyNameMixer(result.mixerName)}
+              >
+                <td>{index}: {result.mixerName}</td>
+                <td>{result.valvePressureDrop.toFixed(roundingNumbers).replace(/\./, ',')}</td>
                 <td>0,25 (0,15)</td>
-                <td>{result.valveАuthority}</td>
-                <td>`/`</td>
+                {
+                  (0.15 * 0.9 < result.valveАuthority)
+                    ? <td>&lt;</td>
+                    // : <td style={{ backgroundColor: 'rgba(255, 0, 0, 0.5)' }}>&gt;</td>
+                    : <td style={{ backgroundColor: 'rgba(125, 21, 2, 0.75)' }}>&gt;</td>
+                }
+                <td>{result.valveАuthority.toFixed(roundingNumbers).replace(/\./, ',')}</td>
+                {
+                  (result.valveАuthority < 0.8 * 1.1)
+                    ? <td>&lt;</td>
+                    // : <td style={{ backgroundColor: 'rgba(255, 0, 0, 0.5)' }}>&gt;</td>
+                    : <td style={{ backgroundColor: 'rgba(125, 21, 2, 0.75)' }}>&gt;</td>
+                }
                 <td>0,8</td>
-                <td>{result.totalPressureDrop}</td>
-                <td>`/`</td>
-                <td>{result.pumpPressure}</td>
+                <td>{result.totalPressureDrop.toFixed(roundingNumbers).replace(/\./, ',')}</td>
+                {
+                  (result.totalPressureDrop > result.pumpPressure)
+                    // ? <td style={{ backgroundColor: 'rgba(255, 0, 0, 0.5)' }}>&gt;</td>
+                    ? <td style={{ backgroundColor: 'rgba(125, 21, 2, 0.75)' }}>&gt;</td>
+                    : <td>&lt;</td>
+                }
+                <td>{result.pumpPressure.toFixed(roundingNumbers).replace(/\./, ',')}</td>
               </tr>
-            ))} */}
+            ))}
           </tbody>
         </table>
+
+        <div className={styles.mixer_choice}>
+          {ischeckMark && (
+            <p className={styles.mixer_text}>
+              <u>Скопирован:</u>&#x2002; <i>{textCheckMark}</i>
+            </p>
+          )}
+        </div>
+
       </div>
-    </section>
+    </div>
   )
 }
 
@@ -174,8 +217,5 @@ export default Mixer
 
 {/*
   таблица вывода
-  -выводится по всем смесакам
   -при наведении на строку: выделяется область пунктирными линиями и появляется надпись скопировать
-  -при нажатии копируется смесак в буфер обмена
-  -выделяется полупрозрачным фоном наиболее оптимальные смесаки
 */}

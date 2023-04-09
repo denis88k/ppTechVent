@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import fan from '../../../assets/img/section_fan.png'
-import MyInput from '../../UI/MyInput/MyInput'
 
 const SectionFan = () => {
     const optionsWheelFan = [22, 25, 28, 30, 31, 35, 40, 45, 50, 56, 63, 71, 80, 90, 100, 110]
@@ -22,30 +21,24 @@ const SectionFan = () => {
             lengthMin = Math.ceil(lengthMin / 10) * 10
             let lengthMax, speedInSection
             let newLengthSectionFan = +lengthSectionFan
-            console.log(lengthSectionFan, 'lengthSectionFan')
 
             const calcLengthSpeed = () => {
                 // max длина гибкой вставки:
                 lengthMax = newLengthSectionFan - ((wheelFan * 10 / 2) + 100)
                 // скорость при данной длине гибкой вставки
                 speedInSection = (consumption / (3600 * (lengthMax / 1000) * (widthSection / 1000))).toFixed(2)
-                console.log(lengthMax, 'lengthMax', +speedInSection, 'speedInSection')
             }
 
             calcLengthSpeed()
 
             if (lengthMax <= 0 || +speedInSection >= maxSpeed) {
-                console.log('меньше')
                 let i = 0
                 while (lengthMax <= 0 || speedInSection > maxSpeed) {
-                    console.log('ход:', i, 'длина', newLengthSectionFan)
                     i++
                     newLengthSectionFan = newLengthSectionFan + 5
                     calcLengthSpeed()
                 }
-                console.log(newLengthSectionFan, 'после цикла')
                 newLengthSectionFan = Math.ceil((newLengthSectionFan - 5) / 10) * 10
-                console.log(newLengthSectionFan, 'итоговый')
                 // отнимаю -1, потому что в цикле выше делал +1
                 setLengthSectionFan(newLengthSectionFan)
                 setSelectionLengthFan(true)
@@ -74,17 +67,12 @@ const SectionFan = () => {
                 <h3 className='form__title'>Расчёт в секции вентилятора</h3>
                 <div className='form__item'>
                     <label className='form__label'>Расход (м³):</label>
-                    <MyInput 
-                        type={'number'} 
-                        value={consumption}
-                        onChange={(e) => setConsumption(e.target.value)}
-                    />
-                    {/* <input
+                    <input
                         className='form__input'
                         type="number"
                         value={consumption}
                         onChange={(e) => setConsumption(e.target.value)}
-                    /> */}
+                    />
                 </div>
                 <div className='form__item'>
                     {/* как точно он называется: размер колеса, диаметр колеса или как там???? */}
@@ -130,37 +118,16 @@ const SectionFan = () => {
                         className='form__input'
                         type="number"
                         value={maxSpeed}
-                        onChange={(e) => {
-                            // focus !== 'speed' && setFocus('speed')
-                            setMaxSpeed(e.target.value)
-                        }}
+                        onChange={(e) => setMaxSpeed(e.target.value)}
                     />
                 </div>
                 <div className='form__item'>
-                    <label className='form__label'>Max длина<b>Гибкой вставки</b>(мм):</label>
+                    <label className='form__label'>Max длина&thinsp;<b>Гибкой вставки</b>&thinsp;(мм):</label>
                     <div className='form__input'>{maxLengthGV}</div>
-                    {/* <input
-                        className='form__input'
-                        type="number"
-                        value={maxLengthGV}
-                        onChange={(e) => {
-                            focus !== 'maxLength' && setFocus('maxLength')
-                            setMaxLengthGV(e.target.value)
-                        }}
-                    /> */}
                 </div>
                 <div className='form__item'>
-                    <label className='form__label'>Min длина<b>Гибкой вставки</b>(мм):</label>
+                    <label className='form__label'>Min длина&thinsp;<b>Гибкой вставки</b>&thinsp;(мм):</label>
                     <div className='form__input'>{minLengthGV}</div>
-                    {/* <input
-                        className='form__input'
-                        type="number"
-                        value={minLengthGV}
-                        onChange={(e) => {
-                            focus !== 'minLength' && setFocus('minLength')
-                            setMinLengthGV(e.target.value)
-                        }}
-                    /> */}
                 </div>
 
             </form>
