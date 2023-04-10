@@ -97,8 +97,8 @@ const Mixer = () => {
   }, [consumption, pressure])
 
   return (
-    <div className='solution'>
-      <div className={styles.block__form}>
+    <div className='solution__show'>
+    <div className={styles.block__form}>
         <form className='form'>
           <h3 className='form__title'>Расчёт смесительного узла</h3>
           <div className='form__item'>
@@ -186,6 +186,10 @@ const Mixer = () => {
 
       </div>
     </div>
+
+    // <div className='solution'>
+      
+    // </div>
   )
 }
 

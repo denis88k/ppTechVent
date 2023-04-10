@@ -3,13 +3,16 @@ import SectionFan from './SectionFan/SectionFan'
 
 const GV = () => {
    return (
-      <div className='solution' >
-         {/* расчёт в обычной секции */}
-         <SectionRegular />
+      <div className='solution__show'>
+      {/* расчёт в обычной секции */}
+      <SectionRegular />
          <hr />
          {/* расчёт в секции вентилятора*/}
          <SectionFan />
-      </div >
+      </div>
+      // <div className='solution' >
+         
+      // </div >
    )
 }
 
