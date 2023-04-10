@@ -100,17 +100,16 @@ table {
     display: flex;
     flex-direction: column;
     padding: 10px;
-    background: rgba(67, 180, 227, 0.2);
-    background: rgba(88, 160, 184, 0.2);
-    background: rgba(12, 46, 110, 0.4); //0C2E6E
-    background: rgba(87, 131, 212, 0.5); //5783D4
-    background: rgba(36, 83, 169, 0.5); //2453A9 -
-    background: rgba(52, 78, 127, 0.5); //344E7F -
+    // background: rgba(67, 180, 227, 0.2);
+    // background: rgba(88, 160, 184, 0.2);
+    background: rgba(12, 46, 110, 0.4); //0C2E6E+
+    // background: rgba(87, 131, 212, 0.5); //5783D4
+    // background: rgba(36, 83, 169, 0.5); //2453A9 -
+    // background: rgba(52, 78, 127, 0.5); //344E7F -
     backdrop-filter: blur(1px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 10px;
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.4);
-    // transition: opacity .1s ease;
 }
 
 .section {
@@ -128,8 +127,8 @@ table {
     padding: 10px;
     font-weight: 300;
     color: white;
-    background-color: hsla(198, 74%, 58%, 0.2);
-    background-color: hsla(195, 90%, 16%, 0.5);
+    background-color: rgba(69, 180, 227, 0.2);
+    background-color: rgba(4, 59, 78, 0.5);
     backdrop-filter: blur(3px);
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -175,16 +174,16 @@ table {
 .img {
     width: 380px;
     padding: 10px;
-    background-color: rgba(75, 114, 131, 0.4);
-    background-color: rgb(1, 38, 51); //012633
-    background-color: rgb(48, 137, 167); //3089A7
-    // background-color: rgb(80, 145, 167); //5091A7
-    background-color: rgba(120, 154, 212, 0.589); //7899D4
-    // background-color: rgba(12, 46, 110, 0.432); //#0C2E6E
-    // background-color: hsla(195, 90%, 16%, 0.5); //как у формы
+    // background-color: rgba(75, 114, 131, 0.4);
+    // background-color: rgba(48, 137, 167, 0.699); //3089A7
+    // background-color: rgba(80, 145, 167, 0.486); //5091A7
+    // background-color: rgba(120, 154, 212, 0.589); //7899D4
     // background-color: rgba(52, 78, 127, 0.2); //344E7F
-    // background-color: #5783d488; //5783D4
+    // background-color: rgba(87, 131, 212, 0.533); //5783D4
     // background-color: rgba(36, 83, 169, 0.473); //2453A9
+    background-color: rgba(1, 38, 51, 0.5); //012633
+    background-color: rgba(12, 46, 110, 0.5); //#0C2E6E
+    background-color: rgba(4, 59, 78, 0.45); //как у формы
     backdrop-filter: blur(1px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 10px;
@@ -194,3 +193,17 @@ table {
 .change_lengthFan {
     box-shadow: 0px 0px 30px 2px rgba(0, 157, 255, 0.5);
 }
+
+// зелёный
+// #2EC716
+// #3F9532
+// #188107
+// #60E34C
+// #83E374
+
+// синий
+// #204BA0
+// #304878
+// #0A2A68
+// #537DD0
+// #7493D0

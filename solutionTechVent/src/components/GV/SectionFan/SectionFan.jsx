@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import fan from '../../../assets/img/section_fan.png'
+// import fan from '../../../assets/img/section_fan.png'
+import fan from '../../../assets/img/section-fan (2).png'
 
 const SectionFan = () => {
     const optionsWheelFan = [22, 25, 28, 30, 31, 35, 40, 45, 50, 56, 63, 71, 80, 90, 100, 110]
