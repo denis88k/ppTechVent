@@ -24,11 +24,13 @@ function App() {
 
           <div className='main__screen'>
             <div className="container">
+              <div className='solution'>
               {
                 tabs === 'GV'
                   ? <GV />
                   : <Mixer />
               }
+              </div>
             </div>
           </div>
 
