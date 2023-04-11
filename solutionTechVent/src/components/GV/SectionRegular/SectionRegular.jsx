@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import regular from '../../../assets/img/section_regular.png'
+// import regular from '../../../assets/img/section_regular.png'
+import regular from '../../../assets/img/секция вентилятора-Модель(1.4) (2) (1).png'
 
 const SectionRegular = () => {
 

@@ -95,24 +95,24 @@ table {
 }
 
 .solution {
-    <<<<<<< HEAD width: 100%;
+    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
     padding: 10px;
     background: rgba(12, 46, 110, 0.4); //0C2E6E+
-    =======background: rgba(67, 180, 227, 0.2);
+    background: rgba(67, 180, 227, 0.2);
     background: rgba(88, 160, 184, 0.2);
     background: rgba(12, 46, 110, 0.4); //0C2E6E
     background: rgba(87, 131, 212, 0.5); //5783D4
     background: rgba(36, 83, 169, 0.5); //2453A9 -
     background: rgba(52, 78, 127, 0.5); //344E7F -
-    > > > > > > > 7876abe02e32feb3543e98e2e7b82b3adfe0e3c4 backdrop-filter: blur(1px);
+    backdrop-filter: blur(1px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 10px;
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.4);
 
-    <<<<<<< HEAD=======&__show {
+    &__show {
         width: 100%;
         height: 100%;
         display: flex;
@@ -130,8 +130,6 @@ table {
     100% {
         opacity: 1;
     }
-
-    > > > > > > > 7876abe02e32feb3543e98e2e7b82b3adfe0e3c4
 }
 
 .section {
