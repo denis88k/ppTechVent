@@ -19,9 +19,17 @@
    cursor: pointer;
 
    &__active {
-      background: rgba(67, 180, 227, 0.2);
+      background-color: rgba(12, 46, 110, 0.4); //0C2E6E+ как на фоне
       backdrop-filter: blur(3px);
       border-top: 1px solid rgba(255, 255, 255, 0.2);
       border-right: 1px solid rgba(255, 255, 255, 0.2);
    }
 }
+
+// синий
+// #204BA0
+// #304878
+// #0A2A68
+// светлый синий
+// #537DD0
+// #7493D0

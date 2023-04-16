@@ -3,6 +3,7 @@ import fan from '../../../assets/img/section_fan.png'
 
 const SectionFan = () => {
     const optionsWheelFan = [22, 25, 28, 30, 31, 35, 40, 45, 50, 56, 63, 71, 80, 90, 100, 110]
+    const stepFindLengthFan = 5
 
     const [consumption, setConsumption] = useState(1000)
     const [wheelFan, setWheelFan] = useState(22)
@@ -11,38 +12,54 @@ const SectionFan = () => {
     const [maxSpeed, setMaxSpeed] = useState(4)
     const [maxLengthGV, setMaxLengthGV] = useState(250)
     const [minLengthGV, setMinLengthGV] = useState(250)
-    const [selectionLengthFan, setSelectionLengthFan] = useState(false)
+    const [changeLengthFan, setChangeLengthFan] = useState(false)
     const [focusLengthFan, setFocusLengthFan] = useState(false)
 
 
     const functionSolution = () => {
-        if (consumption && widthSection && lengthSectionFan && maxSpeed) {
+        if (consumption && wheelFan && widthSection && lengthSectionFan && maxSpeed) {
+            // min длина гибкой вставки
             let lengthMin = (consumption / (3600 * (maxSpeed / 1000) * (widthSection / 1000))).toFixed(0)
             lengthMin = Math.ceil(lengthMin / 10) * 10
-            let lengthMax, speedInSection
-            let newLengthSectionFan = +lengthSectionFan
+            let lengthMax, speedInLengthMax
+            let newLengthSectionFan = lengthSectionFan
 
             const calcLengthSpeed = () => {
                 // max длина гибкой вставки:
-                lengthMax = newLengthSectionFan - ((wheelFan * 10 / 2) + 100)
+                lengthMax = newLengthSectionFan - ((wheelFan / 2) + 100)
+
                 // скорость при данной длине гибкой вставки
-                speedInSection = (consumption / (3600 * (lengthMax / 1000) * (widthSection / 1000))).toFixed(2)
+                speedInLengthMax = +(consumption / (3600 * (lengthMax / 1000) * (widthSection / 1000))).toFixed(2)
             }
 
             calcLengthSpeed()
 
-            if (lengthMax <= 0 || +speedInSection >= maxSpeed) {
+            if (lengthMax <= 0 || speedInLengthMax >= maxSpeed) {
+                console.log(
+                    consumption, 'consumption;',
+                    wheelFan, 'wheelFan;',
+                    widthSection, 'widthSection;',
+                    lengthSectionFan, 'lengthSectionFan;',
+                    maxSpeed, 'maxSpeed;',
+                    lengthMin, 'lengthMin;',
+                    newLengthSectionFan, 'newLengthSectionFan = lengthSectionFan;',
+                    lengthMax, 'lengthMax;',
+                    speedInLengthMax, 'speedInLengthMax;',
+                )
                 let i = 0
-                while (lengthMax <= 0 || speedInSection > maxSpeed) {
+                while (lengthMax <= 0 || speedInLengthMax > maxSpeed) {
                     i++
-                    newLengthSectionFan = newLengthSectionFan + 5
+                    newLengthSectionFan = newLengthSectionFan + stepFindLengthFan
                     calcLengthSpeed()
                 }
-                newLengthSectionFan = Math.ceil((newLengthSectionFan - 5) / 10) * 10
-                // отнимаю -1, потому что в цикле выше делал +1
+                newLengthSectionFan = Math.ceil((newLengthSectionFan - stepFindLengthFan) / 10) * 10
+                // отнимаю 'stepFindLengthFan', потому что в цикле выше делал 'stepFindLengthFan'
+                console.log(lengthMax, 'lengthMax', speedInLengthMax, 'speedInLengthMax', newLengthSectionFan, 'newLengthSectionFan')
                 setLengthSectionFan(newLengthSectionFan)
-                setSelectionLengthFan(true)
+                setChangeLengthFan(true)
             };
+
+            lengthMax = Math.ceil(lengthMax / 10) * 10;
 
             (+lengthMin <= 250)
                 ? setMinLengthGV(250)
@@ -54,12 +71,13 @@ const SectionFan = () => {
     }
 
     useEffect(() => {
+        // console.log('focus useEffect', focusLengthFan)
         !focusLengthFan && functionSolution()
     }, [consumption, wheelFan, widthSection, maxSpeed, lengthSectionFan])
 
     useEffect(() => {
-        setSelectionLengthFan(false)
-    }, [consumption, wheelFan, maxSpeed, lengthSectionFan])
+        setChangeLengthFan(false)
+    }, [consumption, wheelFan, widthSection, maxSpeed])
 
     return (
         <section className='section'>
@@ -71,16 +89,16 @@ const SectionFan = () => {
                         className='form__input'
                         type="number"
                         value={consumption}
-                        onChange={(e) => setConsumption(e.target.value)}
+                        onChange={(e) => setConsumption(Number(e.target.value))}
                     />
                 </div>
                 <div className='form__item'>
                     {/* как точно он называется: размер колеса, диаметр колеса или как там???? */}
-                    <label className='form__label'>?Размер?колеса? (мм):</label>
+                    <label className='form__label'>Размер колеса (мм):</label>
                     <select
                         className='form__input'
                         value={wheelFan}
-                        onChange={(e) => setWheelFan(e.target.value)}
+                        onChange={(e) => setWheelFan(Number(e.target.value))}
                     >
                         {optionsWheelFan.map(wheel => (
                             <option key={'id-' + wheel} value={wheel * 10}>{wheel}</option>
@@ -88,29 +106,37 @@ const SectionFan = () => {
                     </select>
                 </div>
                 <div className='form__item'>
-                    <label className='form__label'>Ширина сечения (мм):</label>
+                    <label className='form__label'>Ширина Гибкой вставки (мм):</label>
                     <input
                         className='form__input'
                         type="number"
                         value={widthSection}
-                        onChange={(e) => setWidthSection(e.target.value)}
+                        onChange={(e) => setWidthSection(Number(e.target.value))}
                     />
                 </div>
                 <div className="form__item ">
                     <label className='form__label'>Длина секции вентилятора (мм):</label>
                     <input
-                        className={`form__input ${selectionLengthFan ? 'change_lengthFan' : ''}`}
+                        className='form__input'
                         type="number"
                         value={lengthSectionFan}
-                        onChange={(e) => { setLengthSectionFan(e.target.value) }}
+                        onChange={(e) => {
+                            setLengthSectionFan(Number(e.target.value))
+                            setChangeLengthFan(false)
+                            console.log('focus change', focusLengthFan)
+                        }}
                         onFocus={() => {
                             setFocusLengthFan(true)
+                            console.log('focus focus', focusLengthFan)
                         }}
                         onBlur={() => {
                             setFocusLengthFan(false)
                             functionSolution()
+                            console.log('focus blur', focusLengthFan)
                         }}
                     />
+                    {changeLengthFan && <div className='change_lengthFan' />}
+                    {/* <div className='change_lengthFan' /> */}
                 </div>
                 <div className='form__item'>
                     <label className='form__label'>Max скорость в Гибкой вставке (м/с):</label>
@@ -118,7 +144,7 @@ const SectionFan = () => {
                         className='form__input'
                         type="number"
                         value={maxSpeed}
-                        onChange={(e) => setMaxSpeed(e.target.value)}
+                        onChange={(e) => setMaxSpeed(Number(e.target.value))}
                     />
                 </div>
                 <div className='form__item'>

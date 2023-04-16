@@ -5,17 +5,29 @@
 
     &__table {
         width: 100%;
-        padding: 5px;
-        // margin-bottom: 60px;
-        // background-color: rgba(0, 0, 255, 0.123);
+        padding: 20px 5px 0 5px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
     }
 }
+
+
 
 .table {
     width: 100%;
     border-spacing: 0;
     color: white;
-    background-color: rgb(48 137 167 / 60%);
+    // background-color: rgb(48, 72, 120, 0.5);
+    // background-color: rgb(10, 42, 104, 0.5); //+
+    background-color: rgb(83, 125, 208, 0.5); //+
+
+    // синий
+    // #204BA0
+    // #304878
+    // #0A2A68
+    // светлый синий
+    // #537DD0
+    // #7493D0
 
     &,
     td,
@@ -36,7 +48,7 @@
         font-weight: 500;
         // background-color: rgba(0, 0, 255, 0.356);
         // background-color: rgba(67, 180, 227, 0.3);
-        background-color: #01253280;
+        background-color: rgba(1, 37, 50, 0.502);
     }
 
     td {
@@ -50,10 +62,12 @@
         &__match {
             // background-color: rgba(0, 128, 0, 0.5);
             background-color: rgba(1, 91, 32, 0.6);
+            background-color: rgba(7, 123, 15, 0.6); //077B0E
+            background-color: rgba(0, 101, 11, 0.6); // свой
         }
 
         &:hover {
-            border: 2px dashed white;
+            // border: 2px solid white;
             // background-color: rgba(0, 0, 255, 0.6);
             // background-color: #012633;
             background-color: rgba(1, 97, 129, 0.5);
@@ -77,10 +91,13 @@ $size: 30px;
     width: 100%;
     height: 60px;
     padding: 15px 0;
+    margin-top: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(48 137 167 / 60%);
+    // background-color: rgba(48, 72, 120, 0.5); //+
+    background-color: rgba(10, 42, 104, 0.5); //+
+    border-radius: 10px;
 }
 
 .mixer_text {
@@ -125,10 +142,3 @@ $size: 30px;
         right: -35px;
     }
 }
-
-// зелёный
-// #2EC716
-// #3F9532
-// #188107
-// #60E34C
-// #83E374

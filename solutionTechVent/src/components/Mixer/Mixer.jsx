@@ -55,9 +55,10 @@ const Mixer = () => {
         }
       })
       setResultTable([...results])
-      // console.log(results, 'results')
+      console.table(results, 'results')
       // console.log(result[9].totalPressureDrop, result[9].pumpPressure)
 
+      // проверка выполнения условий на авторитет и напор(давление) насоса
       const isMatch = (result) => (
         (
           (0.15 <= result.valveАuthority) || (0.15 * 0.9 <= result.valveАuthority)
@@ -88,7 +89,7 @@ const Mixer = () => {
         setTextCheckMark(mixerText)
         setTimeout(() => {
           setIsCheckMark(false)
-        }, 5000)
+        }, 10000)
       })
   }
 
@@ -98,7 +99,7 @@ const Mixer = () => {
 
   return (
     <div className='solution__show'>
-    <div className={styles.block__form}>
+      <div className={styles.block__form}>
         <form className='form'>
           <h3 className='form__title'>Расчёт смесительного узла</h3>
           <div className='form__item'>
@@ -148,26 +149,29 @@ const Mixer = () => {
               >
                 <td>{index}: {result.mixerName}</td>
                 <td>{result.valvePressureDrop.toFixed(roundingNumbers).replace(/\./, ',')}</td>
-                <td>0,25 (0,15)</td>
+                <td>0,25&nbsp;(0,15)</td>
                 {
                   (0.15 * 0.9 < result.valveАuthority)
                     ? <td>&lt;</td>
                     // : <td style={{ backgroundColor: 'rgba(255, 0, 0, 0.5)' }}>&gt;</td>
-                    : <td style={{ backgroundColor: 'rgba(125, 21, 2, 0.75)' }}>&gt;</td>
+                    // : <td style={{ backgroundColor: 'rgba(125, 21, 2, 0.75)' }}>&gt;</td>
+                    : <td style={{ backgroundColor: 'rgb(155, 12, 9, 0.75)' }}>&gt;</td>
                 }
                 <td>{result.valveАuthority.toFixed(roundingNumbers).replace(/\./, ',')}</td>
                 {
                   (result.valveАuthority < 0.8 * 1.1)
                     ? <td>&lt;</td>
                     // : <td style={{ backgroundColor: 'rgba(255, 0, 0, 0.5)' }}>&gt;</td>
-                    : <td style={{ backgroundColor: 'rgba(125, 21, 2, 0.75)' }}>&gt;</td>
+                    // : <td style={{ backgroundColor: 'rgba(125, 21, 2, 0.75)' }}>&gt;</td>
+                    : <td style={{ backgroundColor: 'rgb(155, 12, 9, 0.75)' }}>&gt;</td>
                 }
                 <td>0,8</td>
                 <td>{result.totalPressureDrop.toFixed(roundingNumbers).replace(/\./, ',')}</td>
                 {
                   (result.totalPressureDrop > result.pumpPressure)
                     // ? <td style={{ backgroundColor: 'rgba(255, 0, 0, 0.5)' }}>&gt;</td>
-                    ? <td style={{ backgroundColor: 'rgba(125, 21, 2, 0.75)' }}>&gt;</td>
+                    // ? <td style={{ backgroundColor: 'rgba(125, 21, 2, 0.75)' }}>&gt;</td>
+                    ? <td style={{ backgroundColor: 'rgb(155, 12, 9, 0.75)' }}>&gt;</td>
                     : <td>&lt;</td>
                 }
                 <td>{result.pumpPressure.toFixed(roundingNumbers).replace(/\./, ',')}</td>
@@ -186,40 +190,7 @@ const Mixer = () => {
 
       </div>
     </div>
-
-    // <div className='solution'>
-      
-    // </div>
   )
 }
 
 export default Mixer
-
-{/**
-без проверки условий
-<tr>
-			<td></td>
-			<td></td>
-			<td colspan="5"></td>
-			<td colspan="2"></td>
-			<td colspan="2"></td>
-		</tr> 
-*/}
-{
-  // откудато
-  //   <tr>
-  //   <th rowspan="2">Смеситель</th>
-  //   <th rowspan="2">Падение давления, кПа</th>
-  //   <th colspan="3">Проверка условий</th>
-  // </tr>
-  // <tr>
-  //   <th>Авторитет клапана</th>
-  //   <th>Напор насоса, кПа</th>
-  //   <th>Общее падение давления жидкости, кПа</th>
-  // </tr>
-}
-
-{/*
-  таблица вывода
-  -при наведении на строку: выделяется область пунктирными линиями и появляется надпись скопировать
-*/}

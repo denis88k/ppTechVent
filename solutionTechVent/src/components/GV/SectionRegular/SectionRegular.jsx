@@ -16,7 +16,7 @@ const SectionRegular = () => {
                 return setMinLengthGV(0)
             }
             if (maxSpeed) {
-                let lengthMin = +(consumption / (3600 * (maxSpeed / 1000) * (widthSection / 1000))).toFixed(0)
+                let lengthMin = (consumption / (3600 * (maxSpeed / 1000) * (widthSection / 1000))).toFixed(0)
                 lengthMin = Math.ceil(lengthMin / 10) * 10;
                 (lengthMin <= 250)
                     ? setMinLengthGV(250)
@@ -60,16 +60,16 @@ const SectionRegular = () => {
                         className='form__input'
                         type="number"
                         value={consumption}
-                        onChange={(e) => setConsumption(e.target.value)}
+                        onChange={(e) => setConsumption(Number(e.target.value))}
                     />
                 </div>
                 <div className='form__item'>
-                    <label className='form__label'>Ширина сечения (мм):</label>
+                    <label className='form__label'>Ширина Гибкой вставки (мм):</label>
                     <input
                         className='form__input'
                         type="number"
                         value={widthSection}
-                        onChange={(e) => setWidthSection(e.target.value)}
+                        onChange={(e) => setWidthSection(Number(e.target.value))}
                     />
                 </div>
                 <div className='form__item'>
@@ -80,7 +80,7 @@ const SectionRegular = () => {
                         value={maxSpeed}
                         onChange={(e) => {
                             focus !== 'speed' && setFocus('speed')
-                            setMaxSpeed(e.target.value)
+                            setMaxSpeed(Number(e.target.value))
                         }}
                     />
                 </div>
@@ -92,7 +92,7 @@ const SectionRegular = () => {
                         value={minLengthGV}
                         onChange={(e) => {
                             focus !== 'minLength' && setFocus('minLength')
-                            setMinLengthGV(e.target.value)
+                            setMinLengthGV(Number(e.target.value))
                         }}
                     />
                 </div>
