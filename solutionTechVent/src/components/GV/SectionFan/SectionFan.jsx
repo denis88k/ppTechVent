@@ -26,7 +26,7 @@ const SectionFan = ({ styles }) => {
 
             const calcLengthSpeed = () => {
                 // max длина гибкой вставки:
-                console.log(newLengthSectionFan, wheelFan, 'wheelFan')
+                // console.log(newLengthSectionFan, wheelFan, 'wheelFan')
                 lengthMax = newLengthSectionFan - ((wheelFan / 2) + 100)
 
                 // скорость при данной длине гибкой вставки
@@ -36,29 +36,29 @@ const SectionFan = ({ styles }) => {
             calcLengthSpeed()
 
             if (lengthMax <= 0 || speedInLengthMax >= maxSpeed || speedInLengthMax < 0) {
-                console.log(
-                    consumption, 'consumption;',
-                    wheelFan, 'wheelFan;',
-                    widthSection, 'widthSection;',
-                    lengthSectionFan, 'lengthSectionFan;',
-                    lengthMin, 'lengthMin;',
-                    newLengthSectionFan, 'newLengthSectionFan = lengthSectionFan;',
-                    lengthMax, 'lengthMax;',
-                    speedInLengthMax, 'speedInLengthMax;',
-                )
+                //console.log(
+                //     consumption, 'consumption;',
+                //     wheelFan, 'wheelFan;',
+                //     widthSection, 'widthSection;',
+                //     lengthSectionFan, 'lengthSectionFan;',
+                //     lengthMin, 'lengthMin;',
+                //     newLengthSectionFan, 'newLengthSectionFan = lengthSectionFan;',
+                //     lengthMax, 'lengthMax;',
+                //     speedInLengthMax, 'speedInLengthMax;',
+                // )
                 let i = 0
                 while (lengthMax <= 0 || speedInLengthMax >= maxSpeed || speedInLengthMax < 0) {
                     i++
                     newLengthSectionFan = newLengthSectionFan + stepFindLengthFan
                     calcLengthSpeed()
                 }
-                console.log(newLengthSectionFan)
+                //console.log(newLengthSectionFan)
                 newLengthSectionFan = Math.ceil((newLengthSectionFan - stepFindLengthFan) / multipleNumber) * multipleNumber
                 // отнимаю 'stepFindLengthFan', потому что в цикле выше делал 'stepFindLengthFan'
                 setLengthSectionFan(newLengthSectionFan)
                 setChangeLengthFan(true)
             };
-            console.log(lengthMin, 'lengthMin', lengthMax, 'lengthMax', speedInLengthMax, 'speedInLengthMax', newLengthSectionFan, 'newLengthSectionFan')
+            //console.log(lengthMin, 'lengthMin', lengthMax, 'lengthMax', speedInLengthMax, 'speedInLengthMax', newLengthSectionFan, 'newLengthSectionFan')
 
             lengthMin = Math.ceil(lengthMin / multipleNumber) * multipleNumber
             lengthMax = Math.ceil(lengthMax / multipleNumber) * multipleNumber;
@@ -125,16 +125,13 @@ const SectionFan = ({ styles }) => {
                         onChange={(e) => {
                             setLengthSectionFan(Number(e.target.value))
                             setChangeLengthFan(false)
-                            console.log('focus change', focusLengthFan)
                         }}
                         onFocus={() => {
                             setFocusLengthFan(true)
-                            console.log('focus focus', focusLengthFan)
                         }}
                         onBlur={() => {
                             setFocusLengthFan(false)
                             functionSolution()
-                            console.log('focus blur', focusLengthFan)
                         }}
                     />
                     {changeLengthFan && <div className={styles.change_lengthFan} />}
