@@ -64,14 +64,14 @@ function fanSection() {
 
    function hv() {
       h = (t - ((m / 2) + 100)) // длина гибкой вставки
-      v = +(d / (3600 * (h / 1000) * (f / 1000))).toFixed(2) // скорость в сечении:
+      v = (d / (3600 * (h / 1000) * (f / 1000))).toFixed(2) // скорость в сечении:
    };
 
    hv()
 
    if (d && f && t && m && n) {
-      if (h <= 0 || v >= n) {
-         console.log(n, 'скорость')
+      if (h <= 0 || +v >= n) {
+         console.log(v, 'скорость')
          let i = 0
          for (; (h <= 0 || v >= n); t = t + 1) {
             console.log(t, i, v)

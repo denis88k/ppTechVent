@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import regular from '../../../assets/img/section_regular.png'
 
-const SectionRegular = () => {
+const SectionRegular = ({ styles }) => {
+
+    const multipleNumber = 50
 
     const [consumption, setConsumption] = useState(1000)
     const [widthSection, setWidthSection] = useState(500)
@@ -17,7 +19,7 @@ const SectionRegular = () => {
             }
             if (maxSpeed) {
                 let lengthMin = (consumption / (3600 * (maxSpeed / 1000) * (widthSection / 1000))).toFixed(0)
-                lengthMin = Math.ceil(lengthMin / 10) * 10;
+                lengthMin = Math.ceil(lengthMin / multipleNumber) * multipleNumber;
                 (lengthMin <= 250)
                     ? setMinLengthGV(250)
                     : setMinLengthGV(lengthMin)
@@ -50,7 +52,7 @@ const SectionRegular = () => {
 
 
     return (
-        <section className='section'>
+        <section className={styles.section}>
 
             <form className='form'>
                 <h3 className='form__title'>Расчёт в обычной секции</h3>
@@ -98,7 +100,7 @@ const SectionRegular = () => {
                 </div>
             </form>
 
-            <div className='img'>
+            <div className={styles.img}>
                 <img src={regular} alt="обычная секция" />
             </div>
         </section>

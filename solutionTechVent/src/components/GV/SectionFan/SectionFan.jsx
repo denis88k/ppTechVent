@@ -1,65 +1,67 @@
 import { useEffect, useState } from 'react'
 import fan from '../../../assets/img/section_fan.png'
 
-const SectionFan = () => {
+const SectionFan = ({ styles }) => {
     const optionsWheelFan = [22, 25, 28, 30, 31, 35, 40, 45, 50, 56, 63, 71, 80, 90, 100, 110]
     const stepFindLengthFan = 5
+    const multipleNumber = 50
 
     const [consumption, setConsumption] = useState(1000)
-    const [wheelFan, setWheelFan] = useState(22)
+    const [wheelFan, setWheelFan] = useState(220)
     const [widthSection, setWidthSection] = useState(500)
     const [lengthSectionFan, setLengthSectionFan] = useState(700)
     const [maxSpeed, setMaxSpeed] = useState(4)
-    const [maxLengthGV, setMaxLengthGV] = useState(250)
-    const [minLengthGV, setMinLengthGV] = useState(250)
+    const [maxLengthGV, setMaxLengthGV] = useState()
+    const [minLengthGV, setMinLengthGV] = useState()
     const [changeLengthFan, setChangeLengthFan] = useState(false)
     const [focusLengthFan, setFocusLengthFan] = useState(false)
-
 
     const functionSolution = () => {
         if (consumption && wheelFan && widthSection && lengthSectionFan && maxSpeed) {
             // min длина гибкой вставки
-            let lengthMin = (consumption / (3600 * (maxSpeed / 1000) * (widthSection / 1000))).toFixed(0)
-            lengthMin = Math.ceil(lengthMin / 10) * 10
+            let lengthMin = (consumption / (3600 * (maxSpeed / 1000) * (widthSection / 1000)))
+
             let lengthMax, speedInLengthMax
             let newLengthSectionFan = lengthSectionFan
 
             const calcLengthSpeed = () => {
                 // max длина гибкой вставки:
+                console.log(newLengthSectionFan, wheelFan, 'wheelFan')
                 lengthMax = newLengthSectionFan - ((wheelFan / 2) + 100)
 
                 // скорость при данной длине гибкой вставки
-                speedInLengthMax = +(consumption / (3600 * (lengthMax / 1000) * (widthSection / 1000))).toFixed(2)
+                speedInLengthMax = consumption / (3600 * (lengthMax / 1000) * (widthSection / 1000))
             }
 
             calcLengthSpeed()
 
-            if (lengthMax <= 0 || speedInLengthMax >= maxSpeed) {
+            if (lengthMax <= 0 || speedInLengthMax >= maxSpeed || speedInLengthMax < 0) {
                 console.log(
                     consumption, 'consumption;',
                     wheelFan, 'wheelFan;',
                     widthSection, 'widthSection;',
                     lengthSectionFan, 'lengthSectionFan;',
-                    maxSpeed, 'maxSpeed;',
                     lengthMin, 'lengthMin;',
                     newLengthSectionFan, 'newLengthSectionFan = lengthSectionFan;',
                     lengthMax, 'lengthMax;',
                     speedInLengthMax, 'speedInLengthMax;',
                 )
                 let i = 0
-                while (lengthMax <= 0 || speedInLengthMax > maxSpeed) {
+                while (lengthMax <= 0 || speedInLengthMax >= maxSpeed || speedInLengthMax < 0) {
                     i++
                     newLengthSectionFan = newLengthSectionFan + stepFindLengthFan
                     calcLengthSpeed()
                 }
-                newLengthSectionFan = Math.ceil((newLengthSectionFan - stepFindLengthFan) / 10) * 10
+                console.log(newLengthSectionFan)
+                newLengthSectionFan = Math.ceil((newLengthSectionFan - stepFindLengthFan) / multipleNumber) * multipleNumber
                 // отнимаю 'stepFindLengthFan', потому что в цикле выше делал 'stepFindLengthFan'
-                console.log(lengthMax, 'lengthMax', speedInLengthMax, 'speedInLengthMax', newLengthSectionFan, 'newLengthSectionFan')
                 setLengthSectionFan(newLengthSectionFan)
                 setChangeLengthFan(true)
             };
+            console.log(lengthMin, 'lengthMin', lengthMax, 'lengthMax', speedInLengthMax, 'speedInLengthMax', newLengthSectionFan, 'newLengthSectionFan')
 
-            lengthMax = Math.ceil(lengthMax / 10) * 10;
+            lengthMin = Math.ceil(lengthMin / multipleNumber) * multipleNumber
+            lengthMax = Math.ceil(lengthMax / multipleNumber) * multipleNumber;
 
             (+lengthMin <= 250)
                 ? setMinLengthGV(250)
@@ -80,7 +82,7 @@ const SectionFan = () => {
     }, [consumption, wheelFan, widthSection, maxSpeed])
 
     return (
-        <section className='section'>
+        <section className={styles.section}>
             <form className='form'>
                 <h3 className='form__title'>Расчёт в секции вентилятора</h3>
                 <div className='form__item'>
@@ -135,7 +137,7 @@ const SectionFan = () => {
                             console.log('focus blur', focusLengthFan)
                         }}
                     />
-                    {changeLengthFan && <div className='change_lengthFan' />}
+                    {changeLengthFan && <div className={styles.change_lengthFan} />}
                     {/* <div className='change_lengthFan' /> */}
                 </div>
                 <div className='form__item'>
@@ -158,7 +160,7 @@ const SectionFan = () => {
 
             </form>
 
-            <div className='img'>
+            <div className={styles.img}>
                 <img src={fan} alt="секция вентилятора" />
             </div>
         </section>

@@ -55,7 +55,7 @@ const Mixer = () => {
         }
       })
       setResultTable([...results])
-      console.table(results, 'results')
+      console.log(results, 'results')
       // console.log(result[9].totalPressureDrop, result[9].pumpPressure)
 
       // проверка выполнения условий на авторитет и напор(давление) насоса
