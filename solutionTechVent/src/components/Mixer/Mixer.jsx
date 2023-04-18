@@ -147,7 +147,7 @@ const Mixer = () => {
                 key={result.mixerName}
                 onClick={() => copyNameMixer(result.mixerName)}
               >
-                <td>{index}: {result.mixerName}</td>
+                <td>{result.mixerName}</td>
                 <td>{result.valvePressureDrop.toFixed(roundingNumbers).replace(/\./, ',')}</td>
                 <td>0,25&nbsp;(0,15)</td>
                 {
@@ -187,7 +187,7 @@ const Mixer = () => {
             </p>
           )}
         </div>
-
+        
       </div>
     </div>
   )

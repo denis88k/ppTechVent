@@ -18,6 +18,11 @@ const SectionFan = ({ styles }) => {
 
     const functionSolution = () => {
         if (consumption && wheelFan && widthSection && lengthSectionFan && maxSpeed) {
+            if(lengthSectionFan<500){
+                setLengthSectionFan(500)
+                console.log('lengthSectionFan<550', lengthSectionFan)
+                return
+            }
             // min длина гибкой вставки
             let lengthMin = (consumption / (3600 * (maxSpeed / 1000) * (widthSection / 1000)))
 
@@ -28,7 +33,7 @@ const SectionFan = ({ styles }) => {
                 // max длина гибкой вставки:
                 // console.log(newLengthSectionFan, wheelFan, 'wheelFan')
                 lengthMax = newLengthSectionFan - ((wheelFan / 2) + 100)
-
+                console.log('lengthSectionFan', lengthSectionFan)
                 // скорость при данной длине гибкой вставки
                 speedInLengthMax = consumption / (3600 * (lengthMax / 1000) * (widthSection / 1000))
             }
@@ -52,7 +57,7 @@ const SectionFan = ({ styles }) => {
                     newLengthSectionFan = newLengthSectionFan + stepFindLengthFan
                     calcLengthSpeed()
                 }
-                //console.log(newLengthSectionFan)
+                console.log(newLengthSectionFan, 'после цикла')
                 newLengthSectionFan = Math.ceil((newLengthSectionFan - stepFindLengthFan) / multipleNumber) * multipleNumber
                 // отнимаю 'stepFindLengthFan', потому что в цикле выше делал 'stepFindLengthFan'
                 setLengthSectionFan(newLengthSectionFan)

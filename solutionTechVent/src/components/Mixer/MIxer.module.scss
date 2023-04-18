@@ -11,8 +11,6 @@
     }
 }
 
-
-
 .table {
     width: 100%;
     border-spacing: 0;
@@ -116,7 +114,7 @@ $size: 30px;
         right: -5px;
         overflow: hidden;
         font-size: 40px;
-        color: green;
+        color: rgb(0, 199, 0);
         animation: checkShow 1.7s ease 1 0.45s forwards;
     }
 }
