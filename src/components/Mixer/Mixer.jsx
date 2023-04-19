@@ -88,7 +88,7 @@ const Mixer = () => {
         setTextCheckMark(mixerText)
         setTimeout(() => {
           setIsCheckMark(false)
-        }, 10000)
+        }, 8888)
       })
   }
 
