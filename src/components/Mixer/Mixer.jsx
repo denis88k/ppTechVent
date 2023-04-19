@@ -167,7 +167,7 @@ const Mixer = () => {
                 <td>0,8</td>
                 <td>{result.totalPressureDrop.toFixed(roundingNumbers).replace(/\./, ',')}</td>
                 {
-                  (result.totalPressureDrop <= (result.pumpPressure*1.1))
+                  (result.totalPressureDrop <= (result.pumpPressure * 1.1))
                     // ? <td style={{ backgroundColor: 'rgba(255, 0, 0, 0.5)' }}>&gt;</td>
                     // ? <td style={{ backgroundColor: 'rgba(125, 21, 2, 0.75)' }}>&gt;</td>
                     ? <td>&lt;</td>
@@ -186,7 +186,7 @@ const Mixer = () => {
             </p>
           )}
         </div>
-        
+
       </div>
     </div>
   )
