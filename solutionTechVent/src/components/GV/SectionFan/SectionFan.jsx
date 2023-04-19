@@ -99,7 +99,7 @@ const SectionFan = ({ styles }) => {
                         onChange={(e) => setConsumption(Number(e.target.value))}
                     />
                 </div>
-                <div className='form__item'>
+                <div className='form__item select'>
                     {/* как точно он называется: размер колеса, диаметр колеса или как там???? */}
                     <label className='form__label'>Размер колеса (мм):</label>
                     <select

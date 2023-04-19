@@ -181,6 +181,36 @@ table {
     }
 }
 
+option {
+    // background-color: rgba(87, 159, 183, 0.55);
+    // background-color: rgba(5, 61, 79);
+    background-color: rgba(1, 37, 50, 0.502);
+    backdrop-filter: blur(3px);
+}
+select{
+    appearance: none;
+}
+
+.select{
+    position: relative;
+}
+
+.select::after{
+    position: absolute;
+    content: '\25BC';
+    top: 6px;
+    right: 5px;
+    display: block;
+    pointer-events: none;
+    font-size: 12px;
+    transition: .25s all linear;
+}
+
+.select.active::after {
+    -webkit-transform: rotate(-180deg);
+    -ms-transform: rotate(-180deg);
+    transform: rotate(-180deg);
+}
 
 
 // синий
