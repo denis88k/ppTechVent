@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import GV from './components/GV/GV'
 import Mixer from './components/Mixer/Mixer'
@@ -9,7 +9,6 @@ import Tabs from './components/Tabs/Tabs'
 
 function App() {
 
-  // const [tabs, setTabs] = useState('GV')
   const [tabs, setTabs] = useState('GV')
 
   return (

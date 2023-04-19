@@ -11,14 +11,14 @@ const SectionFan = ({ styles }) => {
     const [widthSection, setWidthSection] = useState(500)
     const [lengthSectionFan, setLengthSectionFan] = useState(700)
     const [maxSpeed, setMaxSpeed] = useState(4)
-    const [maxLengthGV, setMaxLengthGV] = useState()
-    const [minLengthGV, setMinLengthGV] = useState()
+    const [maxLengthGV, setMaxLengthGV] = useState(0)
+    const [minLengthGV, setMinLengthGV] = useState(0)
     const [changeLengthFan, setChangeLengthFan] = useState(false)
     const [focusLengthFan, setFocusLengthFan] = useState(false)
 
     const functionSolution = () => {
         if (consumption && wheelFan && widthSection && lengthSectionFan && maxSpeed) {
-            if(lengthSectionFan<500){
+            if(lengthSectionFan < 500){
                 setLengthSectionFan(500)
                 console.log('lengthSectionFan<550', lengthSectionFan)
                 return
@@ -41,16 +41,16 @@ const SectionFan = ({ styles }) => {
             calcLengthSpeed()
 
             if (lengthMax <= 0 || speedInLengthMax >= maxSpeed || speedInLengthMax < 0) {
-                //console.log(
-                //     consumption, 'consumption;',
-                //     wheelFan, 'wheelFan;',
-                //     widthSection, 'widthSection;',
-                //     lengthSectionFan, 'lengthSectionFan;',
-                //     lengthMin, 'lengthMin;',
-                //     newLengthSectionFan, 'newLengthSectionFan = lengthSectionFan;',
-                //     lengthMax, 'lengthMax;',
-                //     speedInLengthMax, 'speedInLengthMax;',
-                // )
+                console.log(
+                    consumption, 'consumption;',
+                    wheelFan, 'wheelFan;',
+                    widthSection, 'widthSection;',
+                    lengthSectionFan, 'lengthSectionFan;',
+                    lengthMin, 'lengthMin;',
+                    newLengthSectionFan, 'newLengthSectionFan = lengthSectionFan;',
+                    lengthMax, 'lengthMax;',
+                    speedInLengthMax, 'speedInLengthMax;',
+                )
                 let i = 0
                 while (lengthMax <= 0 || speedInLengthMax >= maxSpeed || speedInLengthMax < 0) {
                     i++
@@ -71,14 +71,12 @@ const SectionFan = ({ styles }) => {
             (+lengthMin <= 250)
                 ? setMinLengthGV(250)
                 : setMinLengthGV(lengthMin);
-            (+lengthMax <= 250)
-                ? setMaxLengthGV(250)
-                : setMaxLengthGV(lengthMax)
+
+            setMaxLengthGV(lengthMax)
         }
     }
 
     useEffect(() => {
-        // console.log('focus useEffect', focusLengthFan)
         !focusLengthFan && functionSolution()
     }, [consumption, wheelFan, widthSection, maxSpeed, lengthSectionFan])
 
@@ -100,7 +98,6 @@ const SectionFan = ({ styles }) => {
                     />
                 </div>
                 <div className='form__item select'>
-                    {/* как точно он называется: размер колеса, диаметр колеса или как там???? */}
                     <label className='form__label'>Размер колеса (мм):</label>
                     <select
                         className='form__input'

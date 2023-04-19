@@ -8,7 +8,6 @@ const Mixer = () => {
   const [resultTable, setResultTable] = useState([])
   const [ischeckMark, setIsCheckMark] = useState(false)
   const [textCheckMark, setTextCheckMark] = useState('')
-  // TODO делать проверку на NaN на ввод
 
   const roundingNumbers = 2
   const mixerName = [
@@ -141,7 +140,7 @@ const Mixer = () => {
 
           <tbody className="table__result">
             {/* может когда нет данных в массиве добавлять цитаты великих людей */}
-            {resultTable.map((result, index) => (
+            {resultTable.map((result) => (
               <tr
                 className={[styles.row, result.match ? styles.row__match : ''].join(' ')}
                 key={result.mixerName}
@@ -151,7 +150,7 @@ const Mixer = () => {
                 <td>{result.valvePressureDrop.toFixed(roundingNumbers).replace(/\./, ',')}</td>
                 <td>0,25&nbsp;(0,15)</td>
                 {
-                  (0.15 * 0.9 < result.valveАuthority)
+                  (0.15 * 0.9 <= result.valveАuthority)
                     ? <td>&lt;</td>
                     // : <td style={{ backgroundColor: 'rgba(255, 0, 0, 0.5)' }}>&gt;</td>
                     // : <td style={{ backgroundColor: 'rgba(125, 21, 2, 0.75)' }}>&gt;</td>
@@ -159,7 +158,7 @@ const Mixer = () => {
                 }
                 <td>{result.valveАuthority.toFixed(roundingNumbers).replace(/\./, ',')}</td>
                 {
-                  (result.valveАuthority < 0.8 * 1.1)
+                  (result.valveАuthority <= 0.8 * 1.1)
                     ? <td>&lt;</td>
                     // : <td style={{ backgroundColor: 'rgba(255, 0, 0, 0.5)' }}>&gt;</td>
                     // : <td style={{ backgroundColor: 'rgba(125, 21, 2, 0.75)' }}>&gt;</td>
@@ -168,11 +167,11 @@ const Mixer = () => {
                 <td>0,8</td>
                 <td>{result.totalPressureDrop.toFixed(roundingNumbers).replace(/\./, ',')}</td>
                 {
-                  (result.totalPressureDrop > result.pumpPressure)
+                  (result.totalPressureDrop <= (result.pumpPressure*1.1))
                     // ? <td style={{ backgroundColor: 'rgba(255, 0, 0, 0.5)' }}>&gt;</td>
                     // ? <td style={{ backgroundColor: 'rgba(125, 21, 2, 0.75)' }}>&gt;</td>
-                    ? <td style={{ backgroundColor: 'rgb(155, 12, 9, 0.75)' }}>&gt;</td>
-                    : <td>&lt;</td>
+                    ? <td>&lt;</td>
+                    : <td style={{ backgroundColor: 'rgb(155, 12, 9, 0.75)' }}>&gt;</td>
                 }
                 <td>{result.pumpPressure.toFixed(roundingNumbers).replace(/\./, ',')}</td>
               </tr>
