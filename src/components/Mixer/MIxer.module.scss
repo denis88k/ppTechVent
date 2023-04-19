@@ -1,0 +1,142 @@
+.block {
+    &__form {
+        align-self: center;
+    }
+
+    &__table {
+        width: 100%;
+        padding: 20px 5px 0 5px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+}
+
+.table {
+    width: 100%;
+    border-spacing: 0;
+    color: white;
+    // background-color: rgb(48, 72, 120, 0.5);
+    // background-color: rgb(10, 42, 104, 0.5); //+
+    background-color: rgb(83, 125, 208, 0.5); //+
+
+    // синий
+    // #204BA0
+    // #304878
+    // #0A2A68
+    // светлый синий
+    // #537DD0
+    // #7493D0
+
+    &,
+    td,
+    th {
+        border: 1px solid white;
+    }
+
+    td,
+    th {
+        width: 30px;
+        min-height: 35px;
+        padding: 8px 5px;
+        text-align: center;
+    }
+
+    th {
+        font-size: 18px;
+        font-weight: 500;
+        // background-color: rgba(0, 0, 255, 0.356);
+        // background-color: rgba(67, 180, 227, 0.3);
+        background-color: rgba(1, 37, 50, 0.5);
+    }
+
+    td {
+        font-size: 18px;
+    }
+
+    .row {
+        position: relative;
+        transition: background-color .15s ease;
+
+        &__match {
+            // background-color: rgba(0, 128, 0, 0.5);
+            // background-color: rgba(1, 91, 32, 0.6);
+            // background-color: rgba(7, 123, 15, 0.6); //077B0E
+            background-color: rgba(0, 101, 11, 0.6); // свой
+        }
+
+        &:hover {
+            // border: 2px solid white;
+            // background-color: rgba(0, 0, 255, 0.6);
+            // background-color: #012633;
+            background-color: rgba(1, 97, 129, 0.5);
+            cursor: url('../../assets/img/banana.png'), pointer;
+        }
+
+        .clipboard {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(95, 158, 160, 0.5);
+        }
+    }
+}
+
+$size: 30px;
+
+.mixer_choice {
+    width: 100%;
+    height: 60px;
+    padding: 15px 0;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // background-color: rgba(48, 72, 120, 0.5); //+
+    background-color: rgba(10, 42, 104, 0.5); //+
+    border-radius: 10px;
+}
+
+.mixer_text {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 22px;
+    color: white;
+    animation: textShow 0.25s ease 1 forwards;
+
+    @keyframes textShow {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    &::after {
+        position: absolute;
+        content: '\2713';
+        width: 0;
+        right: -5px;
+        overflow: hidden;
+        font-size: 40px;
+        color: rgb(0, 199, 0);
+        animation: checkShow 1.7s ease 1 0.45s forwards;
+
+        @keyframes checkShow {
+            0% {
+                width: 0;
+                right: -5px;
+            }
+
+            100% {
+                width: $size;
+                right: -35px;
+            }
+        }
+    }
+}

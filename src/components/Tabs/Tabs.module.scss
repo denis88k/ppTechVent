@@ -1,0 +1,35 @@
+.tabs {
+   &__inner {
+      display: flex;
+      justify-content: space-around;
+   }
+}
+
+.tab {
+   width: 300px;
+   height: 45px;
+   padding-top: 10px;
+   font-size: 20px;
+   font-weight: 500;
+   text-align: center;
+   color: white;
+   border-top-left-radius: 10px;
+   border-top-right-radius: 10px;
+   transition: all .4s ease;
+   cursor: pointer;
+
+   &__active {
+      background-color: rgba(12, 46, 110, 0.4); //0C2E6E+ как на фоне
+      backdrop-filter: blur(3px);
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      border-right: 1px solid rgba(255, 255, 255, 0.2);
+   }
+}
+
+// синий
+// #204BA0
+// #304878
+// #0A2A68
+// светлый синий
+// #537DD0
+// #7493D0
