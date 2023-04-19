@@ -59,8 +59,8 @@
 
         &__match {
             // background-color: rgba(0, 128, 0, 0.5);
-            background-color: rgba(1, 91, 32, 0.6);
-            background-color: rgba(7, 123, 15, 0.6); //077B0E
+            // background-color: rgba(1, 91, 32, 0.6);
+            // background-color: rgba(7, 123, 15, 0.6); //077B0E
             background-color: rgba(0, 101, 11, 0.6); // свой
         }
 
@@ -107,6 +107,16 @@ $size: 30px;
     color: white;
     animation: textShow 0.25s ease 1 forwards;
 
+    @keyframes textShow {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
     &::after {
         position: absolute;
         content: '\2713';
@@ -116,27 +126,17 @@ $size: 30px;
         font-size: 40px;
         color: rgb(0, 199, 0);
         animation: checkShow 1.7s ease 1 0.45s forwards;
-    }
-}
 
-@keyframes textShow {
-    0% {
-        opacity: 0;
-    }
+        @keyframes checkShow {
+            0% {
+                width: 0;
+                right: -5px;
+            }
 
-    100% {
-        opacity: 1;
-    }
-}
-
-@keyframes checkShow {
-    0% {
-        width: 0;
-        right: -5px;
-    }
-
-    100% {
-        width: $size;
-        right: -35px;
+            100% {
+                width: $size;
+                right: -35px;
+            }
+        }
     }
 }
