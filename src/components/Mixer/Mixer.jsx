@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { valves, pumps } from './../../utils/dataMixer'
+import { valves, pumps } from './../../utils/dataMixer.js'
 import styles from './Mixer.module.scss'
 
 const Mixer = () => {
