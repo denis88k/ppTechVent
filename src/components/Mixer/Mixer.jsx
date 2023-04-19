@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import styles from './Mixer.module.scss'
 import { valves, pumps } from './data'
+import styles from './Mixer.module.scss'
 
 const Mixer = () => {
   const [consumption, setConsumption] = useState(0.5)
