@@ -80,7 +80,7 @@ const Mixer = () => {
   }
 
   function copyNameMixer(mixerName) {
-    const mixerText = `Смесительный узел SU ${mixerName} с 2-х ходовым клапаном`
+    const mixerText = `Смесительный узел SU ${mixerName} с 2-х ходовым клапаном`;
     navigator.clipboard
       .writeText(mixerText)
       .then(() => {

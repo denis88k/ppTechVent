@@ -1,10 +1,10 @@
 import { useState } from 'react'
 
+import Header from './components/Header/Header'
+import Tabs from './components/Tabs/Tabs'
 import GV from './components/GV/GV'
 import Mixer from './components/Mixer/Mixer'
 import Footer from './components/Footer/Footer'
-import Header from './components/Header/Header'
-import Tabs from './components/Tabs/Tabs'
 
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
               {
                 tabs === 'GV'
                   ? <GV />
-                  : <Mixer />
+                  : <Mixer/>
               }
               </div>
             </div>
