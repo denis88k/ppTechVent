@@ -312,12 +312,11 @@ const Mixer = () => {
         </table>
 
         <div className={styles.mixer_choice}>
-          {/* ischeckMark && */}
-          {
+          {ischeckMark && (
             <p className={styles.mixer_text}>
               <u>Скопирован:</u>&#x2002; <i>{textCheckMark}</i>
             </p>
-          }
+          )}
         </div>
       </div>
     </div>
