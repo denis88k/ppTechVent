@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import styles from "./Mixer.module.scss";
 import { pumps, valves } from "./data";
@@ -242,9 +243,9 @@ const Mixer = () => {
               </th>
             </tr>
           </thead>
+
           {/* &gt; - >;  &lt; - <*/}
           {/* &#8814; - не меньше, зачёркнутое меньше </ */}
-
           <tbody className="table__result">
             {/* может когда нет данных в массиве добавлять цитаты великих людей */}
             {resultTable.map((result) => (
@@ -292,7 +293,8 @@ const Mixer = () => {
                     .toFixed(roundingNumbers)
                     .replace(/\./, ",")}
                 </td>
-                {result.totalPressureDrop <= result.pumpPressure * 1.1 ? (
+                {
+                  result.totalPressureDrop <= result.pumpPressure * 1.1 ? (
                   // ? <td style={{ backgroundColor: 'rgba(255, 0, 0, 0.5)' }}>&gt;</td>
                   // ? <td style={{ backgroundColor: 'rgba(125, 21, 2, 0.75)' }}>&gt;</td>
                   <td>&lt;</td>
@@ -312,9 +314,8 @@ const Mixer = () => {
         </table>
 
         <div className={styles.mixer_choice}>
-          {/* ischeckMark && */}
           {
-            <p className={styles.mixer_text}>
+            <ischeckMark && p className={styles.mixer_text}>
               <u>Скопирован:</u>&#x2002; <i>{textCheckMark}</i>
             </p>
           }
