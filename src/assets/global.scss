@@ -124,7 +124,7 @@ table {
 .form {
   display: flex;
   flex-direction: column;
-  row-gap: 15px;
+  row-gap: 11px;
   padding: 10px;
   font-weight: 300;
   color: white;
@@ -183,36 +183,6 @@ table {
   display: flex;
   $sizeRadio: 18px;
   $sizeRadioIn: 13px;
-  // position: relative;
-  // padding-right: 25px;
-  // &::before {
-  // 	content: '';
-  // 	position: absolute;
-  // 	width: $sizeRadio;
-  // 	height: $sizeRadio;
-  // 	border: 1px solid rgba(255, 255, 255, 0);
-  // 	display: block;
-  // 	right: 0;
-  // 	border-radius: 50%;
-  // 	top: 50%;
-  // 	transform: translateY(-50%);
-  // 	background-color: rgba(87, 159, 183, 0.55);
-  // }
-  // &::after {
-  // 	content: '';
-  // 	position: absolute;
-  // 	display: block;
-  // 	width: $sizeRadioIn;
-  // 	height: $sizeRadioIn;
-  // 	right: calc((#{$sizeRadio} - #{$sizeRadioIn}) / 2);
-  // 	opacity: 0;
-  // 	border-radius: 50%;
-  // 	top: 50%;
-  // 	transform: translateY(-50%);
-  // 	background-color: white;
-  // 	transition: all 0.2s ease;
-  // 	backdrop-filter: blur(3px);
-  // }
   span {
     margin-left: 5px;
     position: relative;
