@@ -118,7 +118,7 @@ const SectionFan = ({ styles }) => {
                         onChange={(e) => setWidthSection(Number(e.target.value))}
                     />
                 </div>
-                <div className=`form__item ${styles.fan_length}`>
+                <div className=`'form__item' ${styles.fan_length}`>
                     <label className='form__label'>Длина секции вентилятора (мм):</label>
                     <input
                         className='form__input'
