@@ -1,0 +1,24 @@
+option {
+	background-color: rgba(1, 37, 50, 0.5);
+	backdrop-filter: blur(3px);
+}
+
+select {
+	appearance: none;
+	cursor: pointer;
+}
+
+.Select {
+	position: relative;
+}
+
+.Select::after {
+	position: absolute;
+	content: '\25BC';
+	top: 6px;
+	right: 5px;
+	display: block;
+	pointer-events: none;
+	font-size: 12px;
+	transition: 0.25s all linear;
+}
