@@ -37,8 +37,10 @@ export const Mixer = () => {
 	const [isThermomanometer, setIsThermomanometer] = useState(false);
 	const [reverseConfig, setReverseConfig] = useState('');
 	const [thermomanometer, setThermomanometer] = useState('');
+	const [processShowText, setProcessShowText] = useState(true);
 
-	const roundingNumbers = 2;
+	const replaceReg = (/\./, ','); // замена точек, на запятые
+	const roundingNumbers = 2; // округление до 2 чисел после запятой
 	const mixerName = [
 		'15-1',
 		'15-1,6',
@@ -111,35 +113,38 @@ export const Mixer = () => {
 			setIsCheckMark(false);
 			setIsCheckMark(true);
 			setTextCheckMark(mixerText);
-			setTimeout(() => {
-				setIsCheckMark(false);
-			}, 8888);
+			// TODO: решить проблему с исчезающим текстом скопировано...
+			processShowText &&
+				setTimeout(() => {
+					setProcessShowText(false);
+					setIsCheckMark(false);
+					setProcessShowText(true);
+				}, 8888);
 		});
 	}
-	// TODO: переделать на вот это: valve == '2' ? true : false;
-	const onCheckedRadio = value => {
-		console.log(value, valve);
-		return valve == value ? true : false;
-	};
 
 	const onChangeType = e => {
-		setType(e.target.value);
+		setType(e.target.id);
 	};
 	const onChangeValve = e => {
-		setValve(e.target.value);
+		setValve(e.target.id);
 	};
 
 	const onChangeReverseConfig = () => {
+		console.log(isReverseConfig, 'isReverseConfig');
 		setIsReverseConfig(!isReverseConfig);
-		isReverseConfig
-			? setReverseConfig(' и термоманометрами')
+		console.log(isReverseConfig, 'isReverseConfig');
+		!isReverseConfig
+			? setReverseConfig(' (Обратной конфигурации)')
 			: setReverseConfig('');
 	};
 
 	const onChangeThermomanometer = () => {
+		console.log(isThermomanometer, 'isReverseConfig');
 		setIsThermomanometer(!isThermomanometer);
-		isReverseConfig
-			? setThermomanometer(' (Обратной конфигурации)')
+		console.log(isThermomanometer, 'isReverseConfig');
+		!isThermomanometer
+			? setThermomanometer(' и термоманометрами')
 			: setThermomanometer('');
 	};
 
@@ -150,7 +155,7 @@ export const Mixer = () => {
 	const resultMixerName = result => <td>{result.mixerName}</td>;
 	const resultValvePressureDrop = result => (
 		<td>
-			{result.valvePressureDrop.toFixed(roundingNumbers).replace(/\./, ',')}
+			{result.valvePressureDrop.toFixed(roundingNumbers).replace(replaceReg)}
 		</td>
 	);
 	const startValveAuthority = <td>0,25&nbsp;0,15</td>;
@@ -161,7 +166,9 @@ export const Mixer = () => {
 			<td className={cls.notMatch}>&gt;</td>
 		);
 	const resultValveAuthority = result => (
-		<td>{result.valveAuthority.toFixed(roundingNumbers).replace(/\./, ',')}</td>
+		<td>
+			{result.valveAuthority.toFixed(roundingNumbers).replace(replaceReg)}
+		</td>
 	);
 	const rightArrowValveAuthority = result =>
 		result.valveAuthority <= 0.8 * 1.1 ? (
@@ -173,7 +180,7 @@ export const Mixer = () => {
 
 	const resultTotalPressureDrop = result => (
 		<td>
-			{result.totalPressureDrop.toFixed(roundingNumbers).replace(/\./, ',')}
+			{result.totalPressureDrop.toFixed(roundingNumbers).replace(replaceReg)}
 		</td>
 	);
 	const arrowTotalPressureDrop = result =>
@@ -183,9 +190,8 @@ export const Mixer = () => {
 			<td className={cls.notMatch}>&gt;</td>
 		);
 	const resultPumpPressure = result => (
-		<td>{result.pumpPressure.toFixed(roundingNumbers).replace(/\./, ',')}</td>
+		<td>{result.pumpPressure.toFixed(roundingNumbers).replace(replaceReg)}</td>
 	);
-
 	return (
 		<section className={cls.mixer}>
 			<Form
@@ -210,37 +216,29 @@ export const Mixer = () => {
 				<div className='form-item'>
 					<InputToggle
 						type='radio'
-						value='SU'
-						checked={() => {
-							onCheckedRadio('SU');
-						}}
+						id='SU'
+						checked={type === 'SU'}
 						onChange={onChangeType}
 						children='SU'
 					/>
 					<InputToggle
 						type='radio'
-						value='MSU'
-						checked={() => {
-							onCheckedRadio('MSU');
-						}}
+						id='MSU'
+						checked={type === 'MSU'}
 						onChange={onChangeType}
 						children='MSU'
 					/>
 					<InputToggle
 						type='radio'
-						value='2'
-						checked={() => {
-							onCheckedRadio('2');
-						}}
+						id='2'
+						checked={valve === '2'}
 						onChange={onChangeValve}
 						children='2-х ходовой клапан'
 					/>
 					<InputToggle
 						type='radio'
-						value='3'
-						checked={() => {
-							onCheckedRadio('3');
-						}}
+						id='3'
+						checked={valve === '3'}
 						onChange={onChangeValve}
 						children='3-х ходовой клапан'
 					/>
@@ -249,15 +247,15 @@ export const Mixer = () => {
 				<div className='form-item'>
 					<InputToggle
 						type='checkbox'
-						value='reverseConfig'
-						checked={reverseConfig}
+						id='reverseConfig'
+						checked={isReverseConfig}
 						onChange={onChangeReverseConfig}
 						children='Обратной конфигурацией'
 					/>
 					<InputToggle
 						type='checkbox'
-						value='thermomanometer'
-						checked={thermomanometer}
+						id='thermomanometer'
+						checked={isThermomanometer}
 						onChange={onChangeThermomanometer}
 						children='Термоманометр'
 					/>

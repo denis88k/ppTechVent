@@ -10,21 +10,20 @@ import styles from './InputToggle.module.scss';
 // checked: radio-valve == '3' ? true : false, checkbox: reverseConfig,thermomanometer
 
 export const InputToggle = memo(propsInputToggle => {
-	const { type, value, isChecked, onChange, children } = propsInputToggle;
+	const { type, id, checked, onChange, children } = propsInputToggle;
 
 	return (
 		<div className={styles.InputToggle}>
 			<input
 				className={styles.input}
-				type={type}
-				id={value}
-				value={type === 'radio' ? value : ''}
-				checked={isChecked}
+				id={id}
+				type={type} // checkbox : radio
+				checked={checked}
 				onChange={onChange}
 			/>
 			<label
 				className={styles.label}
-				htmlFor={value}
+				htmlFor={id}
 			>
 				<span className={classNames(styles.span, {}, [styles[type]])} />
 				{children}

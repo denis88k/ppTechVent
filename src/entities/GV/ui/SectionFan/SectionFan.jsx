@@ -6,12 +6,9 @@ import { Input } from 'shared/ui/InputGroup/Input/Input';
 import { LabelResult } from 'shared/ui/LabelResult/LabelResult';
 import { Select } from 'shared/ui/Select/Select';
 import cls from './SectionFan.module.scss';
-let k = 0;
+import { Loader } from 'shared/ui/Loader/Loader';
 
-export const SectionFan = ({ currLet }) => {
-	console.log('currLet2', ++currLet);
-	console.log('Fan', ++k);
-
+export const SectionFan = () => {
 	const optionsWheelFan = [
 		22, 25, 28, 30, 31, 35, 40, 45, 50, 56, 63, 71, 80, 90, 100, 110,
 	];
@@ -27,6 +24,7 @@ export const SectionFan = ({ currLet }) => {
 	const [minLengthGV, setMinLengthGV] = useState(0);
 	const [changeLengthFan, setChangeLengthFan] = useState(false);
 	const [focusLengthFan, setFocusLengthFan] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const functionSolution = () => {
 		if (
@@ -91,6 +89,8 @@ export const SectionFan = ({ currLet }) => {
 					speedInLengthMax < 0
 				) {
 					i++;
+					i === 180 && setIsLoading(true);
+					console.log('кол-во циклов:', i);
 					newLengthSectionFan = newLengthSectionFan + stepFindLengthFan;
 					calcLengthSpeed();
 				}
@@ -109,60 +109,53 @@ export const SectionFan = ({ currLet }) => {
 			lengthMax = Math.ceil(lengthMax / multipleNumber) * multipleNumber;
 
 			+lengthMin <= 250 ? setMinLengthGV(250) : setMinLengthGV(lengthMin);
-
+			setIsLoading(false);
 			setMaxLengthGV(lengthMax);
 		}
 	};
 
 	useEffect(() => {
-		functionSolution();
-	}, []);
-	// consumption, wheelFan, widthSection, lengthSectionFan, maxSpeed;
-	// TODO: исправить мигание при изменении длины секции вентилятора
-	// useEffect(() => {
-	// 	setChangeLengthFan(false);
-	// }, [consumption, wheelFan, widthSection, maxSpeed]);
+		!focusLengthFan && functionSolution();
+	}, [consumption, wheelFan, widthSection, maxSpeed, lengthSectionFan]);
+
+	useEffect(() => {
+		setChangeLengthFan(false);
+	}, [consumption, wheelFan, widthSection, maxSpeed]);
 
 	return (
 		<section className='section'>
+			{isLoading ? (
+				<div style={{ position: 'absolute', zIndex: '10' }}>
+					<Loader />
+				</div>
+			) : null}
 			<Form title='Расчёт в секции вентилятора'>
 				<Input
 					label='Расход (м³):'
 					value={consumption}
-					onChange={e => {
-						setConsumption(Number(e.target.value));
-						functionSolution();
-					}}
+					onChange={e => setConsumption(Number(e.target.value))}
 				/>
 				<Select
 					options={optionsWheelFan}
 					label='Размер колеса (мм):'
 					value={wheelFan}
-					onChange={e => {
-						setWheelFan(Number(e.target.value));
-						functionSolution();
-					}}
+					onChange={e => setWheelFan(Number(e.target.value))}
 				/>
 				<Input
 					label='Ширина Гибкой вставки (мм):'
 					value={widthSection}
-					onChange={e => {
-						setWidthSection(Number(e.target.value));
-						functionSolution();
-					}}
+					onChange={e => setWidthSection(Number(e.target.value))}
 				/>
 				<Input
 					label='Длина секции вентилятора (мм):'
 					value={lengthSectionFan}
 					onChange={e => {
 						setLengthSectionFan(Number(e.target.value));
-						// setChangeLengthFan(false);
+						setChangeLengthFan(false);
 					}}
-					// onFocus={() => {
-					// 	setFocusLengthFan(true);
-					// }}
+					onFocus={() => setFocusLengthFan(true)}
 					onBlur={() => {
-						// setFocusLengthFan(false);
+						setFocusLengthFan(false);
 						functionSolution();
 					}}
 					className={cls.fanLength}
@@ -171,10 +164,7 @@ export const SectionFan = ({ currLet }) => {
 				<Input
 					label='Max скорость в Гибкой вставке (м/с):'
 					value={maxSpeed}
-					onChange={e => {
-						setMaxSpeed(Number(e.target.value));
-						functionSolution();
-					}}
+					onChange={e => setMaxSpeed(Number(e.target.value))}
 				/>
 				<LabelResult
 					label={

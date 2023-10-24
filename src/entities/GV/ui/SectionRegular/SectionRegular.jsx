@@ -3,25 +3,20 @@ import regular from 'shared/assets/img/section_regular.png';
 import { Form } from 'shared/ui/Form/Form';
 import { Img } from 'shared/ui/Img/Img';
 import { Input } from 'shared/ui/InputGroup/Input/Input';
-let i = 0;
-let j = 0;
-let k = 0;
 
-export const SectionRegular = ({ currLet }) => {
-	console.log('currLet1', ++currLet);
-	console.log('Regular', ++k);
+export const SectionRegular = () => {
 	const multipleNumber = 50; // округление для длины
 
 	const [consumption, setConsumption] = useState(1000);
 	const [widthSection, setWidthSection] = useState(500);
 	const [maxSpeed, setMaxSpeed] = useState(4);
 	const [minLengthGV, setMinLengthGV] = useState(250);
+	const [focus, setFocus] = useState('speed');
 
 	// вычисление MIN длины гибкой вставки, при изменении consumption, widthSection, maxSpeed
 	const onMinLengthGV = () => {
-		console.log('onMinLengthGV', ++i);
 		if (consumption && widthSection) {
-			if (Number(maxSpeed) === 0) {
+			if (maxSpeed === 0) {
 				return setMinLengthGV(0);
 			}
 			if (maxSpeed) {
@@ -30,6 +25,7 @@ export const SectionRegular = ({ currLet }) => {
 					(3600 * (maxSpeed / 1000) * (widthSection / 1000))
 				).toFixed(0);
 				lengthMin = Math.ceil(lengthMin / multipleNumber) * multipleNumber;
+				console.log(lengthMin, 'lengthMin');
 				lengthMin <= 250 ? setMinLengthGV(250) : setMinLengthGV(lengthMin);
 			}
 		}
@@ -37,9 +33,8 @@ export const SectionRegular = ({ currLet }) => {
 
 	// вычисление MAX скорости при заданной длине гибкой вставки consumption, widthSection, maxSpeed
 	const onMaxSpeed = () => {
-		console.log('onMaxSpeed', ++j);
 		if (consumption && widthSection) {
-			if (+minLengthGV === 0) {
+			if (minLengthGV === 0) {
 				return setMaxSpeed(0);
 			}
 			if (minLengthGV) {
@@ -52,24 +47,22 @@ export const SectionRegular = ({ currLet }) => {
 		}
 	};
 
+	useEffect(() => {
+		focus === 'speed' ? onMinLengthGV() : onMaxSpeed();
+	}, [consumption, widthSection, maxSpeed, minLengthGV]);
+
 	return (
 		<section className='section'>
 			<Form title='Расчёт в обычной секции'>
 				<Input
 					label='Расход (м³):'
 					value={consumption}
-					onChange={e => {
-						setConsumption(Number(e.target.value));
-						onMinLengthGV();
-					}}
+					onChange={e => setConsumption(Number(e.target.value))}
 				/>
 				<Input
 					label='Ширина Гибкой вставки (мм):'
 					value={widthSection}
-					onChange={e => {
-						setWidthSection(Number(e.target.value));
-						onMinLengthGV();
-					}}
+					onChange={e => setWidthSection(Number(e.target.value))}
 				/>
 				<Input
 					label={
@@ -79,8 +72,8 @@ export const SectionRegular = ({ currLet }) => {
 					}
 					value={maxSpeed}
 					onChange={e => {
+						focus !== 'speed' && setFocus('speed');
 						setMaxSpeed(Number(e.target.value));
-						onMinLengthGV();
 					}}
 				/>
 				<Input
@@ -91,8 +84,8 @@ export const SectionRegular = ({ currLet }) => {
 					}
 					value={minLengthGV}
 					onChange={e => {
+						focus !== 'minLength' && setFocus('minLength');
 						setMinLengthGV(Number(e.target.value));
-						onMaxSpeed();
 					}}
 				/>
 			</Form>
