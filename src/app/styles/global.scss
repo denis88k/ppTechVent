@@ -1,0 +1,136 @@
+@import 'reset';
+//переменные
+$minwidth: 320px;
+$pd: 30px;
+$maxWidth: 1920;
+$maxWidthContainer: 1000;
+$md1: $maxWidthContainer + $pd;
+
+html,
+body,
+#root {
+	height: 100%;
+	min-width: $minwidth;
+}
+
+body {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+}
+
+.App {
+	width: 100%;
+	min-height: 100%;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	background: url(shared/assets/img/bg.png) no-repeat center/cover;
+}
+
+.container {
+	max-width: $md1;
+	width: 100%;
+	margin: 0 auto;
+	padding: 0 calc($pd/2);
+	min-height: 100%;
+	display: block;
+}
+
+.content {
+	flex: 1 1 auto;
+	&__inner {
+		padding: 10px;
+		background-color: rgba(12, 46, 110, 0.4);
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		border-radius: 10px;
+		box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.4);
+		transition: all 0.3s linear;
+	}
+}
+
+.section {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	column-gap: 20px;
+	padding: 10px;
+	animation: show 0.25s ease 1 forwards;
+}
+
+@keyframes show {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.form-item {
+	z-index: 10;
+	display: flex;
+	justify-content: space-between;
+	column-gap: 10px;
+	font-size: 18px;
+}
+
+label {
+	b {
+		font-weight: 400;
+	}
+	&[for] {
+		cursor: pointer;
+	}
+}
+
+.input {
+	width: 75px;
+	height: 25px;
+	padding-left: 10px;
+	border: none;
+	border-radius: 5px;
+	outline: none;
+	background-color: rgba(87, 159, 183, 0.55);
+	backdrop-filter: blur(3px);
+	color: white;
+}
+
+hr {
+	background-color: white;
+	height: 1px;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+// ползунок справа
+::-webkit-scrollbar {
+	// width: 0px;
+	// opacity: 0;
+	display: none;
+}
+
+/* место движения ползунка*/
+::-webkit-scrollbar-track {
+	background: rgba(122, 193, 223, 0.788);
+}
+
+/* ползунок */
+::-webkit-scrollbar-thumb {
+	background: rgba(255, 255, 255, 0.9);
+	border-radius: 8px;
+	border: 1px solid rgb(0, 157, 255);
+	transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: rgba(0, 179, 255, 0.8);
+}
+
+// внутри инпута number увеличение и уменьшение
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}

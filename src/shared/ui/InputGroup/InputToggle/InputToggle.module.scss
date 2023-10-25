@@ -1,0 +1,72 @@
+.InputToggle {
+	display: flex;
+}
+
+.input {
+	appearance: none;
+	position: absolute;
+}
+
+.label {
+	display: flex;
+}
+
+$sizeOut: 18px;
+$sizeIn: 13px;
+
+.span {
+	margin-right: 5px;
+	position: relative;
+	width: $sizeOut;
+	height: $sizeOut;
+	border: 1px solid rgba(255, 255, 255, 0);
+	display: block;
+	right: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	background-color: rgba(87, 159, 183, 0.55);
+
+	&::before {
+		content: '';
+		position: absolute;
+		display: block;
+		transform: translate(-50%, -50%) scale(0);
+		transition: all 0.2s ease;
+	}
+}
+
+.radio {
+	border-radius: 50%;
+	&::before {
+		top: 50%;
+		left: 50%;
+		width: $sizeIn;
+		height: $sizeIn;
+		background-color: white;
+		border-radius: 50%;
+	}
+}
+
+.checkbox {
+	&::before {
+		top: 35%;
+		left: 70%;
+		width: 0;
+		font-size: $sizeIn;
+		color: white;
+	}
+}
+
+.input:checked + .label {
+	& > .span {
+		border-color: white;
+		&::before {
+			transform: translate(-50%, -50%) scale(1);
+		}
+	}
+
+	& > .checkbox::before {
+		width: 15px;
+		content: '\2713';
+	}
+}
