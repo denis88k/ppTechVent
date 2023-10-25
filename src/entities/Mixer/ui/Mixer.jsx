@@ -1,5 +1,5 @@
 import { pumps, valves } from 'entities/Mixer/model/data';
-import { memo, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { Form } from 'shared/ui/Form/Form';
 import { Input } from 'shared/ui/InputGroup/Input/Input';
@@ -37,9 +37,8 @@ export const Mixer = () => {
 	const [isThermomanometer, setIsThermomanometer] = useState(false);
 	const [reverseConfig, setReverseConfig] = useState('');
 	const [thermomanometer, setThermomanometer] = useState('');
-	const [processShowText, setProcessShowText] = useState(true);
 
-	const replaceReg = (/\./, ','); // замена точек, на запятые
+	const replaceReg = /\./; // замена точек, на запятые
 	const roundingNumbers = 2; // округление до 2 чисел после запятой
 	const mixerName = [
 		'15-1',
@@ -107,19 +106,35 @@ export const Mixer = () => {
 		}
 	};
 
+	const useDebounce = (callback, delay) => {
+		const timer = useRef(null);
+
+		const debouncedCallback = useCallback(
+			(...args) => {
+				if (timer.current) {
+					clearTimeout(timer.current);
+				}
+				timer.current = setTimeout(() => {
+					callback(...args);
+				}, delay);
+			},
+			[callback, delay],
+		);
+
+		return debouncedCallback;
+	};
+	const newCopyName = useDebounce(() => {
+		setIsCheckMark(false);
+		setTextCheckMark('');
+		console.log('end');
+	}, 8888);
+
 	function copyNameMixer(mixerName) {
 		const mixerText = `Смесительный узел ${type} ${mixerName} с ${valve}-х ходовым клапаном${thermomanometer}${reverseConfig}`;
 		navigator.clipboard.writeText(mixerText).then(() => {
-			setIsCheckMark(false);
-			setIsCheckMark(true);
 			setTextCheckMark(mixerText);
-			// TODO: решить проблему с исчезающим текстом скопировано...
-			processShowText &&
-				setTimeout(() => {
-					setProcessShowText(false);
-					setIsCheckMark(false);
-					setProcessShowText(true);
-				}, 8888);
+			setIsCheckMark(true);
+			newCopyName();
 		});
 	}
 
@@ -155,10 +170,12 @@ export const Mixer = () => {
 	const resultMixerName = result => <td>{result.mixerName}</td>;
 	const resultValvePressureDrop = result => (
 		<td>
-			{result.valvePressureDrop.toFixed(roundingNumbers).replace(replaceReg)}
+			{result.valvePressureDrop
+				.toFixed(roundingNumbers)
+				.replace(replaceReg, ',')}
 		</td>
 	);
-	const startValveAuthority = <td>0,25&nbsp;0,15</td>;
+	const startValveAuthority = <td>0,25&nbsp;(0,15)</td>;
 	const leftArrowValveAuthority = result =>
 		0.15 * 0.9 <= result.valveAuthority ? (
 			<td>&lt;</td>
@@ -167,7 +184,7 @@ export const Mixer = () => {
 		);
 	const resultValveAuthority = result => (
 		<td>
-			{result.valveAuthority.toFixed(roundingNumbers).replace(replaceReg)}
+			{result.valveAuthority.toFixed(roundingNumbers).replace(replaceReg, ',')}
 		</td>
 	);
 	const rightArrowValveAuthority = result =>
@@ -180,7 +197,9 @@ export const Mixer = () => {
 
 	const resultTotalPressureDrop = result => (
 		<td>
-			{result.totalPressureDrop.toFixed(roundingNumbers).replace(replaceReg)}
+			{result.totalPressureDrop
+				.toFixed(roundingNumbers)
+				.replace(replaceReg, ',')}
 		</td>
 	);
 	const arrowTotalPressureDrop = result =>
@@ -190,8 +209,11 @@ export const Mixer = () => {
 			<td className={cls.notMatch}>&gt;</td>
 		);
 	const resultPumpPressure = result => (
-		<td>{result.pumpPressure.toFixed(roundingNumbers).replace(replaceReg)}</td>
+		<td>
+			{result.pumpPressure.toFixed(roundingNumbers).replace(replaceReg, ',')}
+		</td>
 	);
+
 	return (
 		<section className={cls.mixer}>
 			<Form

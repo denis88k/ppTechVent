@@ -95,7 +95,6 @@
 	align-items: center;
 	background-color: rgba(10, 42, 104, 0.5);
 	border-radius: 10px;
-	transition: all 0.3s ease;
 }
 
 .mixer_text {
@@ -107,7 +106,6 @@
 	font-size: 22px;
 	color: white;
 	animation: textShow 0.25s ease 1 forwards;
-	transition: all 0.3s ease;
 
 	@keyframes textShow {
 		0% {
