@@ -1,14 +1,17 @@
 import { GVPage } from 'pages/GV';
 import { MixerPage } from 'pages/Mixer';
 import { Suspense, useEffect, useState } from 'react';
+import img0 from 'shared/assets/img/0.png';
+import img1 from 'shared/assets/img/1.png';
+import img2 from 'shared/assets/img/2.png';
 import { Loader } from 'shared/ui/Loader/Loader';
 import { Footer } from 'widgets/Footer/Footer';
 import { Tabs } from 'widgets/Tabs/Tabs';
 
 function App() {
 	const [tab, setTab] = useState('gv');
-	const [slide, setSlide] = useState(1);
-	const images = ['1', '2', '3'];
+	const [slide, setSlide] = useState(0);
+	const images = [img0, img1, img2];
 
 	const onTabSelect = tabName => {
 		setTab(tabName);
@@ -17,13 +20,13 @@ function App() {
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setSlide(prevIndex => (prevIndex + 1) % images.length);
-		}, 10_000);
+		}, 3_000);
 
 		return () => clearInterval(interval);
 	}, []);
 
 	const style = {
-		backgroundImage: `url(src/shared/assets/img/${String(slide)}.png)`,
+		backgroundImage: `url(${images[slide]})`,
 	};
 
 	return (
