@@ -6,7 +6,7 @@ import { defineConfig } from 'vite';
 export default defineConfig({
 	plugins: [react()],
 	// root: './',
-	base: '/ppTechVent/',
+	base: '/ppTechVent/', // для gh-pages
 	resolve: {
 		alias: {
 			src: path.resolve(__dirname, './src'),
